@@ -11,13 +11,11 @@ import { getDefaultProvider } from './getDefaultProvider';
 export type EthSdk = MainnetSdk | GoerliSdk;
 
 type Sdks = {
-  mainnet: (signer: Signer) => MainnetSdk;
-  goerli: (signer: Signer) => GoerliSdk;
+  apothem: (signer: Signer) => MainnetSdk;
 };
 
 const sdks: Sdks = {
-  mainnet: getMainnetSdk,
-  goerli: getGoerliSdk
+  apothem: getMainnetSdk
 };
 
 // this name doesn't feel right, maybe getSdk? or getContractLibrary?
@@ -33,11 +31,11 @@ export const getContracts = (
 
   const provider = readOnly ? new providers.JsonRpcBatchProvider(rpcUrl) : getDefaultProvider(rpcUrl);
 
-  // Map goerlifork to goerli contracts
-  const sdkNetwork = network === SupportedNetworks.GOERLIFORK ? SupportedNetworks.GOERLI : network;
-  /* 
+  const sdkNetwork = network;
+
+  /*
   A read-only signer, when an API requires a Signer as a parameter, but it is known only read-only operations will be carried.
-  https://docs.ethers.io/v5/api/signer/#VoidSigner 
+  https://docs.ethers.io/v5/api/signer/#VoidSigner
 
   eth-sdk only accepts a signer for now, but there's an issue for it
   https://github.com/dethcrypto/eth-sdk/issues/63

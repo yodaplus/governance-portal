@@ -9,7 +9,7 @@ export function getEtherscanLink(
 ): string {
   const chainId = networkNameToChainId(network);
   const prefix = `https://${
-    CHAIN_INFO[chainId].etherscanPrefix || CHAIN_INFO[SupportedChainId.MAINNET].etherscanPrefix
+    CHAIN_INFO[chainId].etherscanPrefix || CHAIN_INFO[SupportedChainId.APOTHEM].etherscanPrefix
   }etherscan.io`;
 
   switch (type) {

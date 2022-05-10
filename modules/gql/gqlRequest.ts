@@ -11,7 +11,7 @@ export const gqlRequest = async ({
   query: any;
   variables?: Record<any, any>;
 }): Promise<any> => {
-  const id = chainId ?? SupportedChainId.MAINNET;
+  const id = chainId ?? SupportedChainId.APOTHEM;
   const url = CHAIN_INFO[id].spockUrl;
 
   return await request(url, query, variables);

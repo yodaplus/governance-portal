@@ -232,20 +232,18 @@ const AccountSelect = (): React.ReactElement => {
     if (!error) setChainIdError(null);
   }, [chainId, error]);
 
-  const walletOptions = Object.keys(SUPPORTED_WALLETS)
-    .map((connectorName: ConnectorName) => (
-      <Flex
-        sx={walletButtonStyle}
-        key={connectorName}
-        onClick={() => onClickConnector(SUPPORTED_WALLETS[connectorName].connector, connectorName)}
-      >
-        <Icon name={SUPPORTED_WALLETS[connectorName].name} />
-        <Text sx={{ ml: 3 }}>
-          {loadingConnectors[connectorName] ? 'Loading...' : SUPPORTED_WALLETS[connectorName].name}
-        </Text>
-      </Flex>
-    ))
-    .concat([<TrezorButton key="trezor" />, <LedgerButton key="ledger" />]);
+  const walletOptions = Object.keys(SUPPORTED_WALLETS).map((connectorName: ConnectorName) => (
+    <Flex
+      sx={walletButtonStyle}
+      key={connectorName}
+      onClick={() => onClickConnector(SUPPORTED_WALLETS[connectorName].connector, connectorName)}
+    >
+      <Icon name={SUPPORTED_WALLETS[connectorName].name} />
+      <Text sx={{ ml: 3 }}>
+        {loadingConnectors[connectorName] ? 'Loading...' : SUPPORTED_WALLETS[connectorName].name}
+      </Text>
+    </Flex>
+  ));
 
   const BackButton = ({ onClick }) => (
     <Flex sx={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>

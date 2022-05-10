@@ -1,2 +1,2 @@
-export type ConnectorName = 'MetaMask' | 'WalletConnect' | 'Coinbase Wallet';
+export type ConnectorName = 'MetaMask' | 'WalletConnect' | 'Coinbase Wallet' | 'XDCPay';
 //| 'Trezor' | 'Ledger';

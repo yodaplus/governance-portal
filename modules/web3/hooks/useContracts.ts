@@ -14,7 +14,7 @@ export const useContracts = (): EthSdk => {
   const { chainId, library, account }: Props = useActiveWeb3React();
 
   const sdk = useMemo(
-    () => getContracts(chainId ?? SupportedChainId.MAINNET, library, account, false),
+    () => getContracts(chainId ?? SupportedChainId.APOTHEM, library, account, false),
     [chainId, library, account]
   );
 

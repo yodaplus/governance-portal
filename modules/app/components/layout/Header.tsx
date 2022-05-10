@@ -146,7 +146,7 @@ const Header = (): JSX.Element => {
   };
 
   // Fetch polls & proposals from cache or revalidate if we don't have them
-  const dataKeyPolls = `/api/polling/all-polls?network=${network}`;
+  const dataKeyPolls = !network ? null : `/api/polling/all-polls?network=${network}`;
   const { data: pollsData } = useSWR<PollsResponse>(dataKeyPolls, fetchJson, {
     revalidateOnMount: !cache.get(dataKeyPolls)
   });
@@ -154,8 +154,9 @@ const Header = (): JSX.Element => {
 
   // TODO: change to 0 for tests
   const EXEC_PAGE_SIZE = 3;
-
-  const dataKeyProposals = `/api/executive?network=${network}&start=0&limit=${EXEC_PAGE_SIZE}&sortBy=active`;
+  const dataKeyProposals = !network
+    ? null
+    : `/api/executive?network=${network}&start=0&limit=${EXEC_PAGE_SIZE}&sortBy=active`;
   const { data: proposalsData } = useSWR<Proposal[]>(dataKeyProposals, fetchJson, {
     revalidateOnMount: !cache.get(dataKeyProposals)
   });
