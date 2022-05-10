@@ -19,6 +19,7 @@ import { getSlateAddresses } from 'modules/executive/helpers/getSlateAddresses';
 import { formatDelegationHistory } from 'modules/delegates/helpers/formatDelegationHistory';
 import { CMSProposal } from 'modules/executive/types';
 import { fetchLastPollVote } from 'modules/polling/api/fetchLastPollvote';
+import { disableDelegates } from 'modules/features';
 
 function mergeDelegateInfo(
   onChainDelegate: DelegateContractInformation,
@@ -58,6 +59,10 @@ export async function fetchDelegate(
   voteDelegateAddress: string,
   network?: SupportedNetworks
 ): Promise<Delegate | undefined> {
+  if (disableDelegates) {
+    return undefined;
+  }
+
   const currentNetwork = network ? network : DEFAULT_NETWORK.network;
   const onChainDelegates = await fetchChainDelegates(currentNetwork);
 
@@ -86,6 +91,10 @@ export async function fetchDelegate(
 
 // Returns the delegate info without the chain data about votes
 export async function fetchDelegatesInformation(network?: SupportedNetworks): Promise<Delegate[]> {
+  if (disableDelegates) {
+    return [];
+  }
+
   const currentNetwork = network ? network : DEFAULT_NETWORK.network;
 
   const { data: gitHubDelegates } = await fetchGithubDelegates(currentNetwork);
@@ -111,6 +120,23 @@ export async function fetchDelegates(
   network?: SupportedNetworks,
   sortBy: 'mkr' | 'random' | 'delegators' | 'date' = 'random'
 ): Promise<DelegatesAPIResponse> {
+  if (disableDelegates) {
+    return {
+      delegates: [],
+      stats: {
+        total: 0,
+        shadow: 0,
+        recognized: 0,
+        totalMKRDelegated: '0',
+        totalDelegators: 0
+      },
+      pagination: {
+        page: 0,
+        pageSize: 0
+      }
+    };
+  }
+
   const currentNetwork = network ? network : DEFAULT_NETWORK.network;
 
   // This contains all the delegates including info merged with recognized delegates

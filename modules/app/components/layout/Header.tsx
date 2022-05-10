@@ -30,6 +30,7 @@ import { Proposal } from 'modules/executive/types';
 import { fetchJson } from 'lib/fetchJson';
 import { isActivePoll } from 'modules/polling/helpers/utils';
 import { GASNOW_URL, SupportedNetworks } from 'modules/web3/constants/networks';
+import { disablePolls, disableDelegates } from 'modules/features';
 
 const MenuItemContent = ({ label, icon }) => {
   return (
@@ -181,37 +182,39 @@ const Header = (): JSX.Element => {
           </IconButton>
         </InternalLink>
         <Flex sx={{ ml: [0, 4, 4, 5] }}>
-          <Flex>
-            <NavLink
-              href={'/polling'}
-              title="View polling page"
-              p={0}
-              sx={{
-                display: ['none', 'block'],
-                ml: [0, 0, 4, 'auto'],
-                color: router?.asPath?.startsWith('/polling') ? 'primary' : undefined
-              }}
-            >
-              Polling
-            </NavLink>
-            {bpi > 1 && activePolls && activePolls.length > 0 && (
-              <NavLink href={'/polling'} title="View polling page" p={0}>
-                <Badge
-                  variant="solidCircle"
-                  sx={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    display: 'flex',
-                    p: 2,
-                    mt: '-1rem',
-                    ml: -10
-                  }}
-                >
-                  {activePolls?.length}
-                </Badge>
+          {disablePolls ? null : (
+            <Flex>
+              <NavLink
+                href={'/polling'}
+                title="View polling page"
+                p={0}
+                sx={{
+                  display: ['none', 'block'],
+                  ml: [0, 0, 4, 'auto'],
+                  color: router?.asPath?.startsWith('/polling') ? 'primary' : undefined
+                }}
+              >
+                Polling
               </NavLink>
-            )}
-          </Flex>
+              {bpi > 1 && activePolls && activePolls.length > 0 && (
+                <NavLink href={'/polling'} title="View polling page" p={0}>
+                  <Badge
+                    variant="solidCircle"
+                    sx={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      display: 'flex',
+                      p: 2,
+                      mt: '-1rem',
+                      ml: -10
+                    }}
+                  >
+                    {activePolls?.length}
+                  </Badge>
+                </NavLink>
+              )}
+            </Flex>
+          )}
           <Flex>
             <NavLink
               href={'/executive'}
@@ -243,18 +246,20 @@ const Header = (): JSX.Element => {
             )}
           </Flex>
 
-          <NavLink
-            href={'/delegates'}
-            title="View delegates page"
-            p={0}
-            sx={{
-              display: ['none', 'flex'],
-              ml: [0, 4, 4, 5],
-              color: router?.asPath?.startsWith('/delegates') ? 'primary' : undefined
-            }}
-          >
-            Delegates
-          </NavLink>
+          {disableDelegates ? null : (
+            <NavLink
+              href={'/delegates'}
+              title="View delegates page"
+              p={0}
+              sx={{
+                display: ['none', 'flex'],
+                ml: [0, 4, 4, 5],
+                color: router?.asPath?.startsWith('/delegates') ? 'primary' : undefined
+              }}
+            >
+              Delegates
+            </NavLink>
+          )}
 
           <NavLink
             href={'/esmodule'}

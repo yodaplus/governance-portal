@@ -6,6 +6,7 @@ import { Poll } from 'modules/polling/types';
 import { Delegate } from 'modules/delegates/types';
 import { isActivePoll } from 'modules/polling/helpers/utils';
 import { DelegateStatusEnum } from 'modules/delegates/delegates.constants';
+import { disablePolls, disableDelegates } from 'modules/features';
 
 type Props = {
   polls: Poll[];
@@ -35,22 +36,26 @@ export function GovernanceStats({
       title: 'MKR on Hat',
       value: mkrOnHat ? `${mkrOnHat} MKR` : <Skeleton />
     },
-    {
-      title: 'Active Polls',
-      value: polls ? activePollCount.toString() : <Skeleton />
-    },
-    {
-      title: 'Recognized Delegates',
-      value: delegates ? recognizedDelegateCount.toString() : <Skeleton />
-    },
-    {
-      title: 'Shadow Delegates',
-      value: delegates ? shadowDelegateCount.toString() : <Skeleton />
-    },
-    {
-      title: 'MKR Delegated',
-      value: totalMKRDelegated ? `${new BigNumberJS(totalMKRDelegated).toFormat(0)} MKR` : <Skeleton />
-    },
+    ...(disablePolls
+      ? []
+      : [{ title: 'Active Polls', value: polls ? activePollCount.toString() : <Skeleton /> }]),
+    ...(disableDelegates
+      ? []
+      : [
+          {
+            title: 'Recognized Delegates',
+            value: delegates ? recognizedDelegateCount.toString() : <Skeleton />
+          },
+          {
+            title: 'Shadow Delegates',
+            value: delegates ? shadowDelegateCount.toString() : <Skeleton />
+          },
+          {
+            title: 'MKR Delegated',
+            value: totalMKRDelegated ? `${new BigNumberJS(totalMKRDelegated).toFormat(0)} MKR` : <Skeleton />
+          }
+        ]),
+
     {
       title: 'MKR in Chief',
       value: mkrInChief ? `${mkrInChief} MKR` : <Skeleton />

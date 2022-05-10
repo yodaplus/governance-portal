@@ -13,6 +13,7 @@ import { PollSpock } from '../types/pollSpock';
 import uniqBy from 'lodash/uniqBy';
 import chunk from 'lodash/chunk';
 import { spockPollToPartialPoll } from '../helpers/parsePollMetadata';
+import { disablePolls } from 'modules/features';
 
 export function sortPolls(pollList: Poll[]): Poll[] {
   return pollList.sort((a, b) => {
@@ -65,6 +66,10 @@ export async function fetchAllPollsMetadata(pollList: PollSpock[]): Promise<Poll
 }
 
 export async function fetchAllSpockPolls(network: SupportedNetworks): Promise<PollSpock[]> {
+  if (disablePolls) {
+    return [];
+  }
+
   const data = await gqlRequest({
     chainId: networkNameToChainId(network),
     query: allWhitelistedPolls
@@ -107,6 +112,18 @@ export async function getPolls(
   filters = defaultFilters,
   network?: SupportedNetworks
 ): Promise<PollsResponse> {
+  if (disablePolls) {
+    return {
+      polls: [],
+      categories: [],
+      stats: {
+        active: 0,
+        finished: 0,
+        total: 0
+      }
+    };
+  }
+
   const allPolls = await _getAllPolls(network);
   const filteredPolls = allPolls.filter(poll => {
     // check date filters first
