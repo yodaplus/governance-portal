@@ -22,9 +22,9 @@ export async function getGithubExecutives(network: SupportedNetworks): Promise<C
 
   const proposalIndex = await (await fetch(EXEC_PROPOSAL_INDEX)).json();
 
-  const owner = 'makerdao';
-  const repo = 'community';
-  const path = 'governance/votes';
+  const owner = 'yodaplus';
+  const repo = 'executive-votes';
+  const path = 'votes';
 
   const githubResponse = await fetchGitHubPage(owner, repo, path);
   const proposalUrls = githubResponse
