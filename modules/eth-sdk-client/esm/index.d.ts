@@ -1,0 +1,37 @@
+import { Signer } from 'ethers';
+import * as types from './types';
+export declare function getContract(address: string, abi: object, defaultSigner: Signer): any;
+export declare type MainnetSdk = ReturnType<typeof getMainnetSdk>;
+export declare function getMainnetSdk(defaultSigner: Signer): {
+  chief: types.Chief;
+  dai: types.Dai;
+  end: types.End;
+  esm: types.Esm;
+  iou: types.Iou;
+  mkr: types.Mkr;
+  pause: types.Pause;
+  pauseProxy: types.PauseProxy;
+  polling: types.Polling;
+  pot: types.Pot;
+  vat: types.Vat;
+  voteDelegateFactory: types.VoteDelegateFactory;
+  voteProxyFactory: types.VoteProxyFactory;
+  vow: types.Vow;
+};
+export declare type ApothemSdk = ReturnType<typeof getApothemSdk>;
+export declare function getApothemSdk(defaultSigner: Signer): {
+  chief: types.Chief;
+  dai: types.Dai;
+  end: types.End;
+  esm: types.Esm;
+  iou: types.Iou;
+  mkr: types.Mkr;
+  pause: types.Pause;
+  pauseProxy: types.PauseProxy;
+  polling: types.Polling;
+  pot: types.Pot;
+  vat: types.Vat;
+  voteDelegateFactory: types.VoteDelegateFactory;
+  voteProxyFactory: types.VoteProxyFactory;
+  vow: types.Vow;
+};
