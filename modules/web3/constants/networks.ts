@@ -20,12 +20,12 @@ export enum SupportedConnectors {
   // TREZOR = 'trezor'
 }
 export enum SupportedNetworks {
+  MAINNET = 'apothem',
   APOTHEM = 'apothem'
 }
 
 export enum NodeProviders {
-  INFURA = 'infura',
-  ALCHEMY = 'alchemy',
+  REMOTE = 'remote',
   LOCAL = 'local'
 }
 
@@ -39,11 +39,10 @@ export const CHAIN_INFO: ChainInfo = {
     chainId: SupportedChainId.APOTHEM,
     label: 'Apothem',
     network: SupportedNetworks.APOTHEM,
-    defaultRpc: NodeProviders.ALCHEMY,
+    defaultRpc: NodeProviders.REMOTE,
     spockUrl: process.env.NODE_ENV === 'development' ? STAGING_MAINNET_SPOCK_URL : MAINNET_SPOCK_URL,
     rpcs: {
-      [NodeProviders.INFURA]: `https://mainnet.infura.io/v3/${config.INFURA_KEY}`,
-      [NodeProviders.ALCHEMY]: `https://eth-mainnet.alchemyapi.io/v2/${config.ALCHEMY_KEY}`
+      [NodeProviders.REMOTE]: 'https://rpc-apothem.xinfin.yodaplus.net'
     }
   }
 };

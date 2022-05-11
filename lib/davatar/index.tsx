@@ -47,20 +47,18 @@ export default function Davatar({
 
       setEthersProvider(eth);
 
-      if (chainId !== SupportedChainId.GOERLIFORK) {
-        eth.lookupAddress(address).then(ensName => {
-          if (ensName) {
-            eth.getResolver(ensName).then(resolver => {
-              resolver &&
-                resolver.getText('avatar').then(avatar => {
-                  if (avatar && avatar.length > 0) {
-                    setAvatarUri(avatar);
-                  }
-                });
-            });
-          }
-        });
-      }
+      eth.lookupAddress(address).then(ensName => {
+        if (ensName) {
+          eth.getResolver(ensName).then(resolver => {
+            resolver &&
+              resolver.getText('avatar').then(avatar => {
+                if (avatar && avatar.length > 0) {
+                  setAvatarUri(avatar);
+                }
+              });
+          });
+        }
+      });
     }
   }, [address, provider]);
 

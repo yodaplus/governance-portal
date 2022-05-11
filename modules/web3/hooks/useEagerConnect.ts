@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { injectedConnector } from '../connectors';
+import { injectedConnectorXinfin } from '../connectors';
 import { NetworkContextName } from '../constants/networks';
 import { networkConnector } from '../connectors';
 import { useInactiveListener } from './useInactiveListener';
@@ -17,10 +17,10 @@ export function useEagerConnect(): boolean {
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-    injectedConnector.isAuthorized().then((isAuthorized: boolean) => {
+    injectedConnectorXinfin.isAuthorized().then((isAuthorized: boolean) => {
       // isAuthorized checks if window.ethereum exists, not that the account is connected.
       if (isAuthorized) {
-        activate(injectedConnector, undefined, true).catch(e => {
+        activate(injectedConnectorXinfin, undefined, true).catch(e => {
           console.debug('Error activating connector:', e);
           setTried(true);
         });

@@ -20,7 +20,6 @@ import WithdrawOldChief from 'modules/executive/components/WithdrawOldChief';
 import ProposalsSortBy from 'modules/executive/components/ProposalsSortBy';
 import DateFilter from 'modules/executive/components/DateFilter';
 import SystemStatsSidebar from 'modules/app/components/SystemStatsSidebar';
-import MkrLiquiditySidebar from 'modules/mkr/components/MkrLiquiditySidebar';
 import ResourceBox from 'modules/app/components/ResourceBox';
 import Stack from 'modules/app/components/layout/layouts/Stack';
 import ExecutiveOverviewCard from 'modules/executive/components/ExecutiveOverviewCard';
@@ -43,7 +42,7 @@ import { useAccount } from 'modules/app/hooks/useAccount';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { isDefaultNetwork } from 'modules/web3/helpers/networks';
 import { useContracts } from 'modules/web3/hooks/useContracts';
-import { MainnetSdk } from '@dethcrypto/eth-sdk-client';
+import { Sdk } from 'modules/eth-sdk-client';
 import { BigNumber } from 'ethers';
 import { formatValue } from 'lib/string';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
@@ -82,7 +81,7 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
   const { data: lockedMkr } = useLockedMkr(address, voteProxyContractAddress, voteDelegateContractAddress);
 
   const { data: votedProposals, mutate: mutateVotedProposals } = useVotedProposals();
-  const { chiefOld } = useContracts() as MainnetSdk;
+  const { chiefOld } = useContracts() as Sdk;
   const { data: mkrOnHat } = useMkrOnHat();
 
   const [startDate, endDate, sortBy, resetExecutiveFilters] = useUiFiltersStore(state => [
@@ -151,7 +150,7 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
   const lockedMkrKeyOldChief = voteProxyOldContractAddress || account;
   const { data: lockedMkrOldChief } = useSWR(
     lockedMkrKeyOldChief ? ['/user/mkr-locked-old-chief', lockedMkrKeyOldChief] : null,
-    () => chiefOld.deposits(lockedMkrKeyOldChief as string)
+    () => BigNumber.from(0)
   );
 
   const votingForSomething = votedProposals && votedProposals.length > 0;
@@ -416,11 +415,6 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
                 ]}
               />
             </ErrorBoundary>
-            <ErrorBoundary componentName="MKR Liquidity">
-              <MkrLiquiditySidebar network={network} />
-            </ErrorBoundary>
-            <ResourceBox type={'executive'} />
-            <ResourceBox type={'general'} />
           </Stack>
         </SidebarLayout>
       </Stack>

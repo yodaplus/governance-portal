@@ -8,7 +8,7 @@ export declare class UserRejectedRequestError extends Error {
   constructor();
 }
 export declare class InjectedConnector extends AbstractConnector {
-  constructor(kwargs: { provider: any });
+  constructor(kwargs: { provider: any; supportedChainIds?: number[] });
   private handleChainChanged;
   private handleAccountsChanged;
   private handleDisconnect;

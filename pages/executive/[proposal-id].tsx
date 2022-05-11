@@ -376,8 +376,6 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
               </Card>
             </ErrorBoundary>
           </Box>
-          <ResourceBox type={'executive'} />
-          <ResourceBox type={'general'} />
         </Stack>
       </SidebarLayout>
     </PrimaryLayout>

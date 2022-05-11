@@ -15,7 +15,7 @@ import { useOldChiefFree } from 'modules/mkr/hooks/useOldChiefFree';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { useContracts } from 'modules/web3/hooks/useContracts';
 import { formatValue } from 'lib/string';
-import { MainnetSdk } from '@dethcrypto/eth-sdk-client';
+import { Sdk } from 'modules/eth-sdk-client';
 import { BigNumber } from 'ethers';
 import { parseUnits } from 'ethers/lib/utils';
 import { useTokenAllowance } from 'modules/web3/hooks/useTokenAllowance';
@@ -28,7 +28,7 @@ const ModalContent = ({ close, ...props }) => {
   const { account, voteProxyOldContractAddress, voteProxyOldHotAddress, voteProxyOldContract } = useAccount();
   const { trackButtonClick } = useAnalytics(ANALYTICS_PAGES.EXECUTIVE);
 
-  const { chiefOld } = useContracts() as MainnetSdk;
+  const { chiefOld } = useContracts() as Sdk;
 
   const { data: allowance, mutate: mutateTokenAllowance } = useTokenAllowance(
     Tokens.IOU_OLD,

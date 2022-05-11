@@ -7,7 +7,7 @@ import { shallow } from 'zustand/shallow';
 import { Transaction } from 'modules/web3/types/transaction';
 import { useContracts } from 'modules/web3/hooks/useContracts';
 import { useAccount } from 'modules/app/hooks/useAccount';
-import { MainnetSdk } from '@dethcrypto/eth-sdk-client';
+import { Sdk } from 'modules/eth-sdk-client';
 
 type CreateResponse = {
   txId: string | null;
@@ -27,7 +27,7 @@ export const usePollCreate = (): CreateResponse => {
 
   const { account } = useAccount();
   // We want to use the original polling contract deployment for creating polls to avoid pollId collisions
-  const { pollingOld } = useContracts() as MainnetSdk;
+  const { polling } = useContracts() as Sdk;
 
   const [track, tx] = useTransactionStore(
     state => [state.track, txId ? transactionsSelectors.getTransaction(state, txId) : null],
@@ -35,7 +35,7 @@ export const usePollCreate = (): CreateResponse => {
   );
 
   const createPoll = (startDate, endDate, multiHash, url, callbacks) => {
-    const createTxCreator = () => pollingOld.createPoll(startDate, endDate, multiHash, url);
+    const createTxCreator = () => polling.createPoll(startDate, endDate, multiHash, url);
     const txId = track(createTxCreator, account, 'Creating poll', {
       initialized: () => {
         if (typeof callbacks?.initialized === 'function') callbacks.initialized();

@@ -49,21 +49,19 @@ const NetworkSelect = (): React.ReactElement => {
   const close = () => setShowDialog(false);
   const bpi = useBreakpointIndex();
 
-  const networkOptions = Object.keys(CHAIN_INFO)
-    .filter(k => ![SupportedChainId.GOERLIFORK].includes(CHAIN_INFO[k].chainId))
-    .map(chainKey => (
-      <Flex
-        sx={walletButtonStyle}
-        key={CHAIN_INFO[chainKey].label}
-        onClick={() => {
-          switchToNetwork({ chainId: CHAIN_INFO[chainKey].chainId, library });
-          setShowDialog(false);
-        }}
-      >
-        <Icon name={CHAIN_INFO[chainKey].label} sx={{ width: '22px', height: '22px' }} />
-        <Text sx={{ ml: 3 }}>{CHAIN_INFO[chainKey].label}</Text>
-      </Flex>
-    ));
+  const networkOptions = Object.keys(CHAIN_INFO).map(chainKey => (
+    <Flex
+      sx={walletButtonStyle}
+      key={CHAIN_INFO[chainKey].label}
+      onClick={() => {
+        switchToNetwork({ chainId: CHAIN_INFO[chainKey].chainId, library });
+        setShowDialog(false);
+      }}
+    >
+      <Icon name={CHAIN_INFO[chainKey].label} sx={{ width: '22px', height: '22px' }} />
+      <Text sx={{ ml: 3 }}>{CHAIN_INFO[chainKey].label}</Text>
+    </Flex>
+  ));
 
   return (
     <Box sx={{ ml: ['auto', 3, 0] }}>

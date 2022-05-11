@@ -11,7 +11,7 @@ import { NodeProviders } from 'modules/web3/constants/networks';
 const POLLING_INTERVAL = 12000;
 
 export const networkConnector = new NetworkConnector({
-  urls: { 51: CHAIN_INFO[51].rpcs[NodeProviders.INFURA] }
+  urls: { 51: CHAIN_INFO[51].rpcs[NodeProviders.REMOTE] }
 });
 
 export const injectedConnector = new InjectedConnector({
@@ -19,7 +19,8 @@ export const injectedConnector = new InjectedConnector({
 });
 
 export const injectedConnectorXinfin = new InjectedConnectorXinfin({
-  provider: typeof window !== 'undefined' ? (window as any).ethereum : null
+  provider: typeof window !== 'undefined' ? (window as any).ethereum : null,
+  supportedChainIds: ALL_SUPPORTED_CHAIN_IDS
 });
 
 const rpcs = ALL_SUPPORTED_CHAIN_IDS.reduce((acc, cur) => {

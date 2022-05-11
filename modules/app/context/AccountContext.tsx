@@ -4,7 +4,6 @@ import { useCurrentUserVoteDelegateContract } from 'modules/delegates/hooks/useC
 import { useVoteDelegateAddress } from 'modules/delegates/hooks/useVoteDelegateAddress';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { useEagerConnect } from 'modules/web3/hooks/useEagerConnect';
-import { useGoerliForkWindowBindings } from 'modules/web3/hooks/useGoerliForkWindowBindings';
 import { useCurrentUserVoteProxyContract } from '../hooks/useCurrentUserVoteProxyContract';
 import { useCurrentUserVoteProxyOldContract } from '../hooks/useCurrentUserVoteProxyOldContract';
 import { useVoteProxyAddress } from '../hooks/useVoteProxyAddress';
@@ -49,9 +48,6 @@ export const AccountProvider = ({ children }: PropTypes): React.ReactElement => 
 
   // try to eagerly connect to an injected provider, if it exists and has granted access already
   useEagerConnect();
-
-  // Use for tesing purposes, allow to log-in an account on the localhost network with a fork of goerli
-  useGoerliForkWindowBindings();
 
   return (
     <AccountContext.Provider

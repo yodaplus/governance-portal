@@ -1,21 +1,21 @@
 import { ethers, providers, Signer } from 'ethers';
-import { getGoerliSdk, getMainnetSdk, GoerliSdk, MainnetSdk } from '@dethcrypto/eth-sdk-client';
+import { getApothemSdk, getMainnetSdk, Sdk } from 'modules/eth-sdk-client';
 
 import { Web3Provider } from '@ethersproject/providers';
-import { CHAIN_INFO, DEFAULT_NETWORK, SupportedNetworks } from '../constants/networks';
+import { CHAIN_INFO, DEFAULT_NETWORK } from '../constants/networks';
 import { ZERO_ADDRESS } from 'modules/web3/constants/addresses';
 import { SupportedChainId } from '../constants/chainID';
 import { getRPCFromChainID } from './getRPC';
 import { getDefaultProvider } from './getDefaultProvider';
 
-export type EthSdk = MainnetSdk | GoerliSdk;
+export type EthSdk = Sdk;
 
 type Sdks = {
-  apothem: (signer: Signer) => MainnetSdk;
+  apothem: (signer: Signer) => Sdk;
 };
 
 const sdks: Sdks = {
-  apothem: getMainnetSdk
+  apothem: getApothemSdk
 };
 
 // this name doesn't feel right, maybe getSdk? or getContractLibrary?

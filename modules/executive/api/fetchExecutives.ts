@@ -90,8 +90,7 @@ export async function getExecutiveProposals(
 ): Promise<Proposal[]> {
   const net = network ? network : DEFAULT_NETWORK.network;
 
-  // Use goerli as a Key for Goerli fork. In order to pick the the current executives
-  const currentNetwork = net === SupportedNetworks.GOERLIFORK ? SupportedNetworks.GOERLI : net;
+  const currentNetwork = net;
 
   const cacheKey = `proposals-${start}-${limit}-${sortBy}-${startDate}-${endDate}`;
 
@@ -150,8 +149,7 @@ export async function getExecutiveProposal(
 ): Promise<Proposal | null> {
   const net = network ? network : DEFAULT_NETWORK.network;
 
-  // Use goerli as a Key for Goerli fork. In order to pick the the current executives
-  const currentNetwork = net === SupportedNetworks.GOERLIFORK ? SupportedNetworks.GOERLI : net;
+  const currentNetwork = net;
 
   const proposals = await getGithubExecutives(currentNetwork);
 

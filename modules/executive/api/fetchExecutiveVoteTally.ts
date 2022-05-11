@@ -1,4 +1,4 @@
-import { Chief } from '.dethcrypto/eth-sdk-client/esm/types';
+import { Sdk } from 'modules/eth-sdk-client';
 import { DEPLOYMENT_BLOCK } from 'modules/contracts/contracts.constants';
 import { getChiefDeposits } from 'modules/web3/api/getChiefDeposits';
 import { uniq, nth, memoizeWith, identity } from 'ramda';
@@ -6,7 +6,7 @@ import { getSlateAddresses } from '../helpers/getSlateAddresses';
 import { formatValue } from 'lib/string';
 import { paddedBytes32ToAddress } from 'lib/utils';
 
-export async function fetchExecutiveVoteTally(chief: Chief): Promise<any | null> {
+export async function fetchExecutiveVoteTally(chief: Sdk['chief']): Promise<any | null> {
   // helper for when we might call getSlateAddresses with the same slate several times
   const memoizedGetSlateAddresses = memoizeWith(identity, slate => getSlateAddresses(chief, slate));
 

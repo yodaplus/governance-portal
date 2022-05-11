@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { MainnetSdk } from '@dethcrypto/eth-sdk-client';
+import { Sdk } from 'modules/eth-sdk-client';
 import useTransactionStore, {
   transactionsSelectors,
   transactionsApi
@@ -21,7 +21,7 @@ export const useOldChiefFree = (): FreeResponse => {
   const [txId, setTxId] = useState<string | null>(null);
 
   const { account, voteProxyOldContract } = useAccount();
-  const { chiefOld } = useContracts() as MainnetSdk;
+  const { chiefOld } = useContracts() as Sdk;
 
   const [track, tx] = useTransactionStore(
     state => [state.track, txId ? transactionsSelectors.getTransaction(state, txId) : null],

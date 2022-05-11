@@ -1,5 +1,6 @@
 export enum SupportedChainId {
-  APOTHEM = 51
+  APOTHEM = 51,
+  MAINNET = 51
 }
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = Object.values(SupportedChainId).filter(
