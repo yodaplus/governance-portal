@@ -29,7 +29,6 @@ import { PollsResponse } from 'modules/polling/types/pollsResponse';
 import { Proposal } from 'modules/executive/types';
 import { fetchJson } from 'lib/fetchJson';
 import { isActivePoll } from 'modules/polling/helpers/utils';
-import { GASNOW_URL, SupportedNetworks } from 'modules/web3/constants/networks';
 import { disablePolls, disableDelegates } from 'modules/features';
 
 const MenuItemContent = ({ label, icon }) => {
@@ -279,28 +278,6 @@ const Header = (): JSX.Element => {
         </Flex>
       </Flex>
       <Flex sx={{ alignItems: 'center' }}>
-        {bpi > 1 && account && network === SupportedNetworks.MAINNET && (
-          <ExternalLink
-            title="Ethereum Gas Price"
-            href={GASNOW_URL}
-            styles={{
-              variant: 'links.nostyle'
-            }}
-          >
-            <Flex
-              sx={{
-                alignItems: 'center',
-                gap: 1,
-                justifyContent: 'flex-start',
-                cursor: 'pointer',
-                px: [0, 0, 2, 3]
-              }}
-            >
-              <Text variant="smallText">{gas}</Text>
-              <Icon name="gas" size={3} />
-            </Flex>
-          </ExternalLink>
-        )}
         {bpi > 3 && account && router.pathname.includes('polling') && <BallotStatus mr={3} />}
         {bpi > 1 && (
           <Flex mr={3}>
@@ -325,10 +302,8 @@ const Header = (): JSX.Element => {
           <MobileMenu
             hide={() => setShowMobileMenu(false)}
             router={router}
-            gas={gas}
             onToggleTheme={onToggleTheme}
             mode={mode}
-            network={network}
           />
         )}
         {bpi > 0 && (
@@ -341,7 +316,7 @@ const Header = (): JSX.Element => {
   );
 };
 
-const MobileMenu = ({ hide, router, gas, onToggleTheme, mode, network }) => {
+const MobileMenu = ({ hide, router, onToggleTheme, mode }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       router.events.on('routeChangeComplete', hide);
@@ -420,24 +395,6 @@ const MobileMenu = ({ hide, router, gas, onToggleTheme, mode, network }) => {
             <InternalLink href="/account" title="View account">
               <MenuItemContent icon="person" label="Account" />
             </InternalLink>
-            {network === SupportedNetworks.MAINNET && (
-              <ExternalLink
-                title="Ethereum Gas Price"
-                href={GASNOW_URL}
-                styles={{
-                  variant: 'links.nostyle'
-                }}
-              >
-                <MenuItemContent
-                  icon="gas"
-                  label={
-                    <Text>
-                      <span sx={{ color: 'primary' }}>{gas}</span> Gwei
-                    </Text>
-                  }
-                />
-              </ExternalLink>
-            )}
             <Flex onClick={hide}>
               <ExternalLink
                 styles={{ variant: 'links.nostyle' }}

@@ -8,7 +8,7 @@ const pauseInfo = contractInfo.pause;
 
 export const getSpellScheduledDate = async (
   spellAddress: string,
-  network?: SupportedNetworks
+  network: SupportedNetworks
 ): Promise<Date | undefined> => {
   const chainId = networkNameToChainId(network || DEFAULT_NETWORK.network);
   const contracts = getContracts(chainId, undefined, undefined, true);
