@@ -6,6 +6,7 @@ import { getPollingVotingWeightCopy } from 'modules/polling/helpers/getPollingVo
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { useMKRVotingWeight } from 'modules/mkr/hooks/useMKRVotingWeight';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 const getDescription = votingWeight => {
   if (votingWeight) {
@@ -13,19 +14,29 @@ const getDescription = votingWeight => {
       return (
         <>
           <Text as="p">
-            {'Proxy balance in chief: ' + formatValue(votingWeight.chiefBalanceProxy, 'wad', 18) + ' MKR'}
+            {'Proxy balance in chief: ' +
+              formatValue(votingWeight.chiefBalanceProxy, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
           <Text as="p">
-            {'Hot balance in chief: ' + formatValue(votingWeight.chiefBalanceHot, 'wad', 18) + ' MKR'}
+            {'Hot balance in chief: ' +
+              formatValue(votingWeight.chiefBalanceHot, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
           <Text as="p">
-            {'Hot balance in wallet: ' + formatValue(votingWeight.walletBalanceHot, 'wad', 18) + ' MKR'}
+            {'Hot balance in wallet: ' +
+              formatValue(votingWeight.walletBalanceHot, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
           <Text as="p">
-            {'Cold balance in chief: ' + formatValue(votingWeight.chiefBalanceCold, 'wad', 18) + ' MKR'}
+            {'Cold balance in chief: ' +
+              formatValue(votingWeight.chiefBalanceCold, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
           <Text as="p">
-            {'Cold balance in wallet: ' + formatValue(votingWeight.walletBalanceCold, 'wad', 18) + ' MKR'}
+            {'Cold balance in wallet: ' +
+              formatValue(votingWeight.walletBalanceCold, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
         </>
       );
@@ -33,10 +44,14 @@ const getDescription = votingWeight => {
       return (
         <>
           <Text as="p">
-            {'Balance in chief: ' + formatValue(votingWeight.chiefBalanceHot, 'wad', 18) + ' MKR'}
+            {'Balance in chief: ' +
+              formatValue(votingWeight.chiefBalanceHot, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
           <Text as="p">
-            {'Balance in wallet: ' + formatValue(votingWeight.walletBalanceHot, 'wad', 18) + ' MKR'}
+            {'Balance in wallet: ' +
+              formatValue(votingWeight.walletBalanceHot, 'wad', 18) +
+              ` ${config.GOV_TOKEN}`}
           </Text>
         </>
       );
@@ -79,7 +94,9 @@ export default function VotingWeight(): JSX.Element {
           </Box>
         </Tooltip>
       </Flex>
-      <Text sx={{ color: 'text' }}>{votingWeight ? `${formatValue(votingWeight.total)} MKR` : '--'}</Text>
+      <Text sx={{ color: 'text' }}>
+        {votingWeight ? `${formatValue(votingWeight.total)} ${config.GOV_TOKEN}` : '--'}
+      </Text>
     </Flex>
   );
 }

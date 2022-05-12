@@ -11,6 +11,7 @@ import { BigNumberWAD } from 'modules/web3/constants/numbers';
 import { getEtherscanLink } from 'modules/web3/helpers/getEtherscanLink';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { Tokens } from 'modules/web3/constants/tokens';
+import { config } from 'lib/config';
 
 export function DelegatesSystemInfo({
   stats,
@@ -41,12 +42,12 @@ export function DelegatesSystemInfo({
       value: stats.shadow
     },
     {
-      title: 'Total MKR delegated',
+      title: `Total ${config.GOV_TOKEN} delegated`,
       id: 'total-mkr-system-info',
       value: new BigNumber(stats.totalMKRDelegated).toFormat(0)
     },
     {
-      title: 'Percent of MKR delegated',
+      title: `Percent of ${config.GOV_TOKEN} delegated`,
       id: 'percent-mkr-system-info',
       value: totalMkr ? (
         `${new BigNumber(stats.totalMKRDelegated)

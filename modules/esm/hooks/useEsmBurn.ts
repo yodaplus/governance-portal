@@ -8,6 +8,7 @@ import { Transaction } from 'modules/web3/types/transaction';
 import { useContracts } from 'modules/web3/hooks/useContracts';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { BigNumber } from 'ethers';
+import { config } from 'lib/config';
 
 type BurnResponse = {
   txId: string | null;
@@ -29,7 +30,7 @@ export const useEsmBurn = (): BurnResponse => {
 
   const burn = (burnAmount, callbacks) => {
     const burnTxCreator = () => esm.join(burnAmount);
-    const txId = track(burnTxCreator, account, 'Burning MKR in Emergency Shutdown Module', {
+    const txId = track(burnTxCreator, account, `Burning ${config.GOV_TOKEN} in Emergency Shutdown Module`, {
       initialized: () => {
         if (typeof callbacks?.initialized === 'function') callbacks.initialized();
       },
@@ -37,7 +38,9 @@ export const useEsmBurn = (): BurnResponse => {
         if (typeof callbacks?.pending === 'function') callbacks.pending();
       },
       mined: txId => {
-        transactionsApi.getState().setMessage(txId, 'Burned MKR in Emergency Shutdown Module');
+        transactionsApi
+          .getState()
+          .setMessage(txId, `Burned ${config.GOV_TOKEN} in Emergency Shutdown Module`);
         if (typeof callbacks?.mined === 'function') callbacks.mined();
       },
       error: () => {

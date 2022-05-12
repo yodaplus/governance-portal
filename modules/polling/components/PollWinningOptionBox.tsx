@@ -7,6 +7,7 @@ import { getVoteColor } from '../helpers/getVoteColor';
 import { POLL_VOTE_TYPE } from 'modules/polling/polling.constants';
 import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export default function PollWinningOptionBox({
   tally,
@@ -34,7 +35,7 @@ export default function PollWinningOptionBox({
                     ?.mkrSupport.toString() || '0'
                 )
               ) +
-              ' MKR supporting.'}
+              ` ${config.GOV_TOKEN} supporting.`}
           {tally.pollVoteType === (POLL_VOTE_TYPE.RANKED_VOTE || POLL_VOTE_TYPE.UNKNOWN) &&
             'with ' +
               formatValue(
@@ -44,7 +45,7 @@ export default function PollWinningOptionBox({
                     ?.firstChoice.toString() || '0'
                 )
               ) +
-              ' MKR supporting as first choice.'}
+              ` ${config.GOV_TOKEN} supporting as first choice.`}
         </Text>
       ) : tally && !tally.winningOptionName ? (
         <Text as="p" variant="caps" sx={{ textAlign: 'center', px: [3, 4], wordBreak: 'break-word' }}>

@@ -5,6 +5,7 @@ import { css, ThemeUIStyleObject } from '@theme-ui/css';
 import BigNumber from 'bignumber.js';
 import { CurrencyObject } from 'modules/app/types/currency';
 import { hexZeroPad, stripZeros } from 'ethers/lib/utils';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 import round from 'lodash/round';
 
@@ -90,7 +91,7 @@ export function styledClone(component, { sx: stylesToMerge }: { sx: ThemeUIStyle
 }
 
 export function formatAddress(address: string): string {
-  return address.slice(0, 7) + '...' + address.slice(-4);
+  return ethToXinfinAddress(address.slice(0, 7) + '...' + address.slice(-4));
 }
 
 export const sortBytesArray = _array =>

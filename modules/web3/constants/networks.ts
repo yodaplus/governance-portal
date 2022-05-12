@@ -35,7 +35,7 @@ type ChainInfo = {
 
 export const CHAIN_INFO: ChainInfo = {
   [SupportedChainId.APOTHEM]: {
-    etherscanPrefix: '',
+    blockExplorerUrl: 'https://apothem.blocksscan.io',
     chainId: SupportedChainId.APOTHEM,
     label: 'Apothem',
     network: SupportedNetworks.APOTHEM,

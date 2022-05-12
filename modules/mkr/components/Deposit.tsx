@@ -22,6 +22,7 @@ import { useTokenAllowance } from 'modules/web3/hooks/useTokenAllowance';
 import { useLock } from '../hooks/useLock';
 import { Tokens } from 'modules/web3/constants/tokens';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { config } from 'lib/config';
 
 const ModalContent = ({
   close,
@@ -87,7 +88,7 @@ const ModalContent = ({
                 Deposit into voting contract
               </Text>
               <Text as="p" sx={{ color: 'mutedAlt', fontSize: 3, mt: 3 }}>
-                Input the amount of MKR to deposit into the voting contract.
+                Input the amount of {config.GOV_TOKEN} to deposit into the voting contract.
               </Text>
             </Box>
 
@@ -111,7 +112,7 @@ const ModalContent = ({
                 });
               }}
             >
-              Deposit MKR
+              Deposit {config.GOV_TOKEN}
             </Button>
           </Stack>
         )}
@@ -122,7 +123,7 @@ const ModalContent = ({
                 Approve voting contract
               </Text>
               <Text as="p" sx={{ color: 'mutedAlt', fontSize: 3, mt: 3 }}>
-                Approve the transfer of MKR to the voting contract.
+                Approve the transfer of {config.GOV_TOKEN} to the voting contract.
               </Text>
             </Box>
 

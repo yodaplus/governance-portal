@@ -6,6 +6,7 @@ import useTransactionStore, {
 import { shallow } from 'zustand/shallow';
 import { Transaction } from 'modules/web3/types/transaction';
 import { useAccount } from 'modules/app/hooks/useAccount';
+import { config } from 'lib/config';
 
 type VoteResponse = {
   txId: string | null;
@@ -45,7 +46,7 @@ export const useVoteProxyVote = (): VoteResponse => {
         if (typeof callbacks?.mined === 'function') callbacks.mined(txId);
       },
       error: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR deposit failed');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} deposit failed`);
         if (typeof callbacks?.error === 'function') callbacks.error(txId);
       }
     });

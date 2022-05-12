@@ -7,6 +7,7 @@ import Tooltip from 'modules/app/components/Tooltip';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { Address } from 'modules/address/components/Address';
 import { InternalLink } from 'modules/app/components/InternalLink';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 export function DelegatePicture({
   delegate,
@@ -135,7 +136,10 @@ export function DelegatePicture({
       <Box>
         <Tooltip label={delegateMetrics}>
           <Box>
-            <InternalLink href={`/address/${delegate.voteDelegateAddress}`} title="View profile details">
+            <InternalLink
+              href={`/address/${ethToXinfinAddress(delegate.voteDelegateAddress)}`}
+              title="View profile details"
+            >
               {delegate.picture ? (
                 <Image
                   src={delegate.picture}

@@ -29,6 +29,7 @@ import { ShareVotesModal } from 'modules/polling/components/ShareVotesModal';
 import InternalIcon from 'modules/app/components/Icon';
 import Markdown from 'modules/app/components/Makrdown';
 import { InternalLink } from 'modules/app/components/InternalLink';
+import { config } from 'lib/config';
 
 const PollingReview = ({ polls }: { polls: Poll[] }) => {
   const { trackButtonClick } = useAnalytics(ANALYTICS_PAGES.POLLING_REVIEW);
@@ -105,9 +106,9 @@ const PollingReview = ({ polls }: { polls: Poll[] }) => {
       url = 'https://vote.makerdao.com';
       text = `I just voted on ${
         previousVotesLength > 1 ? previousVotesLength : 'a'
-      } MakerDAO governance poll${
-        previousVotesLength > 1 ? 's' : ''
-      }! Find my votes and all Maker governance proposals on the Governance Portal:`;
+      } MakerDAO governance poll${previousVotesLength > 1 ? 's' : ''}! Find my votes and all ${
+        config.TOKEN
+      } governance proposals on the Governance Portal:`;
     }
 
     return (

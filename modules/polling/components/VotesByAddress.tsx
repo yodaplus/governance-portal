@@ -5,6 +5,8 @@ import { PollTally, Poll } from 'modules/polling/types';
 import { InternalLink } from 'modules/app/components/InternalLink';
 import { getVoteColor } from 'modules/polling/helpers/getVoteColor';
 import AddressIconBox from 'modules/address/components/AddressIconBox';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type Props = {
   tally: PollTally;
@@ -36,7 +38,7 @@ const VotesByAddress = ({ tally, poll }: Props): JSX.Element => {
               Voting Power
             </Text>
             <Text as="th" sx={{ textAlign: 'right', pb: 2, width: '20%' }} variant="caps">
-              MKR Amount
+              {config.GOV_TOKEN} Amount
             </Text>
           </tr>
         </thead>
@@ -46,7 +48,10 @@ const VotesByAddress = ({ tally, poll }: Props): JSX.Element => {
               {votes.map((v, i) => (
                 <tr key={i} data-testid="vote-by-address">
                   <Text as="td" sx={{ pb: 2, fontSize: bpi < 1 ? 1 : 3 }}>
-                    <InternalLink href={`/address/${v.voter}`} title="View address detail">
+                    <InternalLink
+                      href={`/address/${ethToXinfinAddress(v.voter)}`}
+                      title="View address detail"
+                    >
                       <AddressIconBox address={v.voter} width={41} />
                     </InternalLink>
                   </Text>
@@ -67,7 +72,7 @@ const VotesByAddress = ({ tally, poll }: Props): JSX.Element => {
                       new BigNumber(v.mkrSupport).lte(0.01)
                         ? '≈0.00'
                         : new BigNumber(v.mkrSupport).toFormat(new BigNumber(v.mkrSupport).gt(999) ? 0 : 2)
-                    }${bpi > 0 ? ' MKR' : ''}`}{' '}
+                    }${bpi > 0 ? ` ${config.GOV_TOKEN}` : ''}`}{' '}
                   </Text>
                 </tr>
               ))}

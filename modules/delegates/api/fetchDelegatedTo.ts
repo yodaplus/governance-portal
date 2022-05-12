@@ -1,4 +1,5 @@
 import { BigNumber, utils } from 'ethers';
+import { config } from 'lib/config';
 import { gqlRequest } from 'modules/gql/gqlRequest';
 import { mkrDelegatedTo } from 'modules/gql/queries/mkrDelegatedTo';
 import { SupportedNetworks } from 'modules/web3/constants/networks';
@@ -42,7 +43,7 @@ export async function fetchDelegatedTo(
       utils.parseEther(prev.lockAmount).gt(utils.parseEther(next.lockAmount)) ? -1 : 1
     );
   } catch (e) {
-    console.error('Error fetching MKR delegated to address', e.message);
+    console.error(`Error fetching ${config.GOV_TOKEN} delegated to address`, e.message);
     return [];
   }
 }

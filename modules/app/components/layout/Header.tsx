@@ -73,48 +73,6 @@ const HeaderMenu = ({ onToggleTheme, mode, ...props }): JSX.Element => {
           </InternalLink>
         </MenuItem>
         <MenuItem
-          onSelect={() => ({})}
-          sx={{
-            variant: 'menubuttons.default.headerItem'
-          }}
-        >
-          <ExternalLink
-            styles={{ variant: 'links.nostyle' }}
-            href="https://discord.gg/GHcFMdKden"
-            title="Support"
-          >
-            <MenuItemContent icon="discord_outline" label="Support" />
-          </ExternalLink>
-        </MenuItem>
-        <MenuItem
-          onSelect={() => ({})}
-          sx={{
-            variant: 'menubuttons.default.headerItem'
-          }}
-        >
-          <ExternalLink
-            styles={{ variant: 'links.nostyle' }}
-            href="https://governance-metrics-dashboard.vercel.app/"
-            title="Stats"
-          >
-            <MenuItemContent icon="stats" label="Stats" />
-          </ExternalLink>
-        </MenuItem>
-        <MenuItem
-          onSelect={() => ({})}
-          sx={{
-            variant: 'menubuttons.default.headerItem'
-          }}
-        >
-          <ExternalLink
-            styles={{ variant: 'links.nostyle' }}
-            href="https://makerdao.world/en/learn/governance/"
-            title="FAQs"
-          >
-            <MenuItemContent icon="faq" label="FAQs" />
-          </ExternalLink>
-        </MenuItem>
-        <MenuItem
           onSelect={onToggleTheme}
           sx={{
             variant: 'menubuttons.default.headerItem'
@@ -177,12 +135,12 @@ const Header = (): JSX.Element => {
     >
       <Flex sx={{ flexDirection: 'row', alignItems: 'center' }}>
         <InternalLink href={'/'} title="View homepage">
-          <IconButton aria-label="Maker home" sx={{ width: '40px', height: 4, p: 0 }}>
-            <Icon name="maker" size="40px" color="ornament" sx={{ cursor: 'pointer' }} />
+          <IconButton aria-label="Maker home" sx={{ width: '120px', height: '40px', p: 0 }}>
+            <Icon name="yodaplus" size="auto" color="ornament" sx={{ cursor: 'pointer' }} />
           </IconButton>
         </InternalLink>
         <Flex sx={{ ml: [0, 4, 4, 5] }}>
-          {disablePolls ? null : (
+          {!disablePolls && (
             <Flex>
               <NavLink
                 href={'/polling'}
@@ -246,7 +204,7 @@ const Header = (): JSX.Element => {
             )}
           </Flex>
 
-          {disableDelegates ? null : (
+          {!disableDelegates && (
             <NavLink
               href={'/delegates'}
               title="View delegates page"
@@ -365,17 +323,23 @@ const MobileMenu = ({ hide, router, onToggleTheme, mode }) => {
           }}
         >
           <Flex sx={{ flexDirection: 'column', alignItems: 'flex-start', gap: 3, width: '50%' }}>
-            <InternalLink title="View polling page" href="/polling">
-              <Text sx={{ fontWeight: 'semiBold' }}>Polling</Text>
-            </InternalLink>
+            {!disablePolls && (
+              <InternalLink title="View polling page" href="/polling">
+                <Text sx={{ fontWeight: 'semiBold' }}>Polling</Text>
+              </InternalLink>
+            )}
+
             <InternalLink title="View executive page" href="/executive">
               <Text sx={{ fontWeight: 'semiBold' }}>Executive</Text>
             </InternalLink>
           </Flex>
           <Flex sx={{ flexDirection: 'column', alignItems: 'flex-start', gap: 3, width: '50%' }}>
-            <InternalLink title="View delegate page" href="/delegates">
-              <Text sx={{ fontWeight: 'semiBold' }}>Delegates</Text>
-            </InternalLink>
+            {!disableDelegates && (
+              <InternalLink title="View delegate page" href="/delegates">
+                <Text sx={{ fontWeight: 'semiBold' }}>Delegates</Text>
+              </InternalLink>
+            )}
+
             <InternalLink title="View emergency shutdown page" href="/esmodule">
               <Text sx={{ fontWeight: 'semiBold' }}>ES Module</Text>
             </InternalLink>
@@ -395,36 +359,9 @@ const MobileMenu = ({ hide, router, onToggleTheme, mode }) => {
             <InternalLink href="/account" title="View account">
               <MenuItemContent icon="person" label="Account" />
             </InternalLink>
-            <Flex onClick={hide}>
-              <ExternalLink
-                styles={{ variant: 'links.nostyle' }}
-                href="https://discord.gg/GHcFMdKden"
-                title="Support"
-              >
-                <MenuItemContent icon="discord_outline" label="Support" />
-              </ExternalLink>
-            </Flex>
           </Flex>
 
           <Flex sx={{ flexDirection: 'column', alignItems: 'flex-start', gap: 3, width: '50%' }}>
-            <Flex onClick={hide}>
-              <ExternalLink
-                styles={{ variant: 'links.nostyle' }}
-                href="https://governance-metrics-dashboard.vercel.app/"
-                title="Stats"
-              >
-                <MenuItemContent icon="stats" label="Stats" />
-              </ExternalLink>
-            </Flex>
-            <Flex onClick={hide}>
-              <ExternalLink
-                styles={{ variant: 'links.nostyle' }}
-                href="https://makerdao.world/en/learn/governance/"
-                title="FAQs"
-              >
-                <MenuItemContent icon="faq" label="FAQs" />
-              </ExternalLink>
-            </Flex>
             <Flex onClick={onToggleTheme}>
               <MenuItemContent icon="color_mode_sun" label={`${mode === 'dark' ? 'Light' : 'Dark'} mode`} />
             </Flex>

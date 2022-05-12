@@ -13,6 +13,8 @@ import { DelegateModal } from './modals/DelegateModal';
 import { Icon } from '@makerdao/dai-ui-icons';
 import { formatDelegationHistory } from '../helpers/formatDelegationHistory';
 import DelegateAvatarNameLight from './DelegateAvatarNameLight';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 export default function TopDelegates({
   delegates,
@@ -76,7 +78,7 @@ export default function TopDelegates({
           </Box>
           <Box sx={{ width: '30%', textAlign: 'left', display: ['none', 'block'] }}>
             <Text as="p" variant="caps" sx={{ color: 'mutedAlt' }}>
-              MKR
+              {config.GOV_TOKEN}
             </Text>
           </Box>
         </Flex>
@@ -96,7 +98,10 @@ export default function TopDelegates({
                   <Text pr={2} sx={{ display: ['none', 'block'] }}>
                     {index + 1}
                   </Text>
-                  <InternalLink href={`/address/${delegate.voteDelegateAddress}`} title="Profile details">
+                  <InternalLink
+                    href={`/address/${ethToXinfinAddress(delegate.voteDelegateAddress)}`}
+                    title="Profile details"
+                  >
                     <DelegateAvatarNameLight delegate={delegate} />
                   </InternalLink>
                 </Flex>
@@ -135,7 +140,9 @@ export default function TopDelegates({
                     display: ['none', 'flex']
                   }}
                 >
-                  <Text as="p">{formatValue(parseUnits(delegate.mkrDelegated))} MKR </Text>
+                  <Text as="p">
+                    {formatValue(parseUnits(delegate.mkrDelegated))} {config.GOV_TOKEN}{' '}
+                  </Text>
                   <Button
                     variant="outline"
                     data-testid="button-delegate"
@@ -182,9 +189,11 @@ export default function TopDelegates({
                     </Box>
                     <Box sx={{ width: '50%', textAlign: 'right' }}>
                       <Text as="p" variant="caps" sx={{ color: 'mutedAlt' }}>
-                        MKR
+                        {config.GOV_TOKEN}
                       </Text>
-                      <Text as="p">{formatValue(parseUnits(delegate.mkrDelegated))} MKR </Text>
+                      <Text as="p">
+                        {formatValue(parseUnits(delegate.mkrDelegated))} {config.GOV_TOKEN}{' '}
+                      </Text>
                     </Box>
                   </Flex>
                   <Flex mb={3} sx={{ justifyContent: 'center' }}>
@@ -206,7 +215,7 @@ export default function TopDelegates({
                         }
                       }}
                     >
-                      Delegate your MKR to this Delegate
+                      Delegate your {config.GOV_TOKEN} to this Delegate
                     </Button>
                   </Flex>
                   <Divider />

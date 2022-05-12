@@ -7,6 +7,7 @@ import { Delegate } from 'modules/delegates/types';
 import { isActivePoll } from 'modules/polling/helpers/utils';
 import { DelegateStatusEnum } from 'modules/delegates/delegates.constants';
 import { disablePolls, disableDelegates } from 'modules/features';
+import { config } from 'lib/config';
 
 type Props = {
   polls: Poll[];
@@ -33,8 +34,8 @@ export function GovernanceStats({
 
   const infoUnits = [
     {
-      title: 'MKR on Hat',
-      value: mkrOnHat ? `${mkrOnHat} MKR` : <Skeleton />
+      title: `${config.GOV_TOKEN} on Hat`,
+      value: mkrOnHat ? `${mkrOnHat} ${config.GOV_TOKEN}` : <Skeleton />
     },
     ...(disablePolls
       ? []
@@ -51,22 +52,20 @@ export function GovernanceStats({
             value: delegates ? shadowDelegateCount.toString() : <Skeleton />
           },
           {
-            title: 'MKR Delegated',
-            value: totalMKRDelegated ? `${new BigNumberJS(totalMKRDelegated).toFormat(0)} MKR` : <Skeleton />
+            title: `${config.GOV_TOKEN} Delegated`,
+            value: totalMKRDelegated ? (
+              `${new BigNumberJS(totalMKRDelegated).toFormat(0)} {config.GOV_TOKEN}`
+            ) : (
+              <Skeleton />
+            )
           }
         ]),
 
     {
-      title: 'MKR in Chief',
-      value: mkrInChief ? `${mkrInChief} MKR` : <Skeleton />
+      title: `${config.GOV_TOKEN} in Chief`,
+      value: mkrInChief ? `${mkrInChief} ${config.GOV_TOKEN}` : <Skeleton />
     }
   ];
 
-  return (
-    <Stats
-      title="Governance Stats"
-      infoUnits={infoUnits}
-      viewMoreUrl="https://governance-metrics-dashboard.vercel.app/"
-    />
-  );
+  return <Stats title="Governance Stats" infoUnits={infoUnits} />;
 }

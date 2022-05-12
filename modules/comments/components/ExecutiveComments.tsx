@@ -6,6 +6,7 @@ import FilterButton from 'modules/app/components/FilterButton';
 import { MenuItem } from '@reach/menu-button';
 import { ParsedExecutiveComments, CommentSortOption } from '../types/comments';
 import CommentItem from './CommentItem';
+import { config } from 'lib/config';
 
 export default function ExecutiveComments({
   comments,
@@ -79,7 +80,7 @@ export default function ExecutiveComments({
                 fontWeight: commentSortBy === CommentSortOption.MKR_AMOUNT ? 'bold' : undefined
               }}
             >
-              MKR Amount
+              {config.GOV_TOKEN} Amount
             </MenuItem>
           </FilterButton>
         </Box>

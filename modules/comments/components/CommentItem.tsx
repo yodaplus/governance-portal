@@ -13,6 +13,8 @@ import { InternalLink } from 'modules/app/components/InternalLink';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
 import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 export default function CommentItem({
   comment,
@@ -47,7 +49,7 @@ export default function CommentItem({
               {comment.address.isDelegate && comment.address.delegateInfo ? (
                 <Box>
                   <InternalLink
-                    href={`/address/${comment.address.delegateInfo.voteDelegateAddress}`}
+                    href={`/address/${ethToXinfinAddress(comment.address.delegateInfo.voteDelegateAddress)}`}
                     title="View profile details"
                   >
                     <DelegateAvatarName delegate={comment.address.delegateInfo} />
@@ -55,7 +57,10 @@ export default function CommentItem({
                 </Box>
               ) : (
                 <Box>
-                  <InternalLink href={`/address/${comment.address.address}`} title="Profile details">
+                  <InternalLink
+                    href={`/address/${ethToXinfinAddress(comment.address.address)}`}
+                    title="Profile details"
+                  >
                     <AddressIconBox address={comment.address.address} showExternalLink={false} />
                   </InternalLink>
                 </Box>
@@ -81,7 +86,7 @@ export default function CommentItem({
                   comment.comment.voterWeight.gte(parseUnits('0.01'))
                     ? formatValue(comment.comment.voterWeight)
                     : '≈0.00'
-                } MKR`}
+                } ${config.GOV_TOKEN}`}
           </Text>
 
           {comment.comment.txHash && (
@@ -89,10 +94,10 @@ export default function CommentItem({
               <ExternalLink
                 href={getEtherscanLink(network, comment.comment.txHash, 'transaction')}
                 styles={{ my: 3 }}
-                title="View on etherscan"
+                title="View on block explorer"
               >
                 <Text sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-                  View on Etherscan
+                  View on block explorer
                   <Icon name="arrowTopRight" pt={2} color="accentBlue" />
                 </Text>
               </ExternalLink>

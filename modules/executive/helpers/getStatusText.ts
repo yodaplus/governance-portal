@@ -4,6 +4,7 @@ import { formatDateWithTime } from 'lib/datetime';
 import { formatValue } from 'lib/string';
 import { SpellData } from '../types/spellData';
 import { ZERO_ADDRESS } from 'modules/web3/constants/addresses';
+import { config } from 'lib/config';
 
 const SPELL_SCHEDULED_DATE_OVERRIDES = {
   '0xB70fB4eE900650DCaE5dD63Fd06E07F0b3a45d13': 'December 7, 2020, 14:00 UTC'
@@ -21,7 +22,9 @@ export const getStatusText = ({
   if (!spellData) return 'Fetching status...';
 
   if (proposalAddress === ZERO_ADDRESS) {
-    return `This proposal surpased the 80,000 MKR threshold on ${formatDateWithTime(1607704862000)} – the new
+    return `This proposal surpased the 80,000 ${config.GOV_TOKEN} threshold on ${formatDateWithTime(
+      1607704862000
+    )} – the new
     chief has been activated!`;
   }
 
@@ -55,9 +58,9 @@ export const getStatusText = ({
       ? mkrOnHat.sub(spellData.mkrSupport)
       : BigNumber.from(0);
 
-    return `${formatValue(mkrNeeded)} additional MKR support needed to pass. Expires at ${formatDateWithTime(
-      spellData.expiration
-    )}.`;
+    return `${formatValue(mkrNeeded)} additional ${
+      config.GOV_TOKEN
+    } support needed to pass. Expires at ${formatDateWithTime(spellData.expiration)}.`;
   }
 
   // hasn't been scheduled, executed, hasn't expired, must be active and not passed yet

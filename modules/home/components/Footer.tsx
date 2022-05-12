@@ -1,4 +1,4 @@
-import { Flex, Text, useColorMode } from 'theme-ui';
+import { Flex, Box, Text, useColorMode } from 'theme-ui';
 import { Icon } from '@makerdao/dai-ui-icons';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
 import React, { useEffect, useState } from 'react';
@@ -34,7 +34,9 @@ const ContactSection = ({ heading, logos, icon }) => {
           </ExternalLink>
         ))}
       </Flex>
-      <Icon name={icon} size={4} sx={{ my: [0, 0, 4] }} />
+      <Box sx={{ width: '120px' }}>
+        <Icon name={icon} size="auto" sx={{ my: [0, 0, 4] }} />
+      </Box>
     </Flex>
   );
 };
@@ -48,109 +50,25 @@ export default function Footer({ locale = 'en' }: { locale?: string }): React.Re
   const links = [
     {
       header: t('Governance'),
-      list: [
-        {
-          url: 'https://forum.makerdao.com/',
-          title: t('Forum')
-        },
-        {
-          url: 'https://manual.makerdao.com/',
-          title: t('Operational Manual')
-        },
-        {
-          url: 'https://makerdao.world/en/learn/governance/',
-          title: t('Governance FAQs')
-        },
-        {
-          url: 'https://docs.google.com/spreadsheets/d/1LWNlv6hr8oXebk8rvXZBPRVDjN-3OrzI0IgLwBVk0vM/edit#gid=0',
-          title: t('Gov Tracking Sheet')
-        },
-        {
-          url: 'https://manual.makerdao.com/governance/governance-cycle/monthly-governance-cycle',
-          title: t('Monthly Gov Cycle')
-        },
-        {
-          url: 'https://manual.makerdao.com/governance/governance-cycle/weekly-governance-cycle',
-          title: t('Weekly Gov Cycle')
-        }
-      ]
+      list: []
     },
     {
       header: t('Products & Tools'),
       list: [
         {
-          url: 'https://makerdao.statuspage.io/',
-          title: t('Service Status')
-        },
-
-        {
-          url: 'https://auctions.makerdao.network/',
-          title: t('Auctions Dashboard')
-        },
-        {
-          url: 'https://migrate.makerdao.com/',
-          title: t('Migrate Dashboard')
-        },
-        {
-          url: 'https://makerburn.com/',
-          title: t('MakerBurn')
-        },
-        {
-          url: 'https://daistats.com/',
-          title: t('DAI Stats')
-        },
-        {
-          url: 'https://vote.makerdao.com/terms',
-          title: t('Terms')
+          url: 'https://usxd-stats.yodaplus.net/',
+          title: t('Stats')
         }
       ]
     },
     {
       header: t('Developer'),
-      list: [
-        {
-          url: 'https://makerdao.com/whitepaper',
-          title: t('Whitepaper')
-        },
-        {
-          url: 'https://docs.makerdao.com/',
-          title: t('Technical Docs')
-        },
-        {
-          url: 'https://vote.makerdao.com/api-docs',
-          title: t('API Docs')
-        },
-        {
-          url: 'https://github.com/makerdao/developerguides',
-          title: t('Developer Guides')
-        },
-        {
-          url: 'https://www.notion.so/makerdao/Maker-Brand-ac517c82ff9a43089d0db5bb2ee045a4',
-          title: t('Brand Assets')
-        },
-        {
-          url: 'https://makerdao.com/en/feeds/',
-          title: t('Oracle Feeds')
-        }
-      ]
+      list: []
     }
   ];
 
   const logos = {
-    makerdao: [
-      { title: 'Discord', url: 'https://chat.makerdao.com', icon: 'discord' },
-      { title: 'Twitter', url: 'https://twitter.com/MakerDAO', icon: 'twitter' },
-      { title: 'Reddit', url: 'https://www.reddit.com/r/MakerDAO/', icon: 'reddit' },
-      { title: 'YouTube', url: 'https://www.youtube.com/MakerDAO', icon: 'youtube' },
-      { title: 'GitHub', url: 'https://www.github.com/makerdao', icon: 'github' }
-    ],
-    makerdux: [
-      { title: 'Discord', url: 'https://discord.gg/GHcFMdKden', icon: 'discord' },
-      { title: 'Twitter', url: 'https://twitter.com/MakerDUX', icon: 'twitter' },
-      { title: 'GitHub', url: 'https://github.com/makerdao/governance-portal-v2', icon: 'github' },
-      { title: 'Canny', url: 'https://makergovernance.canny.io/', icon: 'canny' },
-      { title: 'Immunifi', url: 'https://immunefi.com/bounty/makerdao/', icon: 'immunifi' }
-    ]
+    yodaplus: [{ title: 'GitHub', url: 'https://github.com/yodaplus', icon: 'github' }]
   };
 
   const mobile = bpi <= 1;
@@ -181,7 +99,7 @@ export default function Footer({ locale = 'en' }: { locale?: string }): React.Re
       <Flex
         as="footer"
         sx={{
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
           gap: 4,
           width: '100%',
           flexDirection: mobile ? 'column' : 'row',
@@ -189,7 +107,7 @@ export default function Footer({ locale = 'en' }: { locale?: string }): React.Re
           pb: 5
         }}
       >
-        <ContactSection heading="Official Community Channels" icon="maker" logos={logos.makerdao} />
+        <ContactSection heading="Official Community Channels" icon="yodaplus" logos={logos.yodaplus} />
         <Flex
           sx={{
             justifyContent: 'space-between',
@@ -215,7 +133,6 @@ export default function Footer({ locale = 'en' }: { locale?: string }): React.Re
             );
           })}
         </Flex>
-        <ContactSection heading="Development & UX Channels" icon="makerdux" logos={logos.makerdux} />
       </Flex>
     </div>
   );

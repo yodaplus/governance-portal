@@ -20,6 +20,7 @@ import { BigNumber } from 'ethers';
 import { parseUnits } from 'ethers/lib/utils';
 import { useTokenAllowance } from 'modules/web3/hooks/useTokenAllowance';
 import { Tokens } from 'modules/web3/constants/tokens';
+import { config } from 'lib/config';
 
 // Note this only works on mainnet
 // TODO: Check that the amounts for allowance are correct
@@ -83,16 +84,20 @@ const ModalContent = ({ close, ...props }) => {
           <Stack gap={3}>
             <Box sx={{ textAlign: 'center' }}>
               <Text variant="microHeading" color="onBackgroundAlt">
-                Withdraw MKR from Chief
+                Withdraw {config.GOV_TOKEN} from Chief
               </Text>
               <Text sx={{ color: '#333333', fontSize: 3, mt: 3 }}>
-                You are withdrawing <b>{lockedMkr ? formatValue(lockedMkr) : '---'} MKR</b> from the old Chief
-                contract back to your wallet.
+                You are withdrawing{' '}
+                <b>
+                  {lockedMkr ? formatValue(lockedMkr) : '---'} {config.GOV_TOKEN}
+                </b>{' '}
+                from the old Chief contract back to your wallet.
               </Text>
             </Box>
             {voteProxyOldContractAddress && voteProxyOldHotAddress && (
               <Alert variant="notice" sx={{ fontWeight: 'normal' }}>
-                You are using the hot wallet for a voting proxy. MKR will be withdrawn to the cold wallet.
+                You are using the hot wallet for a voting proxy. {config.GOV_TOKEN} will be withdrawn to the
+                cold wallet.
               </Alert>
             )}
             <Button
@@ -106,7 +111,7 @@ const ModalContent = ({ close, ...props }) => {
                 });
               }}
             >
-              Withdraw MKR
+              Withdraw {config.GOV_TOKEN}
             </Button>
           </Stack>
         )}
@@ -117,7 +122,7 @@ const ModalContent = ({ close, ...props }) => {
                 Approve voting contract
               </Text>
               <Text sx={{ color: 'mutedAlt', fontSize: 3 }}>
-                Approve the transfer of IOU tokens to the voting contract to withdraw your MKR.
+                Approve the transfer of IOU tokens to the voting contract to withdraw your {config.GOV_TOKEN}.
               </Text>
             </Box>
 

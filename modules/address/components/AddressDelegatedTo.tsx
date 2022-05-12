@@ -15,6 +15,8 @@ import { SupportedNetworks } from 'modules/web3/constants/networks';
 import AddressIconBox from './AddressIconBox';
 import { parseUnits } from 'ethers/lib/utils';
 import { formatValue } from 'lib/string';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type CollapsableRowProps = {
   delegate: DelegationHistory;
@@ -34,7 +36,7 @@ const CollapsableRow = ({ delegate, network, bpi, totalDelegated }: CollapsableR
       <Flex as="td" sx={{ flexDirection: 'column', mb: 3 }}>
         <Heading variant="microHeading">
           <InternalLink
-            href={`/address/${address}`}
+            href={`/address/${ethToXinfinAddress(address)}`}
             title="View address detail"
             styles={{ fontSize: bpi < 1 ? 1 : 3 }}
           >
@@ -62,7 +64,7 @@ const CollapsableRow = ({ delegate, network, bpi, totalDelegated }: CollapsableR
       </Flex>
       <Box as="td" sx={{ verticalAlign: 'top', pt: 2 }}>
         <Text sx={{ fontSize: bpi < 1 ? 1 : 3 }}>
-          {`${formatValue(parseUnits(lockAmount))}${bpi > 0 ? ' MKR' : ''}`}
+          {`${formatValue(parseUnits(lockAmount))}${bpi > 0 ? ` ${config.GOV_TOKEN}` : ''}`}
         </Text>
         {expanded && (
           <Flex sx={{ flexDirection: 'column' }}>
@@ -84,7 +86,7 @@ const CollapsableRow = ({ delegate, network, bpi, totalDelegated }: CollapsableR
                   <Text key={blockTimestamp} variant="smallCaps" sx={{ pl: 2 }}>
                     {`${formatValue(
                       parseUnits(lockAmount.indexOf('-') === 0 ? lockAmount.substring(1) : lockAmount)
-                    )}${bpi > 0 ? ' MKR' : ''}`}
+                    )}${bpi > 0 ? ` ${config.GOV_TOKEN}` : ''}`}
                   </Text>
                 </Flex>
               );
@@ -140,7 +142,7 @@ const CollapsableRow = ({ delegate, network, bpi, totalDelegated }: CollapsableR
                 >
                   <ExternalLink
                     href={getEtherscanLink(network, hash as string, 'transaction')}
-                    title="View on Etherscan"
+                    title="View on block explorer"
                     styles={{
                       textAlign: 'right'
                     }}
@@ -180,9 +182,11 @@ const AddressDelegatedTo = ({ delegatedTo, totalDelegated }: AddressDelegatedToP
               Address
             </Text>
             <Text as="th" sx={{ textAlign: 'left', pb: 2, width: '30%' }} variant="caps">
-              MKR Delegated
+              {config.GOV_TOKEN} Delegated
             </Text>
-            <Tooltip label={'This is the percentage of the total MKR delegated by this address.'}>
+            <Tooltip
+              label={'This is the percentage of the total ${config.GOV_TOKEN} delegated by this address.'}
+            >
               <Text as="th" sx={{ textAlign: 'left', pb: 2, width: '20%' }} variant="caps">
                 Voting Weight
               </Text>

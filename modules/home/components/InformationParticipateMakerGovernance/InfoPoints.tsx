@@ -1,3 +1,4 @@
+import { config } from 'lib/config';
 import { InternalLink } from 'modules/app/components/InternalLink';
 import { Text } from 'theme-ui';
 
@@ -45,8 +46,7 @@ export const infoPoints: InfoPoint[] = [
       }
     ],
 
-    description:
-      'On-chain governance refers to Governance Polls and Executive Votes, which are formalized governance proposals that require on-chain voting. Anyone who owns MKR tokens can participate in these votes using their wallet.'
+    description: `On-chain governance refers to Governance Polls and Executive Votes, which are formalized governance proposals that require on-chain voting. Anyone who owns ${config.GOV_TOKEN} tokens can participate in these votes using their wallet.`
   },
   {
     number: '03',
@@ -56,8 +56,7 @@ export const infoPoints: InfoPoint[] = [
     titleSecond: 'voting wallet',
     links: [],
 
-    description:
-      'Connect a web3 wallet (eg. MetaMask, WalletConnect) that holds your MKR tokens and start participating! Users that hold many MKR tokens or use their wallet for other uses besides Maker governance might want to consider more secure methods of setting up a voting wallet, such as using a hardware wallet or setting up a vote proxy (available soon).'
+    description: `Connect a web3 wallet (eg. MetaMask, WalletConnect) that holds your ${config.GOV_TOKEN} tokens and start participating! Users that hold many ${config.GOV_TOKEN} tokens or use their wallet for other uses besides Maker governance might want to consider more secure methods of setting up a voting wallet, such as using a hardware wallet or setting up a vote proxy (available soon).`
   },
   {
     number: '04',
@@ -76,8 +75,7 @@ export const infoPoints: InfoPoint[] = [
       }
     ],
 
-    description:
-      "Vote delegation is a mechanism through which MKR holders can entrust their voting power to one or more chosen delegates. These delegates can then vote using the MKR delegated to them. Delegating your voting power is a good option if you're not willing to invest much time and gas costs in active participation. Note that delegates can never directly access the MKR tokens delegated to them."
+    description: `Vote delegation is a mechanism through which ${config.GOV_TOKEN} holders can entrust their voting power to one or more chosen delegates. These delegates can then vote using the ${config.GOV_TOKEN} delegated to them. Delegating your voting power is a good option if you're not willing to invest much time and gas costs in active participation. Note that delegates can never directly access the ${config.GOV_TOKEN} tokens delegated to them.`
   },
   {
     number: '05',
@@ -99,9 +97,9 @@ export const infoPoints: InfoPoint[] = [
         <InternalLink href="/executive" title="Executives" styles={{ fontWeight: 'semiBold' }}>
           <Text>Find the latest Executive Proposal</Text>
         </InternalLink>{' '}
-        and vote on it by depositing your MKR tokens to the voting contract. By doing so you contribute to
-        protecting the protocol against governance attacks. You are able to withdraw your MKR tokens anytime.
-        Next,{' '}
+        and vote on it by depositing your {config.GOV_TOKEN} tokens to the voting contract. By doing so you
+        contribute to protecting the protocol against governance attacks. You are able to withdraw your{' '}
+        {config.GOV_TOKEN} tokens anytime. Next,{' '}
         <InternalLink href="/polling" title="Polls" styles={{ fontWeight: 'semiBold' }}>
           <Text>start voting on the active governance polls</Text>
         </InternalLink>{' '}

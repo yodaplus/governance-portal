@@ -22,7 +22,6 @@ import PrimaryLayout from 'modules/app/components/layout/layouts/Primary';
 import SidebarLayout from 'modules/app/components/layout/layouts/Sidebar';
 import Stack from 'modules/app/components/layout/layouts/Stack';
 import SystemStatsSidebar from 'modules/app/components/SystemStatsSidebar';
-import ResourceBox from 'modules/app/components/ResourceBox';
 import { DelegateDetail, TxDisplay } from 'modules/delegates/components';
 import Withdraw from 'modules/mkr/components/Withdraw';
 import { Icon } from '@makerdao/dai-ui-icons';
@@ -38,6 +37,8 @@ import ManageDelegation from 'modules/delegates/components/ManageDelegation';
 import { useDelegateCreate } from 'modules/delegates/hooks/useDelegateCreate';
 import SkeletonThemed from 'modules/app/components/SkeletonThemed';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 const AccountPage = (): React.ReactElement => {
   const bpi = useBreakpointIndex();
@@ -114,7 +115,9 @@ const AccountPage = (): React.ReactElement => {
                       target="_blank"
                     >
                       <Text as="p" data-testid="vote-delegate-address">
-                        {bpi > 0 ? voteDelegateContractAddress : cutMiddle(voteDelegateContractAddress, 8, 8)}
+                        {bpi > 0
+                          ? ethToXinfinAddress(voteDelegateContractAddress)
+                          : ethToXinfinAddress(cutMiddle(voteDelegateContractAddress, 8, 8))}
                       </Text>
                     </ExternalLink>
 
@@ -206,11 +209,13 @@ const AccountPage = (): React.ReactElement => {
                   <Flex sx={{ alignItems: 'flex-start', flexDirection: 'column', mt: 5 }}>
                     <Text as="p">
                       You have a DSChief balance of{' '}
-                      <Text sx={{ fontWeight: 'bold' }}>{formatValue(chiefBalance, 'wad', 6)} MKR.</Text>
+                      <Text sx={{ fontWeight: 'bold' }}>
+                        {formatValue(chiefBalance, 'wad', 6)} {config.GOV_TOKEN}.
+                      </Text>
                       <Text as="p" sx={{ my: 2 }}>
                         {voteDelegateContractAddress
-                          ? 'As a delegate you can only vote with your delegate contract through the portal. You can withdraw your MKR and delegate it to yourself to vote with it.'
-                          : 'If you become a delegate, you will only be able to vote through the portal as a delegate. In this case, it is recommended to withdraw your MKR and delegate it to yourself or create the delegate contract from a different account.'}
+                          ? `As a delegate you can only vote with your delegate contract through the portal. You can withdraw your ${config.GOV_TOKEN} and delegate it to yourself to vote with it.`
+                          : `If you become a delegate, you will only be able to vote through the portal as a delegate. In this case, it is recommended to withdraw your ${config.GOV_TOKEN} and delegate it to yourself or create the delegate contract from a different account.`}
                       </Text>
                     </Text>
                     <Withdraw sx={{ mt: 3 }} />
@@ -223,11 +228,11 @@ const AccountPage = (): React.ReactElement => {
         <Stack gap={3}>
           {addressInfo && addressInfo.delegateInfo && (
             <Box>
-              <ErrorBoundary componentName="Delegate MKR">
+              <ErrorBoundary componentName={`Delegate ${config.GOV_TOKEN}`}>
                 <ManageDelegation
                   delegate={addressInfo.delegateInfo}
-                  textDelegate="Delegate MKR to myself"
-                  textUndelegate="Undelegate MKR from my contract"
+                  textDelegate={`Delegate ${config.GOV_TOKEN} to myself`}
+                  textUndelegate={`Undelegate ${config.GOV_TOKEN} from my contract`}
                 />
               </ErrorBoundary>
             </Box>
@@ -237,8 +242,6 @@ const AccountPage = (): React.ReactElement => {
               fields={['polling contract', 'savings rate', 'total dai', 'debt ceiling', 'system surplus']}
             />
           </ErrorBoundary>
-          <ResourceBox type={'delegates'} />
-          <ResourceBox type={'general'} />
         </Stack>
       </SidebarLayout>
     </PrimaryLayout>

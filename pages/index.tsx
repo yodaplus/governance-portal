@@ -53,6 +53,7 @@ import { fetchMkrOnHat } from 'modules/executive/api/fetchMkrOnHat';
 import { fetchMkrInChief } from 'modules/executive/api/fetchMkrInChief';
 import { formatValue } from 'lib/string';
 import { landingExecutivesOnly } from 'modules/features';
+import { config } from 'lib/config';
 
 type Props = {
   proposals: Proposal[];
@@ -186,21 +187,15 @@ const LandingPage = ({
               <Flex sx={{ flexDirection: ['column', 'column', 'row'], justifyContent: 'space-between' }}>
                 <Flex sx={{ p: 3, width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
-                    Maker Governance
+                    TOKEN Governance
                   </Heading>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
                     Voting Portal
                   </Heading>
                   <Text as="p" sx={{ fontWeight: 'semiBold', my: 3, width: ['100%', '100%', '80%'] }}>
-                    Vote with or delegate your MKR tokens to help protect the integrity of the Maker protocol
+                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the
+                    Maker protocol
                   </Text>
-                  <Box>
-                    <PlayButton
-                      label="How to vote"
-                      onClick={() => setVideoOpen(true)}
-                      styles={{ mr: [1, 3] }}
-                    />
-                  </Box>
                 </Flex>
                 <Flex sx={{ py: 3, px: [1, 3], width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
                   <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
@@ -356,21 +351,15 @@ const LandingPageOnlyExecutive = ({
               <Flex sx={{ flexDirection: ['column', 'column', 'row'], justifyContent: 'space-between' }}>
                 <Flex sx={{ p: 3, width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
-                    Maker Governance
+                    {config.TOKEN} Governance
                   </Heading>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
                     Voting Portal
                   </Heading>
                   <Text as="p" sx={{ fontWeight: 'semiBold', my: 3, width: ['100%', '100%', '80%'] }}>
-                    Vote with or delegate your MKR tokens to help protect the integrity of the Maker protocol
+                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the
+                    {config.TOKEN} protocol
                   </Text>
-                  <Box>
-                    <PlayButton
-                      label="How to vote"
-                      onClick={() => setVideoOpen(true)}
-                      styles={{ mr: [1, 3] }}
-                    />
-                  </Box>
                 </Flex>
                 <Flex sx={{ py: 3, px: [1, 3], width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
                   <Flex sx={{ justifyContent: 'space-between', alignItems: 'center' }}>

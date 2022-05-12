@@ -2,6 +2,7 @@ import { Flex } from 'theme-ui';
 import { StatBox } from 'modules/app/components/StatBox';
 import { useMKRVotingWeight } from 'modules/mkr/hooks/useMKRVotingWeight';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 export function AddressMKRDelegatedStats({
   totalMKRDelegated,
@@ -22,14 +23,17 @@ export function AddressMKRDelegatedStats({
         marginBottom: 1
       }}
     >
-      <StatBox value={votingWeight ? formatValue(votingWeight.total) : '0.000'} label={'Total MKR Balance'} />
+      <StatBox
+        value={votingWeight ? formatValue(votingWeight.total) : '0.000'}
+        label={`Total ${config.GOV_TOKEN} Balance`}
+      />
 
       <StatBox
         styles={{
           textAlign: 'right'
         }}
         value={totalMKRDelegated ? totalMKRDelegated.toFixed(2) : '0.00'}
-        label={'Total MKR Delegated'}
+        label={`Total ${config.GOV_TOKEN} Delegated`}
       />
     </Flex>
   );

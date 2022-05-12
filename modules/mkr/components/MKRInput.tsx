@@ -5,6 +5,7 @@ import { BigNumber } from 'ethers';
 import { formatValue } from 'lib/string';
 import { BigNumber as BigNumberJs } from 'bignumber.js';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export type MKRInputProps = {
   placeholder?: string;
@@ -18,13 +19,13 @@ export type MKRInputProps = {
 };
 
 export function MKRInput({
-  placeholder = '0.000000 MKR',
-  errorMaxMessage = 'MKR balance too low',
+  placeholder = `0.000000 ${config.GOV_TOKEN}`,
+  errorMaxMessage = `${config.GOV_TOKEN} balance too low`,
   onChange,
   min = BigNumber.from(0),
   max,
   balance,
-  balanceText = 'MKR Balance:',
+  balanceText = `${config.GOV_TOKEN} Balance:`,
   value
 }: MKRInputProps): React.ReactElement {
   const [currentValueStr, setCurrentValueStr] = useState('');

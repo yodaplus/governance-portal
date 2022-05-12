@@ -9,6 +9,7 @@ import { getVoteColor } from 'modules/polling/helpers/getVoteColor';
 import { BigNumber as BigNumberJS } from 'bignumber.js';
 import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export default function VoteBreakdown({
   poll,
@@ -51,9 +52,9 @@ export default function VoteBreakdown({
                   )}
                   {tallyResult ? (
                     <Text as="p" sx={{ color: 'textSecondary', width: tally ? 'unset' : '30%' }}>
-                      {`${formatValue(
-                        parseUnits(firstChoice.plus(transfer).toString())
-                      )} MKR Voting (${formatValue(
+                      {`${formatValue(parseUnits(firstChoice.plus(transfer).toString()))} ${
+                        config.GOV_TOKEN
+                      } Voting (${formatValue(
                         parseUnits(
                           new BigNumberJS(tallyResult.firstPct).plus(tallyResult.transferPct).toString()
                         )
@@ -147,9 +148,9 @@ export default function VoteBreakdown({
                     textAlign: 'right'
                   }}
                 >
-                  {`${formatValue(parseUnits(mkrSupport.toString()))} MKR Voting (${formatValue(
-                    parseUnits(tallyResult.firstPct.toString())
-                  )}%)`}
+                  {`${formatValue(parseUnits(mkrSupport.toString()))} ${
+                    config.GOV_TOKEN
+                  } Voting (${formatValue(parseUnits(tallyResult.firstPct.toString()))}%)`}
                 </Text>
               ) : (
                 <Delay>

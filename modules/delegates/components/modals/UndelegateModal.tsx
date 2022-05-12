@@ -19,6 +19,7 @@ import { parseUnits } from 'ethers/lib/utils';
 import { Tokens } from 'modules/web3/constants/tokens';
 import { formatValue } from 'lib/string';
 import DelegateAvatarName from '../DelegateAvatarName';
+import { config } from 'lib/config';
 
 type Props = {
   isOpen: boolean;
@@ -89,7 +90,7 @@ export const UndelegateModal = ({
                   tx={tx}
                   setTxId={resetTx}
                   onDismiss={onClose}
-                  title={'Undelegating your MKR'}
+                  title={`Undelegating your ${config.GOV_TOKEN}`}
                   description={`You undelegated ${formatValue(mkrToWithdraw)} from ${delegate.name}`}
                 >
                   <Box sx={{ textAlign: 'left', margin: '0 auto', p: 3 }}>
@@ -101,10 +102,10 @@ export const UndelegateModal = ({
                   {mkrStaked && iouAllowance ? (
                     <InputDelegateMkr
                       title="Withdraw from delegate contract"
-                      description="Input the amount of MKR to withdraw from the delegate contract."
+                      description={`Input the amount of ${config.GOV_TOKEN} to withdraw from the delegate contract.`}
                       onChange={setMkrToWithdraw}
                       balance={mkrStaked}
-                      buttonLabel="Undelegate MKR"
+                      buttonLabel={`Undelegate ${config.GOV_TOKEN}`}
                       onClick={() => {
                         free(mkrToWithdraw, {
                           mined: () => {
@@ -126,9 +127,7 @@ export const UndelegateModal = ({
                       }
                       title={'Approve Delegate Contract'}
                       buttonLabel={'Approve Delegate Contract'}
-                      description={
-                        'Approve the transfer of IOU tokens to the delegate contract to wtihdraw your MKR.'
-                      }
+                      description={`Approve the transfer of IOU tokens to the delegate contract to wtihdraw your ${config.GOV_TOKEN}.`}
                     />
                   )}
                 </>

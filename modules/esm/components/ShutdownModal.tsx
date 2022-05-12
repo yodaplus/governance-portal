@@ -8,6 +8,7 @@ import { BigNumber } from 'ethers';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { useEsmShutdown } from '../hooks/useEsmShutdown';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { config } from 'lib/config';
 
 const ModalContent = ({
   setShowDialog,
@@ -29,12 +30,13 @@ const ModalContent = ({
       <Close onClick={() => setShowDialog(false)} sx={{ alignSelf: 'flex-end' }} />
       <Icon ml={2} name="warning" size={5} sx={{ color: 'notice' }} />
       <Text variant="heading" mt={4}>
-        Shutting down the Dai Credit System
+        Shutting down the {config.TOKEN} Credit System
       </Text>
       <Text variant="text" sx={{ mt: 3 }}>
-        The {thresholdAmount ? `${formatValue(thresholdAmount)}` : '---'} MKR limit for the emergency shutdown
-        module has been reached. By continuing past this alert, emergency shutdown will be initiated for the
-        Dai Credit System.
+        The {thresholdAmount ? `${formatValue(thresholdAmount)}` : '---'} {config.GOV_TOKEN} limit for the
+        emergency shutdown module has been reached. By continuing past this alert, emergency shutdown will be
+        initiated for the
+        {config.TOKEN} Credit System.
       </Text>
       <Grid columns={2} mt={4}>
         <Button
@@ -104,10 +106,10 @@ const ModalContent = ({
         <ExternalLink
           href={getEtherscanLink(network, (tx as TXMined).hash, 'transaction')}
           styles={{ p: 0 }}
-          title="View on etherscan"
+          title="View on block explorer"
         >
           <Text mt={3} px={4} sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-            View on Etherscan
+            View on block explorer
             <Icon name="arrowTopRight" pt={2} color="accentBlue" />
           </Text>
         </ExternalLink>

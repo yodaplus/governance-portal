@@ -7,6 +7,7 @@ import Withdraw from 'modules/mkr/components/Withdraw';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { formatValue } from 'lib/string';
 import { BigNumber } from 'ethers';
+import { config } from 'lib/config';
 
 type Props = {
   title: string;
@@ -55,8 +56,10 @@ export function InputDelegateMkr({
       {showAlert && lockedMkr && lockedMkr.gt(0) && balance && balance.gt(0) && (
         <Alert variant="notice" sx={{ fontWeight: 'normal' }}>
           <Text>
-            {`You have ${formatValue(lockedMkr)} additional MKR locked in the voting contract. `}
-            <Withdraw link={'Withdraw MKR'} />
+            {`You have ${formatValue(lockedMkr)} additional ${
+              config.GOV_TOKEN
+            } locked in the voting contract. `}
+            <Withdraw link={`Withdraw ${config.GOV_TOKEN}`} />
             {' to deposit it into a delegate contract.'}
           </Text>
         </Alert>
@@ -65,7 +68,7 @@ export function InputDelegateMkr({
         <Alert variant="notice" sx={{ fontWeight: 'normal' }}>
           <Text>
             {'You must '}
-            <Withdraw link={'withdraw your MKR'} />
+            <Withdraw link={`withdraw your ${config.GOV_TOKEN}`} />
             {' from the voting contract before delegating it.'}
           </Text>
         </Alert>

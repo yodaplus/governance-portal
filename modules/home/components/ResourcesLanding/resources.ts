@@ -1,3 +1,5 @@
+import { config } from 'lib/config';
+
 export enum ResourceCategory {
   ALL_RESOURCES = 'All Resources',
   GOVERNANCE = 'Governance',
@@ -45,8 +47,7 @@ export const resources: LandingResource[] = [
     bg: ResourceBackground.GOVERNANCE,
     color: ResourceColor.GOVERNANCE,
     logo: '/assets/resource_icon_2.svg',
-    summary:
-      'Documentation on the Maker protocol & MakerDAO processes, written for MKR holders that actively participate in governance.'
+    summary: `Documentation on the Maker protocol & MakerDAO processes, written for ${config.GOV_TOKEN} holders that actively participate in governance.`
   },
   {
     title: 'Governance Tracking Sheet',

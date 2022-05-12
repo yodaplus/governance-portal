@@ -48,6 +48,7 @@ import { formatValue } from 'lib/string';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import useSWRInfinite from 'swr/infinite';
 import SkeletonThemed from 'modules/app/components/SkeletonThemed';
+import { config } from 'lib/config';
 
 const MigrationBadge = ({ children, py = [2, 3] }) => (
   <Badge
@@ -196,7 +197,10 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
             >
               <Text sx={{ py: 2 }}>
                 An executive vote has passed to update the Chief to a new version. You have{' '}
-                <b>{formatValue(lockedMkrOldChief)} MKR</b> to withdraw from the old chief.
+                <b>
+                  {formatValue(lockedMkrOldChief)} {config.GOV_TOKEN}
+                </b>{' '}
+                to withdraw from the old chief.
               </Text>
               <Flex>
                 <WithdrawOldChief />
@@ -264,7 +268,9 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
         lockedMkr.gt(0) && (
           <>
             <ProgressBar step={2} />
-            <MigrationBadge>Your MKR has been deposited. You are now ready to vote.</MigrationBadge>
+            <MigrationBadge>
+              Your {config.GOV_TOKEN} has been deposited. You are now ready to vote.
+            </MigrationBadge>
           </>
         )}
       <Stack>

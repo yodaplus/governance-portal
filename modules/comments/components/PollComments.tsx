@@ -13,6 +13,7 @@ import {
 } from 'modules/comments/types/comments';
 import { BigNumber } from 'ethers';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export default function PollComments({
   comments,
@@ -129,7 +130,7 @@ export default function PollComments({
                 fontWeight: commentSortBy === CommentSortOption.MKR_AMOUNT ? 'bold' : undefined
               }}
             >
-              MKR Amount
+              {config.GOV_TOKEN} Amount
             </MenuItem>
           </FilterButton>
         </Box>

@@ -5,6 +5,7 @@ import { useDaiSavingsRate } from 'modules/web3/hooks/useDaiSavingsRate';
 import { useSystemSurplus } from 'modules/web3/hooks/useSystemSurplus';
 import { useSystemWideDebtCeiling } from 'modules/web3/hooks/useSystemWideDebtCeiling';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 export function SystemStats(): JSX.Element {
   const { data: totalDai } = useTotalDai();
@@ -14,22 +15,22 @@ export function SystemStats(): JSX.Element {
 
   const infoUnits = [
     {
-      title: 'Dai Savings Rate',
+      title: `${config.TOKEN} Savings Rate`,
       value: daiSavingsRate ? `${daiSavingsRate.toFixed(2)}%` : <Skeleton />
     },
     {
-      title: 'Total Dai',
-      value: totalDai ? `${formatValue(totalDai, 'rad')} DAI` : <Skeleton />
+      title: `Total ${config.TOKEN}`,
+      value: totalDai ? `${formatValue(totalDai, 'rad')} ${config.TOKEN}` : <Skeleton />
     },
     {
-      title: 'Dai Debt Ceiling',
-      value: debtCeiling ? `${formatValue(debtCeiling, 'rad')} DAI` : <Skeleton />
+      title: `${config.TOKEN} Debt Ceiling`,
+      value: debtCeiling ? `${formatValue(debtCeiling, 'rad')} ${config.TOKEN}` : <Skeleton />
     },
     {
       title: 'System Surplus',
-      value: systemSurplus ? `${formatValue(systemSurplus, 'rad')} DAI` : <Skeleton />
+      value: systemSurplus ? `${formatValue(systemSurplus, 'rad')} ${config.TOKEN}` : <Skeleton />
     }
   ];
 
-  return <Stats title="System Stats" infoUnits={infoUnits} viewMoreUrl="https://daistats.com/" />;
+  return <Stats title="System Stats" infoUnits={infoUnits} viewMoreUrl="https://usxd-stats.yodaplus.net/" />;
 }

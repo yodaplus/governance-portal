@@ -9,6 +9,8 @@ import VideoModal from 'modules/app/components/VideoModal';
 import { useState } from 'react';
 import { PlayButton } from 'modules/home/components/PlayButton';
 import { MEET_DELEGATE_URLS } from '../delegates.constants';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 const MeetDelegateCard = ({
   delegate,
@@ -42,7 +44,10 @@ const MeetDelegateCard = ({
           gap: 3
         }}
       >
-        <InternalLink href={`/address/${delegate.voteDelegateAddress}`} title="View delegate profile details">
+        <InternalLink
+          href={`/address/${ethToXinfinAddress(delegate.voteDelegateAddress)}`}
+          title="View delegate profile details"
+        >
           <Button
             variant="outline"
             sx={{
@@ -160,8 +165,8 @@ export default function MeetYourDelegates({
             </Flex>
           </Flex>
           <Text variant="smallText" sx={{ color: 'textMuted', width: ['100%', '100%', '50%'] }}>
-            Vote delegation allows for MKR holders to delegate their voting power to delegates, which
-            increases the effectiveness and efficiency of the governance process.
+            Vote delegation allows for {config.GOV_TOKEN} holders to delegate their voting power to delegates,
+            which increases the effectiveness and efficiency of the governance process.
           </Text>
         </Flex>
         <Flex

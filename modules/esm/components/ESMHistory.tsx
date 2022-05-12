@@ -8,6 +8,8 @@ import { cutMiddle } from 'lib/string';
 import { AllEsmJoinsRecord } from 'modules/gql/generated/graphql';
 import { getEtherscanLink } from 'modules/web3/helpers/getEtherscanLink';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type Props = {
   allEsmJoins: AllEsmJoinsRecord[] | undefined;
@@ -100,14 +102,14 @@ const ESMHistory = ({ allEsmJoins }: Props): JSX.Element => {
                           {amount.gte(0.1)
                             ? formatRound(amount.toNumber())
                             : formatRound(amount.toNumber(), 3)}{' '}
-                          MKR
+                          {config.GOV_TOKEN}
                         </Text>
                       </td>
                       <td>
                         <ExternalLink
                           href={getEtherscanLink(network, action.txFrom, 'address')}
                           styles={{ color: 'accentBlue' }}
-                          title="View on etherscan"
+                          title="View on block explorer"
                         >
                           <Text
                             as="p"
@@ -115,7 +117,7 @@ const ESMHistory = ({ allEsmJoins }: Props): JSX.Element => {
                             variant="caption"
                             sx={{ paddingY: 3, mr: 2, fontSize: [2, 3] }}
                           >
-                            {cutMiddle(action.txFrom, bpi > 0 ? 8 : 4, bpi > 0 ? 6 : 4)}
+                            {ethToXinfinAddress(cutMiddle(action.txFrom, bpi > 0 ? 8 : 4, bpi > 0 ? 6 : 4))}
                           </Text>
                         </ExternalLink>
                       </td>

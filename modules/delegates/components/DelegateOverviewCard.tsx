@@ -19,6 +19,8 @@ import DelegateAvatarName from './DelegateAvatarName';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { CoreUnitModal } from './modals/CoreUnitModal';
 import { CoreUnitButton } from './modals/CoreUnitButton';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type PropTypes = {
   delegate: Delegate;
@@ -80,7 +82,7 @@ export function DelegateOverviewCard({ delegate }: PropTypes): React.ReactElemen
 
             <Flex sx={{ height: '100%', mt: [3, 3, 0, 3, 0] }}>
               <InternalLink
-                href={`/address/${delegate.voteDelegateAddress}`}
+                href={`/address/${ethToXinfinAddress(delegate.voteDelegateAddress)}`}
                 title={`View ${isOwner ? 'Your' : 'Profile'} Details`}
                 styles={{ mt: 'auto' }}
               >
@@ -182,7 +184,7 @@ export function DelegateOverviewCard({ delegate }: PropTypes): React.ReactElemen
                   {totalStaked ? formatValue(totalStaked) : '0.00'}
                 </Text>
                 <Text as="p" variant="secondary" color="onSecondary" sx={{ fontSize: [2, 3] }}>
-                  Total MKR delegated
+                  Total {config.GOV_TOKEN} delegated
                 </Text>
               </Box>
               <Box sx={{ width: ['auto', '200px'] }}>
@@ -195,7 +197,7 @@ export function DelegateOverviewCard({ delegate }: PropTypes): React.ReactElemen
                   {mkrDelegated ? formatValue(mkrDelegated) : '0.00'}
                 </Text>
                 <Text as="p" variant="secondary" color="onSecondary" sx={{ fontSize: [2, 3] }}>
-                  MKR delegated by you
+                  {config.GOV_TOKEN} delegated by you
                 </Text>
               </Box>
               <Box>

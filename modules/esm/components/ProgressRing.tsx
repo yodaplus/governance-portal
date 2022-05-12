@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Box, Flex } from 'theme-ui';
 import { formatValue } from 'lib/string';
 import { BigNumber } from 'ethers';
+import { config } from 'lib/config';
 
 const ProgressRing = ({
   progress,
@@ -51,7 +52,7 @@ const ProgressRing = ({
           )}
         </text>
         <text x="50%" y="58%" textAnchor="middle" fill="#708390" fontSize="14px" dy=".3em">
-          {`of ${thresholdAmount ? `${formatValue(thresholdAmount)} MKR` : '---'}`}
+          {`of ${thresholdAmount ? `${formatValue(thresholdAmount)} ${config.GOV_TOKEN}` : '---'}`}
         </text>
       </svg>
     </Flex>

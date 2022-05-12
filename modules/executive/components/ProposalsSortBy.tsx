@@ -3,6 +3,7 @@ import { MenuItem } from '@reach/menu-button';
 
 import useUiFiltersStore from 'modules/app/stores/uiFilters';
 import FilterButton from 'modules/app/components/FilterButton';
+import { config } from 'lib/config';
 
 export default function ProposalsSortBy(props): JSX.Element {
   const [executiveSortBy, setExecutiveSortBy] = useUiFiltersStore(
@@ -14,7 +15,11 @@ export default function ProposalsSortBy(props): JSX.Element {
     <FilterButton
       name={() =>
         `Sort by ${
-          executiveSortBy === 'date' ? 'Date Posted' : executiveSortBy === 'mkr' ? 'MKR Amount' : 'Active'
+          executiveSortBy === 'date'
+            ? 'Date Posted'
+            : executiveSortBy === 'mkr'
+            ? `${config.GOV_TOKEN} Amount`
+            : 'Active'
         }`
       }
       listVariant="menubuttons.default.list"
@@ -45,7 +50,7 @@ export default function ProposalsSortBy(props): JSX.Element {
           fontWeight: executiveSortBy === 'mkr' ? 'bold' : undefined
         }}
       >
-        MKR Amount
+        {config.GOV_TOKEN} Amount
       </MenuItem>
     </FilterButton>
   );

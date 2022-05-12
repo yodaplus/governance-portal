@@ -275,8 +275,6 @@ const PollingOverview = ({ polls, categories }: Props) => {
                 fields={['polling contract', 'savings rate', 'total dai', 'debt ceiling', 'system surplus']}
               />
             </ErrorBoundary>
-            <ResourceBox type={'polling'} />
-            <ResourceBox type={'general'} />
           </Stack>
         </SidebarLayout>
       </Stack>

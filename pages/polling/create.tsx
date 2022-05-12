@@ -209,7 +209,6 @@ const PollingCreate = (): React.ReactElement => {
                   'debt ceiling'
                 ]}
               />
-              <ResourceBox type={'general'} />
             </Stack>
           )}
         </SidebarLayout>

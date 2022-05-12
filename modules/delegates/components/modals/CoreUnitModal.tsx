@@ -4,6 +4,7 @@ import { Text, Heading, Flex, Button, Link as ThemeUILink } from 'theme-ui';
 import { Icon } from '@makerdao/dai-ui-icons';
 import { fadeIn, slideUp } from 'lib/keyframes';
 import { BoxWithClose } from 'modules/app/components/BoxWithClose';
+import { config } from 'lib/config';
 
 type Props = {
   isOpen: boolean;
@@ -42,9 +43,9 @@ export const CoreUnitModal = ({ isOpen, onDismiss }: Props): JSX.Element => {
               Note: This delegate is also a Core Unit Member
             </Heading>
             <Text sx={{ mb: 3, color: 'onSecondary' }}>
-              Core Unit members are paid contributors to MakerDAO. When delegating your MKR to this delegate,
-              please be conscious of the potential impact of these divergent incentives. GovAlpha generally
-              advises against delegating to CU members.{' '}
+              Core Unit members are paid contributors to MakerDAO. When delegating your {config.GOV_TOKEN} to
+              this delegate, please be conscious of the potential impact of these divergent incentives.
+              GovAlpha generally advises against delegating to CU members.{' '}
             </Text>
             <ThemeUILink
               href={'https://manual.makerdao.com/governance/what-is-delegation/separation-of-powers'}

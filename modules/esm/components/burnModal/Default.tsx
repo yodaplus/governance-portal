@@ -1,5 +1,6 @@
 import { Flex, Button, Text, Grid, Close } from 'theme-ui';
 import { Icon } from '@makerdao/dai-ui-icons';
+import { config } from 'lib/config';
 
 type Props = {
   setShowDialog: (value: boolean) => void;
@@ -11,10 +12,11 @@ const DefaultScreen = ({ setShowDialog, setStep }: Props): JSX.Element => (
     <Close onClick={() => setShowDialog(false)} sx={{ alignSelf: 'flex-end' }} />
     <Icon ml={2} name="warning" size={5} sx={{ color: 'notice' }} />
     <Text variant="heading" mt={4}>
-      Are you sure you want to burn MKR?
+      Are you sure you want to burn {config.GOV_TOKEN}?
     </Text>
     <Text variant="text" sx={{ mt: 3, textAlign: 'center' }}>
-      By burning your MKR in the ESM, you are contributing to the shutdown of the Dai Credit System. Your MKR
+      By burning your {config.GOV_TOKEN} in the ESM, you are contributing to the shutdown of the Dai Credit
+      System. Your {config.GOV_TOKEN}
       will be immediately burned and cannot be retrieved.
     </Text>
     <Grid columns={2} mt={4}>

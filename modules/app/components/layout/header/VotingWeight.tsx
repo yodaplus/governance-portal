@@ -3,6 +3,7 @@ import { getPollingVotingWeightCopy } from 'modules/polling/helpers/getPollingVo
 import { useMKRVotingWeight } from 'modules/mkr/hooks/useMKRVotingWeight';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 export default function VotingWeight(): JSX.Element {
   const { account, voteDelegateContractAddress } = useAccount();
@@ -18,7 +19,7 @@ export default function VotingWeight(): JSX.Element {
       </Flex>
       <Flex>
         <Text sx={{ fontSize: 5 }} data-testid="polling-voting-weight">
-          {votingWeight ? `${formatValue(votingWeight.total)} MKR` : '--'}
+          {votingWeight ? `${formatValue(votingWeight.total)} ${config.GOV_TOKEN}` : '--'}
         </Text>
       </Flex>
       <Flex sx={{ py: 1 }}>

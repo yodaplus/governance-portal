@@ -1,5 +1,6 @@
 import { Box, Heading, Card, Link as ExternalLink, Flex, Text } from 'theme-ui';
 import { Icon } from '@makerdao/dai-ui-icons';
+import { config } from 'lib/config';
 
 type ResourceType = 'general' | 'polling' | 'executive' | 'delegates';
 
@@ -88,11 +89,11 @@ const resources: Record<ResourceType, Resource> = {
         url: 'https://forum.makerdao.com/t/recognised-delegate-requirements/9421'
       },
       {
-        linkTitle: "The MKR holder's guide to delegation",
+        linkTitle: `The ${config.GOV_TOKEN} holder's guide to delegation`,
         url: 'https://forum.makerdao.com/t/mkr-holder-s-guide-to-delegation/9602'
       },
       {
-        linkTitle: "MKR token holder's delegation agreement",
+        linkTitle: `${config.GOV_TOKEN} token holder's delegation agreement`,
         url: 'https://forum.makerdao.com/t/token-holders-delegation-agreement/9385'
       },
       {

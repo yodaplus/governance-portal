@@ -14,6 +14,7 @@ import { Tokens } from 'modules/web3/constants/tokens';
 import { uniswapV3MkrSupply } from 'modules/gql/queries/uniswapV3MkrSupply';
 import { WAD } from 'modules/web3/constants/numbers';
 import { SupportedNetworks } from 'modules/web3/constants/networks';
+import { config } from 'lib/config';
 
 const aaveLendingPoolCore = '0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3';
 const aaveV2Amkr = '0xc713e5E149D5D0715DcD1c156a020976e7E56B88';
@@ -120,7 +121,7 @@ export default function MkrLiquiditySidebar({
 
   const totalLiquidity = `${formatValue(
     mkrPools.reduce((acc, cur) => acc.add((cur[1] as BigNumber) || 0), BigNumber.from(0))
-  )} MKR`;
+  )} ${config.GOV_TOKEN}`;
 
   const PoolComponent = pool => {
     const [poolName, poolLiquidity, subpools] = pool;
@@ -128,7 +129,9 @@ export default function MkrLiquiditySidebar({
       <Flex key={poolName} sx={{ flexDirection: 'column' }}>
         <Flex sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
           <Flex sx={{ alignItems: 'center' }}>
-            <Text sx={{ fontSize: 3, color: 'textSecondary' }}>MKR in {poolName}</Text>
+            <Text sx={{ fontSize: 3, color: 'textSecondary' }}>
+              {config.GOV_TOKEN} in {poolName}
+            </Text>
             {subpools && (
               <Box sx={{ ml: 1 }}>
                 <Flex
@@ -159,7 +162,7 @@ export default function MkrLiquiditySidebar({
           </Flex>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {poolLiquidity ? (
-              `${formatValue(poolLiquidity)} MKR`
+              `${formatValue(poolLiquidity)} ${config.GOV_TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -182,11 +185,13 @@ export default function MkrLiquiditySidebar({
                   }}
                 >
                   <Flex sx={{ alignItems: 'center' }}>
-                    <Text sx={{ fontSize: 2, color: 'textSecondary' }}>MKR in {subpoolName}</Text>
+                    <Text sx={{ fontSize: 2, color: 'textSecondary' }}>
+                      {config.GOV_TOKEN} in {subpoolName}
+                    </Text>
                   </Flex>
                   <Text variant="h2" sx={{ fontSize: 2, color: 'textSecondary' }}>
                     {subpoolLiquidity ? (
-                      `${formatValue(subpoolLiquidity)} MKR`
+                      `${formatValue(subpoolLiquidity)} ${config.GOV_TOKEN}`
                     ) : (
                       <Box sx={{ width: 6 }}>
                         <Skeleton />
@@ -206,7 +211,7 @@ export default function MkrLiquiditySidebar({
     <Box sx={{ display: ['none', 'block'] }} className={className}>
       <Flex sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 2, mt: 4 }}>
         <Heading as="h3" variant="microHeading">
-          MKR Liquidity
+          {config.GOV_TOKEN} Liquidity
         </Heading>
         <Text sx={{ fontSize: 4 }}>{totalLiquidity}</Text>
       </Flex>

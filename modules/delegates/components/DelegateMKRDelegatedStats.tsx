@@ -6,6 +6,7 @@ import { StatBox } from 'modules/app/components/StatBox';
 import { useAccount } from 'modules/app/hooks/useAccount';
 import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export function DelegateMKRDelegatedStats({
   delegate,
@@ -31,7 +32,7 @@ export function DelegateMKRDelegatedStats({
     >
       <StatBox
         value={formatValue(parseUnits(delegate.mkrDelegated)) ?? 'Untracked'}
-        label={'Total MKR Delegated'}
+        label={`Total ${config.GOV_TOKEN} Delegated`}
       />
       <StatBox
         value={typeof delegatorCount !== 'undefined' ? new BigNumber(delegatorCount).toFormat(0) : '--'}
@@ -39,7 +40,7 @@ export function DelegateMKRDelegatedStats({
       />
       <StatBox
         value={typeof mkrStaked !== 'undefined' ? formatValue(mkrStaked) : '0.00'}
-        label={'MKR Delegated by you'}
+        label={`${config.GOV_TOKEN} Delegated by you`}
       />
     </Flex>
   );

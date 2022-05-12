@@ -9,6 +9,7 @@ import { BigNumber } from 'ethers';
 import { Transaction } from 'modules/web3/types/transaction';
 import { useContracts } from 'modules/web3/hooks/useContracts';
 import { useAccount } from 'modules/app/hooks/useAccount';
+import { config } from 'lib/config';
 
 type FreeResponse = {
   txId: string | null;
@@ -33,16 +34,16 @@ export const useOldChiefFree = (): FreeResponse => {
       ? () => voteProxyOldContract.freeAll()
       : () => chiefOld.free(mkrToWithdraw);
 
-    const transactionId = track(freeTxCreator, account, 'Withdrawing MKR', {
+    const transactionId = track(freeTxCreator, account, `Withdrawing ${config.GOV_TOKEN}`, {
       pending: () => {
         if (typeof callbacks?.pending === 'function') callbacks.pending();
       },
       mined: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR withdrawn');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} withdrawn`);
         if (typeof callbacks?.mined === 'function') callbacks.mined();
       },
       error: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR withdraw failed');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} withdraw failed`);
         if (typeof callbacks?.error === 'function') callbacks.error();
       }
     });

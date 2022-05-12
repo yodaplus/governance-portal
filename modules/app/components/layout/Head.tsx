@@ -15,15 +15,16 @@ export function HeadComponent({
 }): React.ReactElement {
   const dev = config.NODE_ENV === 'development';
 
-  const defaultDescription =
-    'The MakerDAO Governance Portal allows for anyone to view governance proposals, and also allows for MKR holders to vote.';
+  const defaultDescription = `The MakerDAO Governance Portal allows for anyone to view governance proposals, and also allows for ${config.GOV_TOKEN} holders to vote.`;
   const defaultTitle = 'Governance Portal';
 
   const renderedTitle = title || defaultTitle;
   const renderedDescription = description || defaultDescription;
   return (
     <Head>
-      <title>Maker Governance - {renderedTitle}</title>
+      <title>
+        {config.TOKEN} Governance - {renderedTitle}
+      </title>
       <meta name="description" content={renderedDescription} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content={renderedTitle} />

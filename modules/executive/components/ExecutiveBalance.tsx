@@ -4,6 +4,7 @@ import Deposit from 'modules/mkr/components/Deposit';
 import Withdraw from 'modules/mkr/components/Withdraw';
 import { BigNumber } from 'ethers';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 type Props = {
   lockedMkr: BigNumber;
@@ -25,7 +26,7 @@ export const ExecutiveBalance = ({
       </Text>
       {lockedMkr ? (
         <Text sx={{ fontWeight: 'bold' }} data-testid="locked-mkr">
-          {formatValue(lockedMkr, 'wad', 6)} MKR
+          {formatValue(lockedMkr, 'wad', 6)} {config.GOV_TOKEN}
         </Text>
       ) : (
         <Box sx={{ width: 6 }}>

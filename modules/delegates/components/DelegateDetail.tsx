@@ -31,6 +31,7 @@ import { CoreUnitModal } from './modals/CoreUnitModal';
 import { CoreUnitButton } from './modals/CoreUnitButton';
 import { InternalLink } from 'modules/app/components/InternalLink';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 type PropTypes = {
   delegate: Delegate;
@@ -149,7 +150,10 @@ export function DelegateDetail({ delegate }: PropTypes): React.ReactElement {
                       Delegate contract <Icon ml={2} name="arrowTopRight" size={2} />
                     </Text>
                   </ExternalLink>
-                  <InternalLink href={`/address/${delegate.address}`} title="View address">
+                  <InternalLink
+                    href={`/address/${ethToXinfinAddress(delegate.address)}`}
+                    title="View address"
+                  >
                     <Text as="p" variant="secondary" sx={{ fontSize: [1, 2], mt: [1, 0] }}>
                       Deployed by: <Address address={delegate.address} />
                     </Text>

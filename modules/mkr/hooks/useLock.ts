@@ -8,6 +8,7 @@ import { BigNumber } from 'ethers';
 import { Transaction } from 'modules/web3/types/transaction';
 import { useContracts } from 'modules/web3/hooks/useContracts';
 import { useAccount } from 'modules/app/hooks/useAccount';
+import { config } from 'lib/config';
 
 type LockResponse = {
   txId: string | null;
@@ -32,16 +33,16 @@ export const useLock = (): LockResponse => {
       ? () => voteProxyContract.lock(mkrToDeposit)
       : () => chief.lock(mkrToDeposit);
 
-    const transactionId = track(lockTxCreator, account, 'Depositing MKR', {
+    const transactionId = track(lockTxCreator, account, `Depositing ${config.GOV_TOKEN}`, {
       pending: () => {
         if (typeof callbacks?.pending === 'function') callbacks.pending();
       },
       mined: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR deposited');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} deposited`);
         if (typeof callbacks?.mined === 'function') callbacks.mined();
       },
       error: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR deposit failed');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} deposit failed`);
         if (typeof callbacks?.error === 'function') callbacks.error();
       }
     });

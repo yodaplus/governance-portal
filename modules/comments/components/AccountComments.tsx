@@ -5,6 +5,7 @@ import Skeleton from 'modules/app/components/SkeletonThemed';
 import { CommentsAPIResponseItem } from '../types/comments';
 import { formatDateWithTime } from 'lib/datetime';
 import { InternalLink } from 'modules/app/components/InternalLink';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 export default function AccountComments({ address }: { address: string }): React.ReactElement {
   const { network } = useActiveWeb3React();
@@ -63,7 +64,10 @@ export default function AccountComments({ address }: { address: string }): React
               ></Text>
               <Box mt={1}>
                 {comment.comment.commentType === 'executive' && (
-                  <InternalLink href={`/executive/${comment.comment.spellAddress}`} title="View executive">
+                  <InternalLink
+                    href={`/executive/${ethToXinfinAddress(comment.comment.spellAddress)}`}
+                    title="View executive"
+                  >
                     <Text sx={{ color: 'accentBlue' }}>View Executive</Text>
                   </InternalLink>
                 )}

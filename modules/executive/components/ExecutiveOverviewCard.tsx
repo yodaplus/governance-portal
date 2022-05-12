@@ -18,6 +18,8 @@ import { ZERO_ADDRESS } from 'modules/web3/constants/addresses';
 import { StatBox } from 'modules/app/components/StatBox';
 import { useExecutiveComments } from 'modules/comments/hooks/useExecutiveComments';
 import CommentCount from 'modules/comments/components/CommentCount';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type Props = {
   proposal: Proposal;
@@ -48,7 +50,7 @@ export default function ExecutiveOverviewCard({
     return (
       <Card sx={{ p: [0, 0] }}>
         <Box sx={{ p: 3 }}>
-          <Text>spell address {proposal.address}</Text>
+          <Text>spell address {ethToXinfinAddress(proposal.address)}</Text>
         </Box>
       </Card>
     );
@@ -73,7 +75,10 @@ export default function ExecutiveOverviewCard({
         <Flex sx={{ justifyContent: 'space-between' }}>
           <Box>
             <Flex sx={{ flexDirection: 'column' }}>
-              <InternalLink href={`/executive/${proposal.key}`} title="View executive details">
+              <InternalLink
+                href={`/executive/${ethToXinfinAddress(proposal.key)}`}
+                title="View executive details"
+              >
                 <>
                   <CardHeader text={`posted ${formatDateWithoutTime(proposal.date)}`} />
                   <CardTitle title={proposal.title} styles={{ mt: 2 }} />
@@ -104,7 +109,11 @@ export default function ExecutiveOverviewCard({
         <Flex sx={{ flexDirection: 'column' }}>
           <Box sx={{ mt: 2, mb: 1 }}>
             {comments && comments.length > 0 && (
-              <InternalLink href={`/executive/${proposal.key}`} title="View Comments" hash="comments">
+              <InternalLink
+                href={`/executive/${ethToXinfinAddress(proposal.key)}`}
+                title="View Comments"
+                hash="comments"
+              >
                 <CommentCount count={comments.length} />
               </InternalLink>
             )}
@@ -124,7 +133,10 @@ export default function ExecutiveOverviewCard({
                 gap: [0, 3]
               }}
             >
-              <InternalLink href={`/executive/${proposal.key}`} title="View executive details">
+              <InternalLink
+                href={`/executive/${ethToXinfinAddress(proposal.key)}`}
+                title="View executive details"
+              >
                 <Button
                   variant="outline"
                   sx={{
@@ -178,7 +190,7 @@ export default function ExecutiveOverviewCard({
               ) : (
                 <StatBox
                   value={formatValue(BigNumber.from(proposal.spellData?.mkrSupport))}
-                  label="MKR Supporting"
+                  label={`${config.GOV_TOKEN} Supporting`}
                   styles={{ textAlign: 'right' }}
                 />
               )}

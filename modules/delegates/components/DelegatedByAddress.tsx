@@ -16,6 +16,8 @@ import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
 import { BigNumber as BigNumberJS } from 'bignumber.js';
 import AddressIconBox from 'modules/address/components/AddressIconBox';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type DelegatedByAddressProps = {
   delegators: DelegationHistory[];
@@ -51,7 +53,7 @@ const CollapsableRow = ({ delegator, network, bpi, totalDelegated }: Collapsable
       <Flex as="td" sx={{ flexDirection: 'column', mb: [0, 3], pt: ['10px', 0], mr: 2 }}>
         <Heading variant="microHeading">
           <InternalLink
-            href={`/address/${address}`}
+            href={`/address/${ethToXinfinAddress(address)}`}
             title="View address detail"
             styles={{ fontSize: [1, 3] }}
           >
@@ -79,7 +81,7 @@ const CollapsableRow = ({ delegator, network, bpi, totalDelegated }: Collapsable
       </Flex>
       <Box as="td" sx={{ verticalAlign: 'top', pt: 2 }}>
         <Text sx={{ fontSize: [1, 3] }}>
-          {`${formatValue(parseUnits(lockAmount))}${bpi > 0 ? ' MKR' : ''}`}
+          {`${formatValue(parseUnits(lockAmount))}${bpi > 0 ? ` ${config.GOV_TOKEN}` : ''}`}
         </Text>
         {expanded && (
           <Flex sx={{ flexDirection: 'column' }}>
@@ -101,7 +103,7 @@ const CollapsableRow = ({ delegator, network, bpi, totalDelegated }: Collapsable
                   <Text key={blockTimestamp} variant="smallCaps" sx={{ pl: 2 }}>
                     {`${formatValue(
                       parseUnits(lockAmount.indexOf('-') === 0 ? lockAmount.substring(1) : lockAmount)
-                    )}${bpi > 0 ? ' MKR' : ''}`}
+                    )}${bpi > 0 ? ` ${config.GOV_TOKEN}` : ''}`}
                   </Text>
                 </Flex>
               );
@@ -154,7 +156,7 @@ const CollapsableRow = ({ delegator, network, bpi, totalDelegated }: Collapsable
                 >
                   <ExternalLink
                     href={getEtherscanLink(network, hash as string, 'transaction')}
-                    title="View on Etherscan"
+                    title="View on block explorer"
                     styles={{
                       textAlign: 'right'
                     }}
@@ -189,7 +191,7 @@ const DelegatedByAddress = ({ delegators, totalDelegated }: DelegatedByAddressPr
           Delegators
         </Text>
         <Text as="p" variant="secondary" color="onSurface">
-          Addresses that have delegated MKR to this delegate
+          Addresses that have delegated {config.GOV_TOKEN} to this delegate
         </Text>
       </Box>
       <table
@@ -204,9 +206,11 @@ const DelegatedByAddress = ({ delegators, totalDelegated }: DelegatedByAddressPr
               Address
             </Text>
             <Text as="th" sx={{ textAlign: 'left', pb: 2, width: '30%' }} variant="caps">
-              {bpi < 1 ? 'MKR' : 'MKR Delegated'}
+              {bpi < 1 ? `${config.GOV_TOKEN}` : `${config.GOV_TOKEN} Delegated`}
             </Text>
-            <Tooltip label={'This is the percentage of the total MKR delegated to this delegate.'}>
+            <Tooltip
+              label={`This is the percentage of the total ${config.GOV_TOKEN} delegated to this delegate.`}
+            >
               <Text as="th" sx={{ textAlign: 'left', pb: 2, width: '20%' }} variant="caps">
                 {bpi < 1 ? 'Weight' : 'Voting Weight'}
               </Text>

@@ -86,10 +86,10 @@ export default function ReviewBox({
       <ExternalLink
         href={getEtherscanLink(network, (transaction as TXMined).hash, 'transaction')}
         styles={{ p: 0, mt: 3 }}
-        title="View on etherscan"
+        title="View on block explorer"
       >
         <Text as="p" sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-          View on Etherscan
+          View on block explorer
           <Icon name="arrowTopRight" pt={2} color="accentBlue" />
         </Text>
       </ExternalLink>
@@ -110,10 +110,10 @@ export default function ReviewBox({
       <ExternalLink
         href={getEtherscanLink(network, (transaction as TXMined).hash, 'transaction')}
         styles={{ p: 0 }}
-        title="View on etherscan"
+        title="View on block explorer"
       >
         <Text as="p" sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-          View on Etherscan
+          View on block explorer
           <Icon name="arrowTopRight" pt={2} color="accentBlue" />
         </Text>
       </ExternalLink>

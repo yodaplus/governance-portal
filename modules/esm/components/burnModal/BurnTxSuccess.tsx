@@ -4,6 +4,7 @@ import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { getEtherscanLink } from 'modules/web3/helpers/getEtherscanLink';
 import { TXMined } from 'modules/web3/types/transaction';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { config } from 'lib/config';
 
 const BurnTxSuccess = ({ tx, close }) => {
   const { network } = useActiveWeb3React();
@@ -17,7 +18,7 @@ const BurnTxSuccess = ({ tx, close }) => {
       />
 
       <Text variant="heading" sx={{ fontSize: 6 }}>
-        MKR successfully burned in ESM
+        {config.GOV_TOKEN} successfully burned in ESM
       </Text>
       <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
         <Text as="p" sx={{ color: 'onSecondary', fontWeight: 'medium', textAlign: 'center', mt: 2 }}>
@@ -28,10 +29,10 @@ const BurnTxSuccess = ({ tx, close }) => {
         <ExternalLink
           href={getEtherscanLink(network, (tx as TXMined).hash, 'transaction')}
           styles={{ p: 0 }}
-          title="View on etherscan"
+          title="View on block explorer"
         >
           <Text mt={3} px={4} sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-            View on Etherscan
+            View on block explorer
             <Icon name="arrowTopRight" pt={2} color="accentBlue" />
           </Text>
         </ExternalLink>

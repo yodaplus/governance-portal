@@ -2,7 +2,7 @@ import { SupportedChainId } from '../constants/chainID';
 import { SupportedNetworks } from '../constants/networks';
 
 export type Chain = {
-  etherscanPrefix: string;
+  blockExplorerUrl: string;
   chainId: SupportedChainId;
   label: string;
   network: SupportedNetworks;

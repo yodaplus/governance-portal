@@ -8,6 +8,7 @@ import { PollCommentsAPIResponseItemWithWeight } from '../types/comments';
 import CommentItem from './CommentItem';
 import { formatValue } from 'lib/string';
 import { parseUnits } from 'ethers/lib/utils';
+import { config } from 'lib/config';
 
 export default function PollCommentItem({
   comment,
@@ -57,7 +58,7 @@ export default function PollCommentItem({
         {comment.comment.voterWeight.gte(parseUnits('0.01'))
           ? formatValue(comment.comment.voterWeight)
           : '≈0.00'}{' '}
-        MKR
+        {config.GOV_TOKEN}
       </Text>
     );
   };

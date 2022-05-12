@@ -14,6 +14,8 @@ import { useContractAddress } from 'modules/web3/hooks/useContractAddress';
 import { getEtherscanLink } from 'modules/web3/helpers/getEtherscanLink';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { Tokens } from 'modules/web3/constants/tokens';
+import { disablePolls } from 'modules/features';
+import { config } from 'lib/config';
 
 type StatField =
   | 'chief contract'
@@ -61,10 +63,10 @@ export default function SystemStatsSidebar({
 
       return (
         <Flex key={key} sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>MKR in Chief</Text>
+          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>{config.GOV_TOKEN} in Chief</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {chiefBalance ? (
-              `${formatValue(chiefBalance)} MKR`
+              `${formatValue(chiefBalance)} ${config.GOV_TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -101,10 +103,10 @@ export default function SystemStatsSidebar({
 
       return (
         <Flex key={key} sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>MKR on Governing Proposal</Text>
+          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>{config.GOV_TOKEN} on Governing Proposal</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {mkrOnHat ? (
-              `${formatValue(mkrOnHat)} MKR`
+              `${formatValue(mkrOnHat)} ${config.GOV_TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -120,7 +122,7 @@ export default function SystemStatsSidebar({
 
       return (
         <Flex key={key} sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>Dai Savings Rate</Text>
+          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>{config.TOKEN} Savings Rate</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {daiSavingsRate ? (
               `${daiSavingsRate.toFixed(2)}%`
@@ -139,10 +141,10 @@ export default function SystemStatsSidebar({
 
       return (
         <Flex key={key} sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>Total Dai</Text>
+          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>Total {config.TOKEN}</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {totalDai ? (
-              `${formatValue(totalDai, 'rad')} DAI`
+              `${formatValue(totalDai, 'rad')} ${config.TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -158,10 +160,10 @@ export default function SystemStatsSidebar({
 
       return (
         <Flex key={key} sx={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>Dai Debt Ceiling</Text>
+          <Text sx={{ fontSize: 3, color: 'textSecondary' }}>{config.TOKEN} Debt Ceiling</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {debtCeiling ? (
-              `${formatValue(debtCeiling, 'rad')} DAI`
+              `${formatValue(debtCeiling, 'rad')} ${config.TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -180,7 +182,7 @@ export default function SystemStatsSidebar({
           <Text sx={{ fontSize: 3, color: 'textSecondary' }}>System Surplus</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {systemSurplus ? (
-              `${formatValue(systemSurplus, 'rad')} DAI`
+              `${formatValue(systemSurplus, 'rad')} {config.TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />
@@ -199,7 +201,7 @@ export default function SystemStatsSidebar({
           System Info
         </Heading>
         <ExternalLink
-          href="https://daistats.com/"
+          href="https://usxd-stats.yodaplus.net/"
           target="_blank"
           sx={{ color: 'accentBlue', fontSize: 3, ':hover': { color: 'blueLinkHover' } }}
         >
@@ -212,7 +214,11 @@ export default function SystemStatsSidebar({
         </ExternalLink>
       </Flex>
       <Card variant="compact">
-        <Stack gap={3}>{fields.map(field => statsMap[field](field))}</Stack>
+        <Stack gap={3}>
+          {fields
+            .filter(f => !disablePolls || !['polling contract'].includes(f))
+            .map(field => statsMap[field](field))}
+        </Stack>
       </Card>
     </Box>
   );

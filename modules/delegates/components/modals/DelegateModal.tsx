@@ -21,6 +21,7 @@ import { parseUnits } from 'ethers/lib/utils';
 import { Tokens } from 'modules/web3/constants/tokens';
 import { formatValue } from 'lib/string';
 import DelegateAvatarName from '../DelegateAvatarName';
+import { config } from 'lib/config';
 
 type Props = {
   isOpen: boolean;
@@ -102,9 +103,9 @@ export const DelegateModal = ({
                   setTxId={resetTx}
                   onDismiss={onClose}
                   title={`Delegating to ${delegate.name}`}
-                  description={`Congratulations, you delegated ${formatValue(mkrToDeposit)} MKR to ${
-                    delegate.name
-                  }.`}
+                  description={`Congratulations, you delegated ${formatValue(mkrToDeposit)} ${
+                    config.GOV_TOKEN
+                  } to ${delegate.name}.`}
                 >
                   <Box sx={{ textAlign: 'left', margin: '0 auto', p: 3 }}>
                     <DelegateAvatarName delegate={delegate} />
@@ -131,10 +132,10 @@ export const DelegateModal = ({
                     ) : (
                       <InputDelegateMkr
                         title={title}
-                        description="Input the amount of MKR to deposit into the delegate contract."
+                        description={`Input the amount of ${config.GOV_TOKEN} to deposit into the delegate contract.`}
                         onChange={setMkrToDeposit}
                         balance={mkrBalance}
-                        buttonLabel="Delegate MKR"
+                        buttonLabel={`Delegate ${config.GOV_TOKEN}`}
                         onClick={() => setConfirmStep(true)}
                         showAlert={true}
                       />
@@ -150,9 +151,7 @@ export const DelegateModal = ({
                       }
                       title={'Approve Delegate Contract'}
                       buttonLabel={'Approve Delegate Contract'}
-                      description={
-                        'Approve the transfer of MKR tokens to the delegate contract to deposit your MKR.'
-                      }
+                      description={`Approve the transfer of ${config.GOV_TOKEN} tokens to the delegate contract to deposit your ${config.GOV_TOKEN}.`}
                     />
                   )}
                 </>

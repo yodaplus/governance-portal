@@ -9,6 +9,7 @@ import { Poll } from '../types';
 import { Icon } from '@makerdao/dai-ui-icons';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import InternalIcon from 'modules/app/components/Icon';
+import { config } from 'lib/config';
 
 export default function PollVotedOption({
   poll,
@@ -49,7 +50,7 @@ export default function PollVotedOption({
             </Text>
             {votingWeight && (
               <Text color="onSecondary" sx={{ fontSize: 2 }}>
-                &nbsp;with {votingWeight ? `${formatValue(votingWeight)} MKR` : '--'}
+                &nbsp;with {votingWeight ? `${formatValue(votingWeight)} ${config.GOV_TOKEN}` : '--'}
               </Text>
             )}
           </Flex>
@@ -78,12 +79,12 @@ export default function PollVotedOption({
           <ThemeUILink
             href={getEtherscanLink(network, transactionHash as string, 'transaction')}
             target="_blank"
-            title="View on Etherscan"
+            title="View on block explorer"
             sx={{
               textAlign: ['left', 'right']
             }}
           >
-            <Text sx={{ fontSize: 1 }}>View on Etherscan</Text>
+            <Text sx={{ fontSize: 1 }}>View on block explorer</Text>
             <Icon name="arrowTopRight" size={2} ml={1} />
           </ThemeUILink>
         </Flex>

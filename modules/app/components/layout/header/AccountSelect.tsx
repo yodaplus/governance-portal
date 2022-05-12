@@ -26,6 +26,7 @@ import { ErrorBoundary } from '../../ErrorBoundary';
 import { useRouter } from 'next/router';
 import { InternalLink } from 'modules/app/components/InternalLink';
 import { getExecutiveVotingWeightCopy } from 'modules/polling/helpers/getExecutiveVotingWeightCopy';
+import { config } from 'lib/config';
 
 const walletButtonStyle: ThemeUICSSObject = {
   cursor: 'pointer',
@@ -356,7 +357,9 @@ const AccountSelect = (): React.ReactElement => {
                       </Flex>
                       <Flex>
                         <Text sx={{ fontSize: 5 }}>
-                          {votingWeight ? `${formatValue(votingWeight.chiefTotal)} MKR` : '--'}
+                          {votingWeight
+                            ? `${formatValue(votingWeight.chiefTotal)} ${config.GOV_TOKEN}`
+                            : '--'}
                         </Text>
                       </Flex>
                       <Flex sx={{ py: 1 }}>

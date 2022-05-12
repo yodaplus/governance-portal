@@ -19,6 +19,7 @@ import { MKRWeightTimeRanges } from '../delegates.constants';
 import { format } from 'date-fns';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { formatDelegationHistoryChart } from '../helpers/formatDelegationHistoryChart';
+import { config } from 'lib/config';
 
 export function DelegateMKRChart({ delegate }: { delegate: Delegate }): React.ReactElement {
   const { theme } = useThemeUI();
@@ -73,7 +74,9 @@ export function DelegateMKRChart({ delegate }: { delegate: Delegate }): React.Re
     return (
       <Box>
         {monthMKR && <Text as="p">{formatXAxis(monthMKR.date)}</Text>}
-        <Text as="p">MKR Weight: {new BigNumber(monthMKR?.MKR || 0).toFormat(2)}</Text>
+        <Text as="p">
+          {config.GOV_TOKEN} Weight: {new BigNumber(monthMKR?.MKR || 0).toFormat(2)}
+        </Text>
       </Box>
     );
   }
@@ -107,7 +110,7 @@ export function DelegateMKRChart({ delegate }: { delegate: Delegate }): React.Re
             Voting Weight
           </Text>
           <Text as="p" variant="secondary" color="onSurface">
-            MKR delegated over time
+            {config.GOV_TOKEN} delegated over time
           </Text>
         </Box>
         <Box>
@@ -155,7 +158,7 @@ export function DelegateMKRChart({ delegate }: { delegate: Delegate }): React.Re
             label={{
               fill: '#708390',
               position: 'bottomLeft',
-              value: 'MKR',
+              value: config.GOV_TOKEN,
               viewBox: { height: 10, width: 10, x: 20, y: 300 }
             }}
             tickMargin={5}
@@ -201,7 +204,7 @@ export function DelegateMKRChart({ delegate }: { delegate: Delegate }): React.Re
             }}
           />
           <Text variant="secondary" color="onSurface">
-            MKR delegated to this delegate
+            {config.GOV_TOKEN} delegated to this delegate
           </Text>
         </Box>
 

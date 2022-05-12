@@ -38,10 +38,10 @@ export default function BallotBox({ activePolls, network, polls }: Props): JSX.E
             <ExternalLink
               href={getEtherscanLink(network, transaction.hash, 'transaction')}
               styles={{ p: 0 }}
-              title="View on etherscan"
+              title="View on block explorer"
             >
               <Text mt={3} px={4} mb={4} sx={{ textAlign: 'center', fontSize: 14, color: 'accentBlue' }}>
-                View on Etherscan
+                View on block explorer
                 <Icon name="arrowTopRight" pt={2} color="accentBlue" />
               </Text>
             </ExternalLink>

@@ -10,6 +10,7 @@ import { useAccount } from 'modules/app/hooks/useAccount';
 import { useDelegateAddressMap } from 'modules/delegates/hooks/useDelegateAddressMap';
 import { useVoteProxyAddress } from 'modules/app/hooks/useVoteProxyAddress';
 import { limitString } from 'lib/string';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 type PropTypes = {
   address: string;
@@ -42,13 +43,14 @@ export default function AddressIconBox({
   const tooltipLabel = voteProxyInfo ? (
     <Box sx={{ p: 2 }}>
       <Text as="p">
-        <Text sx={{ fontWeight: 'bold' }}>Contract:</Text> {voteProxyInfo.voteProxyAddress}
+        <Text sx={{ fontWeight: 'bold' }}>Contract:</Text>{' '}
+        {ethToXinfinAddress(voteProxyInfo.voteProxyAddress)}
       </Text>
       <Text as="p">
-        <Text sx={{ fontWeight: 'bold' }}>Hot:</Text> {voteProxyInfo.hotAddress}
+        <Text sx={{ fontWeight: 'bold' }}>Hot:</Text> {ethToXinfinAddress(voteProxyInfo.hotAddress)}
       </Text>
       <Text as="p">
-        <Text sx={{ fontWeight: 'bold' }}>Cold:</Text> {voteProxyInfo.coldAddress}
+        <Text sx={{ fontWeight: 'bold' }}>Cold:</Text> {ethToXinfinAddress(voteProxyInfo.coldAddress)}
       </Text>
     </Box>
   ) : null;
@@ -80,7 +82,7 @@ export default function AddressIconBox({
             )}
             {showExternalLink && (
               <ExternalLink
-                title="View on etherscan"
+                title="View on block explorer"
                 href={getEtherscanLink(network, address, 'address')}
                 target="_blank"
               >

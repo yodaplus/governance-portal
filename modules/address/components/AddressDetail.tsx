@@ -15,6 +15,8 @@ import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import AccountComments from 'modules/comments/components/AccountComments';
 import Tabs from 'modules/app/components/Tabs';
+import { disablePolls, disableDelegates } from 'modules/features';
+import { config } from 'lib/config';
 
 type PropTypes = {
   address: string;
@@ -46,66 +48,73 @@ export function AddressDetail({ address }: PropTypes): React.ReactElement {
 
   const tabPanels = [
     <Box key="account-detail">
-      <Box sx={{ pl: [3, 4], pr: [3, 4], pt: [3, 4] }}>
-        <Text
-          as="p"
-          sx={{
-            fontSize: 4,
-            mb: 3,
-            fontWeight: 'semiBold'
-          }}
-        >
-          MKR Delegated by Address
-        </Text>
-        {!delegatedToData && (
-          <Box mb={3}>
-            <SkeletonThemed width={'300px'} height={'30px'} />
+      {!disableDelegates && (
+        <>
+          <Box sx={{ pl: [3, 4], pr: [3, 4], pt: [3, 4] }}>
+            <Text
+              as="p"
+              sx={{
+                fontSize: 4,
+                mb: 3,
+                fontWeight: 'semiBold'
+              }}
+            >
+              {config.GOV_TOKEN} Delegated by Address
+            </Text>
+            {!delegatedToData && (
+              <Box mb={3}>
+                <SkeletonThemed width={'300px'} height={'30px'} />
+              </Box>
+            )}
+            {delegatedToData && delegatedToData.delegatedTo.length > 0 && (
+              <AddressDelegatedTo
+                delegatedTo={delegatedToData?.delegatedTo}
+                totalDelegated={delegatedToData?.totalDelegated}
+              />
+            )}
+            {delegatedToData && delegatedToData.delegatedTo.length === 0 && (
+              <Box mb={3}>
+                <Text>No {config.GOV_TOKEN} delegated</Text>
+              </Box>
+            )}
           </Box>
-        )}
-        {delegatedToData && delegatedToData.delegatedTo.length > 0 && (
-          <AddressDelegatedTo
-            delegatedTo={delegatedToData?.delegatedTo}
-            totalDelegated={delegatedToData?.totalDelegated}
-          />
-        )}
-        {delegatedToData && delegatedToData.delegatedTo.length === 0 && (
-          <Box mb={3}>
-            <Text>No MKR delegated</Text>
-          </Box>
-        )}
-      </Box>
 
-      <Divider mt={1} mb={1} />
-
-      <Box sx={{ pl: [3, 4], pr: [3, 4], pt: [3, 4] }}>
-        <Text
-          as="p"
-          sx={{
-            fontSize: 4,
-            fontWeight: 'semiBold'
-          }}
-        >
-          Polling Proposals
-        </Text>
-        <Divider mt={3} />
-
-        {!statsData && (
-          <Box mb={3}>
-            <SkeletonThemed width={'300px'} height={'30px'} />
-          </Box>
-        )}
-      </Box>
-
-      {statsData && (
-        <ErrorBoundary componentName={'Poll Vote History'}>
-          <PollVoteHistoryList votes={statsData.pollVoteHistory} />
-        </ErrorBoundary>
+          <Divider mt={1} mb={1} />
+        </>
       )}
+      {!disablePolls && (
+        <>
+          <Box sx={{ pl: [3, 4], pr: [3, 4], pt: [3, 4] }}>
+            <Text
+              as="p"
+              sx={{
+                fontSize: 4,
+                fontWeight: 'semiBold'
+              }}
+            >
+              Polling Proposals
+            </Text>
+            <Divider mt={3} />
 
-      {statsData && (
-        <ErrorBoundary componentName={'Poll Participation Overview'}>
-          <PollingParticipationOverview votes={statsData.pollVoteHistory} />
-        </ErrorBoundary>
+            {!statsData && (
+              <Box mb={3}>
+                <SkeletonThemed width={'300px'} height={'30px'} />
+              </Box>
+            )}
+          </Box>
+
+          {statsData && (
+            <ErrorBoundary componentName={'Poll Vote History'}>
+              <PollVoteHistoryList votes={statsData.pollVoteHistory} />
+            </ErrorBoundary>
+          )}
+
+          {statsData && (
+            <ErrorBoundary componentName={'Poll Participation Overview'}>
+              <PollingParticipationOverview votes={statsData.pollVoteHistory} />
+            </ErrorBoundary>
+          )}
+        </>
       )}
     </Box>,
     <Box key="account-comments" sx={{ p: [3, 4] }}>
@@ -135,10 +144,11 @@ export function AddressDetail({ address }: PropTypes): React.ReactElement {
           />
         </Box>
       </Flex>
-
-      <Box sx={{ pl: [3, 4], pr: [3, 4], display: 'flex', flexDirection: 'column' }}>
-        <AddressMKRDelegatedStats totalMKRDelegated={delegatedToData?.totalDelegated} address={address} />
-      </Box>
+      {!disableDelegates && (
+        <Box sx={{ pl: [3, 4], pr: [3, 4], display: 'flex', flexDirection: 'column' }}>
+          <AddressMKRDelegatedStats totalMKRDelegated={delegatedToData?.totalDelegated} address={address} />
+        </Box>
+      )}
 
       <Tabs tabListStyles={{ pl: [3, 4] }} tabTitles={tabTitles} tabPanels={tabPanels}></Tabs>
     </Box>

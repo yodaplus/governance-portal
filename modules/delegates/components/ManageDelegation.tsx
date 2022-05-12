@@ -8,11 +8,12 @@ import { UndelegateModal } from './modals/UndelegateModal';
 import { useLockedMkr } from 'modules/mkr/hooks/useLockedMkr';
 import { useMkrDelegated } from 'modules/mkr/hooks/useMkrDelegated';
 import { useAccount } from 'modules/app/hooks/useAccount';
+import { config } from 'lib/config';
 
 export default function ManageDelegation({
   delegate,
-  textDelegate = 'Delegate your MKR to this Delegate',
-  textUndelegate = 'Undelegate your MKR from this Delegate'
+  textDelegate = `Delegate your ${config.GOV_TOKEN} to this Delegate`,
+  textUndelegate = `Undelegate your ${config.GOV_TOKEN} from this Delegate`
 }: {
   delegate: Delegate;
   textDelegate?: string;

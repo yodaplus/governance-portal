@@ -44,6 +44,7 @@ import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import { getPolls } from 'modules/polling/api/fetchPolls';
 import { InternalLink } from 'modules/app/components/InternalLink';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { config } from 'lib/config';
 
 const editMarkdown = content => {
   // hide the duplicate proposal title
@@ -222,7 +223,9 @@ const PollView = ({ poll }: { poll: Poll }) => {
                       <Flex sx={{ justifyContent: 'space-between', mb: 3, fontSize: [2, 3] }}>
                         <Text sx={{ color: 'textSecondary' }}>Total Votes</Text>
                         {tally ? (
-                          <Text>{new BigNumber(tally.totalMkrParticipation).toFormat(3)} MKR</Text>
+                          <Text>
+                            {new BigNumber(tally.totalMkrParticipation).toFormat(3)} {config.GOV_TOKEN}
+                          </Text>
                         ) : (
                           <Box sx={{ width: 4 }}>
                             <Skeleton />
@@ -322,8 +325,6 @@ const PollView = ({ poll }: { poll: Poll }) => {
               fields={['polling contract', 'savings rate', 'total dai', 'debt ceiling', 'system surplus']}
             />
           </ErrorBoundary>
-          <ResourceBox type={'polling'} />
-          <ResourceBox type={'general'} />
         </Stack>
       </SidebarLayout>
     </PrimaryLayout>

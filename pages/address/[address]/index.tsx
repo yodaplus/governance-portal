@@ -1,4 +1,4 @@
-import { Heading, Box, Flex, NavLink, Button } from 'theme-ui';
+import { Heading, Box, Flex, Button } from 'theme-ui';
 import { useBreakpointIndex } from '@theme-ui/match-media';
 import ErrorPage from 'next/error';
 import { Icon } from '@makerdao/dai-ui-icons';
@@ -9,7 +9,6 @@ import PrimaryLayout from 'modules/app/components/layout/layouts/Primary';
 import SidebarLayout from 'modules/app/components/layout/layouts/Sidebar';
 import Stack from 'modules/app/components/layout/layouts/Stack';
 import SystemStatsSidebar from 'modules/app/components/SystemStatsSidebar';
-import ResourceBox from 'modules/app/components/ResourceBox';
 import PageLoadingPlaceholder from 'modules/app/components/PageLoadingPlaceholder';
 import { useRouter } from 'next/router';
 import { AddressApiResponse } from 'modules/address/types/addressApiResponse';
@@ -21,6 +20,8 @@ import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import useSWR, { useSWRConfig } from 'swr';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import { InternalLink } from 'modules/app/components/InternalLink';
+import { ethToXinfinAddress, xinfinToEthAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 const AddressView = ({ addressInfo }: { addressInfo: AddressApiResponse }) => {
   const bpi = useBreakpointIndex({ defaultIndex: 2 });
@@ -36,8 +37,8 @@ const AddressView = ({ addressInfo }: { addressInfo: AddressApiResponse }) => {
           addressInfo.isDelegate ? `${addressInfo.delegateInfo?.name} Delegate` : 'Address'
         } Information`}
         description={`See all the voting activity of ${
-          addressInfo.delegateInfo?.name || addressInfo.address
-        } in Maker Governance. `}
+          addressInfo.delegateInfo?.name || ethToXinfinAddress(addressInfo.address)
+        } in ${config.TOKEN} Governance. `}
         image={addressInfo.delegateInfo?.picture}
       />
 
@@ -73,7 +74,7 @@ const AddressView = ({ addressInfo }: { addressInfo: AddressApiResponse }) => {
         </Stack>
         <Stack gap={3}>
           {addressInfo.isDelegate && addressInfo.delegateInfo && (
-            <ErrorBoundary componentName="Delegate MKR">
+            <ErrorBoundary componentName={`Delegate ${config.GOV_TOKEN}`}>
               <ManageDelegation delegate={addressInfo.delegateInfo} />
             </ErrorBoundary>
           )}
@@ -82,8 +83,6 @@ const AddressView = ({ addressInfo }: { addressInfo: AddressApiResponse }) => {
               fields={['polling contract', 'savings rate', 'total dai', 'debt ceiling', 'system surplus']}
             />
           </ErrorBoundary>
-          {addressInfo.isDelegate && <ResourceBox type={'delegates'} />}
-          <ResourceBox type={'general'} />
         </Stack>
       </SidebarLayout>
     </PrimaryLayout>
@@ -92,9 +91,11 @@ const AddressView = ({ addressInfo }: { addressInfo: AddressApiResponse }) => {
 
 export default function AddressPage(): JSX.Element {
   const router = useRouter();
-  const { address } = router.query;
+  const { address: addressQuery } = router.query;
   const { network } = useActiveWeb3React();
   const { cache } = useSWRConfig();
+
+  const address = xinfinToEthAddress(addressQuery);
 
   const dataKeyAccount = `/api/address/${address}?network=${network}`;
   const { data, error } = useSWR<AddressApiResponse>(address ? dataKeyAccount : null, fetchJson, {

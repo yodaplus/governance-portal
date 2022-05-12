@@ -12,6 +12,7 @@ import SkeletonThemed from 'modules/app/components/SkeletonThemed';
 import { AllLocksResponse, ForumPost } from '../types/participation';
 import DelegateAvatarNameLight from 'modules/delegates/components/DelegateAvatarNameLight';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 const ForumPosts = ({ posts, bpi }: { posts: ForumPost[]; bpi: number }) => {
   return (
@@ -135,13 +136,6 @@ export default function Participation({
           <Flex sx={{ flexDirection: 'column', flex: 1, gap: 3 }}>
             <Flex sx={{ justifyContent: 'space-between' }}>
               <Heading>Top Voters</Heading>
-              <ExternalLink
-                href="https://governance-metrics-dashboard.vercel.app/"
-                title="View More Metrics"
-                target="_blank"
-              >
-                <ViewMore label="View More Metrics" />
-              </ExternalLink>
             </Flex>
             <Card
               sx={{
@@ -166,7 +160,10 @@ export default function Participation({
                 >
                   <Flex sx={{ alignItems: 'center', gap: 2 }}>
                     <Text>{i + 1}</Text>
-                    <InternalLink href={`/address/${delegate.voteDelegateAddress}`} title="Profile details">
+                    <InternalLink
+                      href={`/address/${ethToXinfinAddress(delegate.voteDelegateAddress)}`}
+                      title="Profile details"
+                    >
                       <DelegateAvatarNameLight delegate={delegate} />
                     </InternalLink>
                   </Flex>

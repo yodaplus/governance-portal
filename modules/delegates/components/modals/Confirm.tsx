@@ -4,6 +4,8 @@ import { Delegate } from '../../types';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { BigNumber } from 'ethers';
 import { formatValue } from 'lib/string';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
+import { config } from 'lib/config';
 
 type Props = {
   mkrToDeposit: BigNumber;
@@ -23,8 +25,10 @@ export const ConfirmContent = ({ mkrToDeposit, delegate, onClick, onBack }: Prop
       </Text>
       <Text sx={{ mt: 4 }}>
         You are delegating{' '}
-        <Text sx={{ fontWeight: 'bold', display: 'inline' }}>{formatValue(mkrToDeposit)} MKR</Text> to
-        delegate contract{' '}
+        <Text sx={{ fontWeight: 'bold', display: 'inline' }}>
+          {formatValue(mkrToDeposit)} {config.GOV_TOKEN}
+        </Text>{' '}
+        to delegate contract{' '}
         <ExternalLink
           title="View on etherescan"
           href={getEtherscanLink(network, voteDelegateAddress, 'address')}
@@ -39,7 +43,7 @@ export const ConfirmContent = ({ mkrToDeposit, delegate, onClick, onBack }: Prop
               fontSize: [1, 2]
             }}
           >
-            {voteDelegateAddress}
+            {ethToXinfinAddress(voteDelegateAddress)}
           </Text>
         </ExternalLink>
       </Text>
@@ -59,7 +63,7 @@ export const ConfirmContent = ({ mkrToDeposit, delegate, onClick, onBack }: Prop
               fontSize: [1, 2]
             }}
           >
-            {address}
+            {ethToXinfinAddress(address)}
           </Text>
         </ExternalLink>
       </Text>

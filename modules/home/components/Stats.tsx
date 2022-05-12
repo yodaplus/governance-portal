@@ -7,7 +7,7 @@ type Props = {
     title: string;
     value: string | JSX.Element;
   }[];
-  viewMoreUrl: string;
+  viewMoreUrl?: string;
 };
 
 export const Stats = ({ title, infoUnits, viewMoreUrl }: Props): JSX.Element => {
@@ -17,9 +17,11 @@ export const Stats = ({ title, infoUnits, viewMoreUrl }: Props): JSX.Element => 
       <Box sx={{ display: ['none', 'block'] }}>
         <Flex sx={{ justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
           <Heading>{title}</Heading>
-          <ExternalLink href={viewMoreUrl} target="_blank">
-            <ViewMore />
-          </ExternalLink>
+          {viewMoreUrl && (
+            <ExternalLink href={viewMoreUrl} target="_blank">
+              <ViewMore />
+            </ExternalLink>
+          )}
         </Flex>
 
         <Flex sx={{ mx: 0, px: 5, pb: 3, backgroundColor: 'background', borderRadius: 'small' }}>
@@ -43,9 +45,11 @@ export const Stats = ({ title, infoUnits, viewMoreUrl }: Props): JSX.Element => 
         <Grid sx={{ p: 0 }}>
           <Flex sx={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
             <Heading>{title}</Heading>
-            <ExternalLink href={viewMoreUrl} target="_blank">
-              <ViewMore />
-            </ExternalLink>
+            {viewMoreUrl && (
+              <ExternalLink href={viewMoreUrl} target="_blank">
+                <ViewMore />
+              </ExternalLink>
+            )}
           </Flex>
 
           {infoUnits.map(unit => (

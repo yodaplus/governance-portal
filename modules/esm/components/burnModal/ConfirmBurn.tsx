@@ -20,6 +20,7 @@ import { useTokenAllowance } from 'modules/web3/hooks/useTokenAllowance';
 import { useContractAddress } from 'modules/web3/hooks/useContractAddress';
 import { useApproveUnlimitedToken } from 'modules/web3/hooks/useApproveUnlimitedToken';
 import { Tokens } from 'modules/web3/constants/tokens';
+import { config } from 'lib/config';
 
 const ConfirmBurnView = ({ passValue, value, setValue, burnAmount, totalStaked }) => {
   const bpi = useBreakpointIndex();
@@ -36,7 +37,9 @@ const ConfirmBurnView = ({ passValue, value, setValue, burnAmount, totalStaked }
         }}
       >
         <Text>Burn amount</Text>
-        <Text>{formatValue(burnAmount, 'wad', 6)} MKR</Text>
+        <Text>
+          {formatValue(burnAmount, 'wad', 6)} {config.GOV_TOKEN}
+        </Text>
       </Flex>
       <Divider />
       <Flex
@@ -49,7 +52,9 @@ const ConfirmBurnView = ({ passValue, value, setValue, burnAmount, totalStaked }
         }}
       >
         <Text>New ESM total</Text>
-        <Text>{formatValue(burnAmount.add(totalStaked), 'wad', 6)} MKR</Text>
+        <Text>
+          {formatValue(burnAmount.add(totalStaked), 'wad', 6)} {config.GOV_TOKEN}
+        </Text>
       </Flex>
       <Text
         variant="microHeading"
@@ -91,7 +96,7 @@ const ConfirmBurn = ({
   const bpi = useBreakpointIndex();
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [mkrApprovePending, setMkrApprovePending] = useState(false);
-  const passValue = `I am burning ${formatValue(burnAmount, 'wad', 6)} MKR`;
+  const passValue = `I am burning ${formatValue(burnAmount, 'wad', 6)} ${config.GOV_TOKEN}`;
   const [value, setValue] = useState('');
   const changeTerms = e => {
     setTermsAccepted(e.target.checked);
@@ -111,7 +116,7 @@ const ConfirmBurn = ({
       <Close onClick={() => setShowDialog(false)} sx={{ alignSelf: 'flex-end' }} />
       <Flex></Flex>
       <Text variant="heading" sx={{ textAlign: 'center' }}>
-        Burn your MKR in the ESM
+        Burn your {config.GOV_TOKEN} in the ESM
       </Text>
       {bpi < 1 ? (
         <ConfirmBurnView
@@ -150,7 +155,7 @@ const ConfirmBurn = ({
           disabled={mkrApprovePending}
         />
         <Flex ml={3}>
-          <Text>Unlock MKR to continue</Text>
+          <Text>Unlock {config.GOV_TOKEN} to continue</Text>
         </Flex>
       </Flex>
       <Flex sx={{ flexDirection: 'row', alignItems: 'center', mt: 3 }}>

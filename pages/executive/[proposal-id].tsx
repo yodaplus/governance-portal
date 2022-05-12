@@ -18,6 +18,7 @@ import { useAnalytics } from 'modules/app/client/analytics/useAnalytics';
 import { ANALYTICS_PAGES } from 'modules/app/client/analytics/analytics.constants';
 import { getEtherscanLink } from 'modules/web3/helpers/getEtherscanLink';
 import { isDefaultNetwork } from 'modules/web3/helpers/networks';
+import { ethToXinfinAddress, xinfinToEthAddress } from 'modules/web3/helpers/xinfin';
 
 //components
 import VoteModal from 'modules/executive/components/VoteModal/index';
@@ -44,6 +45,7 @@ import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import AddressIconBox from 'modules/address/components/AddressIconBox';
 import { DEFAULT_NETWORK } from 'modules/web3/constants/networks';
 import { fetchJson } from 'lib/fetchJson';
+import { config } from 'lib/config';
 
 type Props = {
   proposal: Proposal;
@@ -118,9 +120,9 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
   return (
     <PrimaryLayout sx={{ maxWidth: 'dashboard' }}>
       <HeadComponent
-        title={`Proposal ${proposal['title'] ? proposal['title'] : proposal.address}`}
+        title={`Proposal ${proposal['title'] ? proposal['title'] : ethToXinfinAddress(proposal.address)}`}
         description={`See the results of the MakerDAO executive proposal ${
-          proposal['title'] ? proposal['title'] : proposal.address
+          proposal['title'] ? proposal['title'] : ethToXinfinAddress(proposal.address)
         }.`}
       />
 
@@ -166,7 +168,7 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
           </InternalLink>
           <Card sx={{ p: [0, 0] }}>
             <Heading pt={[3, 4]} px={[3, 4]} pb="3" sx={{ fontSize: [5, 6] }}>
-              {proposal.title ? proposal.title : proposal.address}
+              {proposal.title ? proposal.title : ethToXinfinAddress(proposal.address)}
             </Heading>
             {isHat && proposal.address !== ZERO_ADDRESS ? (
               <Badge
@@ -190,7 +192,7 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
                     href={getEtherscanLink(network, proposal.address, 'address')}
                   >
                     <Text sx={{ fontSize: [2, 5] }}>
-                      {cutMiddle(proposal.address, bpi > 0 ? 6 : 4, bpi > 0 ? 6 : 4)}
+                      {ethToXinfinAddress(cutMiddle(proposal.address, bpi > 0 ? 6 : 4, bpi > 0 ? 6 : 4))}
                     </Text>
                   </ExternalLink>
                 }
@@ -198,7 +200,7 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
               />
               <StatBox
                 value={spellData && spellData.mkrSupport && formatValue(BigNumber.from(spellData.mkrSupport))}
-                label="MKR Support"
+                label={`${config.GOV_TOKEN} Support`}
               />
               <StatBox
                 value={
@@ -270,7 +272,7 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
               </Heading>
               <Card variant="compact">
                 <Text sx={{ fontSize: 5 }}>
-                  {proposal.title ? proposal.title : cutMiddle(proposal.address)}
+                  {proposal.title ? proposal.title : ethToXinfinAddress(cutMiddle(proposal.address))}
                 </Text>
                 <Button
                   variant="primaryLarge"
@@ -345,7 +347,7 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
                       >
                         <Box>
                           <InternalLink
-                            href={`/address/${supporter.address}`}
+                            href={`/address/${ethToXinfinAddress(supporter.address)}`}
                             title="Profile details"
                             styles={{ mt: 'auto' }}
                           >
@@ -367,7 +369,8 @@ const ProposalView = ({ proposal, spellDiffs }: Props): JSX.Element => {
 
                         <Box sx={{ textAlign: 'right' }}>
                           <Text color="onSecondary">
-                            {supporter.percent}% ({new BigNumberJS(supporter.deposits).toFormat(2)} MKR)
+                            {supporter.percent}% ({new BigNumberJS(supporter.deposits).toFormat(2)}{' '}
+                            {config.GOV_TOKEN})
                           </Text>
                         </Box>
                       </Flex>
@@ -447,7 +450,7 @@ export default function ProposalPage({
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // fetch proposal contents at build-time if on the default network
-  const proposalId = (params || {})['proposal-id'] as string;
+  const proposalId = xinfinToEthAddress((params || {})['proposal-id'] as string);
 
   const proposal: Proposal | null = await getExecutiveProposal(proposalId, DEFAULT_NETWORK.network);
 

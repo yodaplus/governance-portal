@@ -4,6 +4,7 @@ import { BigNumber } from 'ethers';
 
 import { MKRInput } from 'modules/mkr/components/MKRInput';
 import { formatValue } from 'lib/string';
+import { config } from 'lib/config';
 
 type Props = {
   setBurnAmount: (burnAmount: BigNumber) => void;
@@ -45,12 +46,12 @@ const MKRAmount = ({
   return (
     <Flex sx={{ flexDirection: 'column', alignItems: 'center' }}>
       <Close onClick={() => setShowDialog(false)} sx={{ alignSelf: 'flex-end' }} />
-      <Text variant="heading">Enter the amount of MKR to burn</Text>
+      <Text variant="heading">Enter the amount of {config.GOV_TOKEN} to burn</Text>
       <MKRAmountView setBurnAmount={setBurnAmount} burnAmount={burnAmount} mkrBalance={mkrBalance} />
       {lockedInChief ? (
         <Alert variant="notice">
-          You have {formatValue(lockedInChief)} MKR locked in DSChief. Withdraw MKR from DSChief to burn it in
-          the ESM.
+          You have {formatValue(lockedInChief)} {config.GOV_TOKEN} locked in DSChief. Withdraw{' '}
+          {config.GOV_TOKEN} from DSChief to burn it in the ESM.
         </Alert>
       ) : null}
       <Grid columns={[1, 2]} mt={4} sx={{ width: bpi < 1 ? '100%' : undefined }}>

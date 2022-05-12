@@ -3,6 +3,7 @@ import { Tooltip, XAxis, YAxis, ResponsiveContainer, Legend, AreaChart, Area } f
 import { format, sub } from 'date-fns';
 import { commify } from 'ethers/lib/utils';
 import { AllLocksResponse } from '../types/participation';
+import { config } from 'lib/config';
 
 const getPastMonths = (numMonths: number): string[] => {
   const pastMonths: string[] = [];
@@ -53,12 +54,16 @@ const ParticipationChart = ({
     return (
       <Box>
         {monthMKR && <Text as="p">{format(new Date(monthMKR.blockTimestamp), 'LLL yyyy')}</Text>}
-        {monthMKR && <Text as="p">{commify(parseInt(monthMKR.lockTotal).toFixed(0))} MKR</Text>}
+        {monthMKR && (
+          <Text as="p">
+            {commify(parseInt(monthMKR.lockTotal).toFixed(0))} {config.GOV_TOKEN}
+          </Text>
+        )}
       </Box>
     );
   };
 
-  const formatLegend = () => <span sx={{ color: 'onSurface' }}>MKR Locked in Chief</span>;
+  const formatLegend = () => <span sx={{ color: 'onSurface' }}>{config.GOV_TOKEN} Locked in Chief</span>;
 
   return (
     <ResponsiveContainer width={'100%'} minHeight={200}>
@@ -88,7 +93,7 @@ const ParticipationChart = ({
           label={{
             fill: get(theme, 'colors.onSurface'),
             position: 'bottom',
-            value: 'MKR',
+            value: config.GOV_TOKEN,
             offset: 9
           }}
           domain={['dataMin', 'dataMax']}

@@ -7,6 +7,7 @@ import { cutMiddle, limitString } from 'lib/string';
 import { Poll, PollTally } from 'modules/polling/types';
 import { getVoteColor } from 'modules/polling/helpers/getVoteColor';
 import { useDelegateAddressMap } from 'modules/delegates/hooks/useDelegateAddressMap';
+import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 
 type CircleProps = {
   poll: Poll;
@@ -84,7 +85,7 @@ export const CirclesSvg = ({ poll, tally, diameter }: CircleProps): JSX.Element 
       .text(function (d) {
         return delegateAddresses[d.data.voter]
           ? limitString(delegateAddresses[d.data.voter].name, 18, '...')
-          : cutMiddle(d.data.voter);
+          : ethToXinfinAddress(cutMiddle(d.data.voter));
       })
       .attr('font-size', function (d) {
         return d.r / 4.5;

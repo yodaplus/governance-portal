@@ -27,6 +27,7 @@ import { useAccount } from 'modules/app/hooks/useAccount';
 import { useActiveWeb3React } from 'modules/web3/hooks/useActiveWeb3React';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import { InternalLink } from 'modules/app/components/InternalLink';
+import { config } from 'lib/config';
 
 type Props = {
   delegates: Delegate[];
@@ -75,7 +76,7 @@ const Delegates = ({ delegates, stats }: Props) => {
     <PrimaryLayout sx={{ maxWidth: [null, null, null, 'page', 'dashboard'] }}>
       <HeadComponent
         title="Delegates"
-        description="Vote delegation allows for MKR holders to delegate their voting power to delegates, which increases the effectiveness and efficiency of the governance process."
+        description={`Vote delegation allows for ${config.GOV_TOKEN} holders to delegate their voting power to delegates, which increases the effectiveness and efficiency of the governance process.`}
         image={'https://vote.makerdao.com/seo/delegates.png'}
       />
       <Stack>
@@ -176,8 +177,6 @@ const Delegates = ({ delegates, stats }: Props) => {
                 <DelegatesSystemInfo stats={stats} />
               </ErrorBoundary>
             )}
-            <ResourceBox type={'delegates'} />
-            <ResourceBox type={'general'} />
           </Stack>
         </SidebarLayout>
       </Stack>

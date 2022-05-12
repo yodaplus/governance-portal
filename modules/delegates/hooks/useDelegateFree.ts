@@ -12,6 +12,7 @@ import { shallow } from 'zustand/shallow';
 import { BigNumber } from 'ethers';
 import { Transaction } from 'modules/web3/types/transaction';
 import { VoteDelegate } from '../../../types/ethers-contracts';
+import { config } from 'lib/config';
 
 type LockResponse = {
   txId: string | null;
@@ -34,16 +35,16 @@ export const useDelegateFree = (voteDelegateAddress: string): LockResponse => {
 
   const free = (mkrToWithdraw: BigNumber, callbacks?: Record<string, () => void>) => {
     const freeTxCreator = () => vdContract.free(mkrToWithdraw);
-    const txId = track(freeTxCreator, account, 'Withdrawing MKR', {
+    const txId = track(freeTxCreator, account, `Withdrawing ${config.GOV_TOKEN}`, {
       pending: () => {
         if (typeof callbacks?.pending === 'function') callbacks.pending();
       },
       mined: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR withdrawn');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} withdrawn`);
         if (typeof callbacks?.mined === 'function') callbacks.mined();
       },
       error: txId => {
-        transactionsApi.getState().setMessage(txId, 'MKR withdrawal failed');
+        transactionsApi.getState().setMessage(txId, `${config.GOV_TOKEN} withdrawal failed`);
         if (typeof callbacks?.error === 'function') callbacks.error();
       }
     });

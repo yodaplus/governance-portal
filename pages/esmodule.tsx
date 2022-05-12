@@ -21,6 +21,7 @@ import { useCageTime } from 'modules/esm/hooks/useCageTime';
 import { useLockedMkr } from 'modules/mkr/hooks/useLockedMkr';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import { ExternalLink } from 'modules/app/components/ExternalLink';
+import { config } from 'lib/config';
 
 const ESModule = (): React.ReactElement => {
   const loader = useRef<HTMLDivElement>(null);
@@ -53,7 +54,8 @@ const ESModule = (): React.ReactElement => {
           </Text>
           {thresholdAmount && (
             <Text color="#708390" sx={{ fontWeight: '400' }}>
-              &nbsp;of {thresholdAmount ? `${formatValue(thresholdAmount, 'wad', 0)} MKR` : '---'}
+              &nbsp;of{' '}
+              {thresholdAmount ? `${formatValue(thresholdAmount, 'wad', 0)} ${config.GOV_TOKEN}` : '---'}
             </Text>
           )}
         </Flex>
@@ -186,9 +188,9 @@ const ESModule = (): React.ReactElement => {
       </Box>
       <Box mt={2}>
         <Text variant="text" sx={{ color: 'onSecondary' }}>
-          The ESM allows MKR holders to shutdown the system without a central authority. Once{' '}
-          {thresholdAmount ? `${formatValue(thresholdAmount, 'wad', 0)}` : '---'} MKR are entered into the
-          ESM, emergency shutdown can be executed.{' '}
+          The ESM allows {config.GOV_TOKEN} holders to shutdown the system without a central authority. Once{' '}
+          {thresholdAmount ? `${formatValue(thresholdAmount, 'wad', 0)}` : '---'} {config.GOV_TOKEN} are
+          entered into the ESM, emergency shutdown can be executed.{' '}
           <ExternalLink
             href="https://docs.makerdao.com/smart-contract-modules/emergency-shutdown-module"
             title="View emergency shutdown docs"
@@ -198,7 +200,7 @@ const ESModule = (): React.ReactElement => {
         </Text>
       </Box>
       <Box sx={{ mt: 4 }}>
-        <Text variant="microHeading">Total MKR Burned</Text>
+        <Text variant="microHeading">Total {config.GOV_TOKEN} Burned</Text>
       </Box>
       <Card mt={3}>
         {bpi < 1 ? <MobileView /> : <DesktopView />}
@@ -223,7 +225,7 @@ const ESModule = (): React.ReactElement => {
               variant="outline"
               sx={{ color: 'onNotice', borderColor: 'notice', borderRadius: 'small' }}
             >
-              {esmThresholdMet ? 'Initiate Emergency Shutdown' : 'Burn Your MKR'}
+              {esmThresholdMet ? 'Initiate Emergency Shutdown' : `Burn Your ${config.GOV_TOKEN}`}
             </Button>
           ) : null}
           <Box p={2}>
@@ -235,7 +237,7 @@ const ESModule = (): React.ReactElement => {
                   in the ESM
                 </Box>
               ) : (
-                'You have no MKR in the ESM'
+                `You have no ${config.GOV_TOKEN} in the ESM`
               )}
             </Text>
           </Box>
