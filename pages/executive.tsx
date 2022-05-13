@@ -204,35 +204,6 @@ export const ExecutiveOverview = ({ proposals }: { proposals?: Proposal[] }): JS
               </Text>
               <Flex>
                 <WithdrawOldChief />
-                <ExternalLink
-                  href="https://forum.makerdao.com/t/dschief-v1-2-migration-steps/5412"
-                  title="View migration steps"
-                >
-                  <Button
-                    variant="outline"
-                    sx={{
-                      height: '26px',
-                      py: 0,
-                      px: 2,
-                      ml: 1,
-                      textTransform: 'uppercase',
-                      borderRadius: 'small',
-                      fontWeight: 'bold',
-                      fontSize: '10px',
-                      borderColor: 'accentBlue',
-                      color: 'accentBlue',
-                      ':hover': { color: 'blueLinkHover', borderColor: 'blueLinkHover' },
-                      ':hover svg': { color: 'blueLinkHover' }
-                    }}
-                    onClick={() => {
-                      trackButtonClick('chiefMigrationForumPostButton');
-                    }}
-                  >
-                    <Text>
-                      Forum Post <Icon name="arrowTopRight" size={2} ml={'1px'} color="accentBlue" />
-                    </Text>
-                  </Button>
-                </ExternalLink>
               </Flex>
             </Flex>
           </MigrationBadge>

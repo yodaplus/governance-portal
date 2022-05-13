@@ -187,14 +187,14 @@ const LandingPage = ({
               <Flex sx={{ flexDirection: ['column', 'column', 'row'], justifyContent: 'space-between' }}>
                 <Flex sx={{ p: 3, width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
-                    TOKEN Governance
+                    {config.TOKEN} Governance
                   </Heading>
                   <Heading as="h1" sx={{ color: 'text', fontSize: [7, 8] }}>
                     Voting Portal
                   </Heading>
                   <Text as="p" sx={{ fontWeight: 'semiBold', my: 3, width: ['100%', '100%', '80%'] }}>
-                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the
-                    Maker protocol
+                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the{' '}
+                    {config.TOKEN} protocol
                   </Text>
                 </Flex>
                 <Flex sx={{ py: 3, px: [1, 3], width: ['100%', '100%', '50%'], flexDirection: 'column' }}>
@@ -357,7 +357,7 @@ const LandingPageOnlyExecutive = ({
                     Voting Portal
                   </Heading>
                   <Text as="p" sx={{ fontWeight: 'semiBold', my: 3, width: ['100%', '100%', '80%'] }}>
-                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the
+                    Vote with or delegate your {config.GOV_TOKEN} tokens to help protect the integrity of the{' '}
                     {config.TOKEN} protocol
                   </Text>
                 </Flex>

@@ -17,12 +17,6 @@ import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 const ForumPosts = ({ posts, bpi }: { posts: ForumPost[]; bpi: number }) => {
   return (
     <Flex sx={{ flexDirection: 'column', gap: 3 }}>
-      <Flex sx={{ justifyContent: 'space-between' }}>
-        <Heading>Relevant Forum Posts</Heading>
-        <ExternalLink href="https://forum.makerdao.com/" title="View Forum Posts" target="_blank">
-          <ViewMore label="View Forum" />
-        </ExternalLink>
-      </Flex>
       <Flex sx={{ gap: 3, justifyContent: 'space-between', flexWrap: 'wrap' }}>
         {posts.map(({ title, image, summary, username, link }) => {
           return (
@@ -98,8 +92,6 @@ export default function Participation({
           </Text>
         </Stack>
       </Container>
-
-      <ForumPosts posts={forumPosts} bpi={bpi} />
 
       <Flex
         sx={{

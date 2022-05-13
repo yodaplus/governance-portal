@@ -76,21 +76,6 @@ export default function InformationParticipateMakerGovernance(): React.ReactElem
     <CirclesBackground activeColor={active.color} mobile={bpi <= 1}>
       <Box sx={{ mt: 3 }}>
         <Box sx={{ p: 3, height: '100%' }}>
-          <Flex sx={{ justifyContent: 'space-between', mb: 3, height: '100%', alignItems: 'center' }}>
-            <Box sx={{ mr: 2, flex: 1 }}>
-              <Heading as="h2">How to participate in Maker Governance</Heading>
-            </Box>
-            <Box>
-              <ExternalLink
-                href="https://manual.makerdao.com/"
-                title="Learn more"
-                styles={{ color: 'inherit', fontSize: [2, 3] }}
-              >
-                <ViewMore label="Learn More" />
-              </ExternalLink>
-            </Box>
-          </Flex>
-
           <Flex
             sx={{
               flexWrap: ['wrap', 'nowrap']

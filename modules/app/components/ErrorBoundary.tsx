@@ -26,17 +26,7 @@ export class ErrorBoundary extends React.Component<{ componentName: string }> {
       // You can render any custom fallback UI
       return (
         <Box sx={{ variant: 'cards.primary', p: 4 }}>
-          <Text>
-            There was a problem loading {this.componentName}. Please reload the application or contact our
-            team on{' '}
-            <ExternalLink
-              href="https://discord.gg/tQ5wnN6Ms4"
-              title="Discord"
-              styles={{ color: 'accentBlue' }}
-            >
-              <Text>Discord.</Text>
-            </ExternalLink>
-          </Text>
+          <Text>There was a problem loading {this.componentName}. Please reload the application.</Text>
         </Box>
       );
     }

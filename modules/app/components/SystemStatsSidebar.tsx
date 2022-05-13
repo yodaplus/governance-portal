@@ -182,7 +182,7 @@ export default function SystemStatsSidebar({
           <Text sx={{ fontSize: 3, color: 'textSecondary' }}>System Surplus</Text>
           <Text variant="h2" sx={{ fontSize: 3 }}>
             {systemSurplus ? (
-              `${formatValue(systemSurplus, 'rad')} {config.TOKEN}`
+              `${formatValue(systemSurplus, 'rad')} ${config.TOKEN}`
             ) : (
               <Box sx={{ width: 6 }}>
                 <Skeleton />

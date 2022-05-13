@@ -172,14 +172,7 @@ const ESModule = (): React.ReactElement => {
         >
           <Text data-testid="es-initiated" sx={{ textAlign: 'center' }}>
             Emergency shutdown has been initiated on {formatDateWithTime(cageTime.toNumber())}. This dashboard
-            is currently read-only. You can read more information about next steps{' '}
-            <ExternalLink
-              href="https://makerdao.world/en/learn/governance/emergency-shutdown"
-              title="Learn about emergency shutdown"
-            >
-              <Text>here</Text>
-            </ExternalLink>
-            .
+            is currently read-only.
           </Text>
         </Flex>
       )}
@@ -190,13 +183,7 @@ const ESModule = (): React.ReactElement => {
         <Text variant="text" sx={{ color: 'onSecondary' }}>
           The ESM allows {config.GOV_TOKEN} holders to shutdown the system without a central authority. Once{' '}
           {thresholdAmount ? `${formatValue(thresholdAmount, 'wad', 0)}` : '---'} {config.GOV_TOKEN} are
-          entered into the ESM, emergency shutdown can be executed.{' '}
-          <ExternalLink
-            href="https://docs.makerdao.com/smart-contract-modules/emergency-shutdown-module"
-            title="View emergency shutdown docs"
-          >
-            <Text>Read the documentation here.</Text>
-          </ExternalLink>
+          entered into the ESM, emergency shutdown can be executed.
         </Text>
       </Box>
       <Box sx={{ mt: 4 }}>

@@ -142,17 +142,6 @@ export function SpellEffectsTab({
                 The hash, the URL to the raw markdown text, and the correct hashing algorithm are all
                 registered on the blockchain in the spell smart contract.
               </Text>
-              <Box sx={{ mt: 3 }}>
-                <ExternalLink
-                  href="https://makerdao.world/en/learn/governance/audit-exec-spells"
-                  title="Learn more about auditing executive spells"
-                >
-                  <Text sx={{ color: 'accentBlue', ':hover': { color: 'blueLinkHover' } }}>
-                    Learn more about auditing Executive Spells
-                    <DaiUIIcon ml={2} name="arrowTopRight" size="2" />
-                  </Text>
-                </ExternalLink>
-              </Box>
             </Box>
           )}
         </Box>

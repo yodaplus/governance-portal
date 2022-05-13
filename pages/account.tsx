@@ -39,6 +39,7 @@ import SkeletonThemed from 'modules/app/components/SkeletonThemed';
 import { ErrorBoundary } from 'modules/app/components/ErrorBoundary';
 import { ethToXinfinAddress } from 'modules/web3/helpers/xinfin';
 import { config } from 'lib/config';
+import { disableDelegates } from 'modules/features';
 
 const AccountPage = (): React.ReactElement => {
   const bpi = useBreakpointIndex();
@@ -96,134 +97,126 @@ const AccountPage = (): React.ReactElement => {
             )}
             {errorLoadingAddressInfo && <Text>Error loading address information</Text>}
           </Box>
-          {!account ? (
-            <Text sx={{ color: 'textSecondary' }}>Connect a wallet to view account information</Text>
-          ) : (
-            <Box sx={{ mt: 4 }}>
-              <Box sx={{ my: 3 }}>
-                <Heading as="h3" variant="microHeading">
-                  Vote Delegation
-                </Heading>
-              </Box>
-              <Card>
-                {voteDelegateContractAddress && !modalOpen ? (
-                  <Box>
-                    <Text>Your delegate contract address:</Text>
-                    <ExternalLink
-                      title="View on etherescan"
-                      href={getEtherscanLink(network, voteDelegateContractAddress, 'address')}
-                      target="_blank"
-                    >
-                      <Text as="p" data-testid="vote-delegate-address">
-                        {bpi > 0
-                          ? ethToXinfinAddress(voteDelegateContractAddress)
-                          : ethToXinfinAddress(cutMiddle(voteDelegateContractAddress, 8, 8))}
-                      </Text>
-                    </ExternalLink>
-
-                    <ExternalLink
-                      title="How can I verify my delegate contract?"
-                      href={
-                        'https://dux.makerdao.network/Verifying-a-delegate-contract-on-Etherscan-df677c604ac94911ae071fedc6a98ed2'
-                      }
-                      target="_blank"
-                    >
-                      <Text as="p" sx={{ display: 'flex', mt: 2, alignItems: 'center' }}>
-                        How can I verify my delegate contract? <Icon name="arrowTopRight" size={2} ml={2} />
-                      </Text>
-                    </ExternalLink>
-                  </Box>
-                ) : (
-                  <Box>
-                    <Text as="p">No vote delegate contract detected</Text>
-                    {tx && (
-                      <DialogOverlay
-                        style={{ background: 'hsla(237.4%, 13.8%, 32.7%, 0.9)' }}
-                        isOpen={modalOpen}
-                        onDismiss={() => {
-                          setModalOpen(false);
-                          trackButtonClick('closeCreateDelegateModal');
-                        }}
+          {!disableDelegates &&
+            (!account ? (
+              <Text sx={{ color: 'textSecondary' }}>Connect a wallet to view account information</Text>
+            ) : (
+              <Box sx={{ mt: 4 }}>
+                <Box sx={{ my: 3 }}>
+                  <Heading as="h3" variant="microHeading">
+                    Vote Delegation
+                  </Heading>
+                </Box>
+                <Card>
+                  {voteDelegateContractAddress && !modalOpen ? (
+                    <Box>
+                      <Text>Your delegate contract address:</Text>
+                      <ExternalLink
+                        title="View on etherescan"
+                        href={getEtherscanLink(network, voteDelegateContractAddress, 'address')}
+                        target="_blank"
                       >
-                        <DialogContent
-                          aria-label="Delegate modal"
-                          sx={
-                            bpi === 0
-                              ? { variant: 'dialog.mobile', animation: `${slideUp} 350ms ease` }
-                              : {
-                                  variant: 'dialog.desktop',
-                                  animation: `${fadeIn} 350ms ease`,
-                                  width: '580px',
-                                  px: 5,
-                                  py: 4
-                                }
-                          }
+                        <Text as="p" data-testid="vote-delegate-address">
+                          {bpi > 0
+                            ? ethToXinfinAddress(voteDelegateContractAddress)
+                            : ethToXinfinAddress(cutMiddle(voteDelegateContractAddress, 8, 8))}
+                        </Text>
+                      </ExternalLink>
+                    </Box>
+                  ) : (
+                    <Box>
+                      <Text as="p">No vote delegate contract detected</Text>
+                      {tx && (
+                        <DialogOverlay
+                          style={{ background: 'hsla(237.4%, 13.8%, 32.7%, 0.9)' }}
+                          isOpen={modalOpen}
+                          onDismiss={() => {
+                            setModalOpen(false);
+                            trackButtonClick('closeCreateDelegateModal');
+                          }}
                         >
-                          <TxDisplay
-                            tx={tx}
-                            setTxId={setTxId}
-                            onDismiss={() => {
-                              setModalOpen(false);
-                              trackButtonClick('closeCreateDelegateModal');
-                            }}
-                          />
-                        </DialogContent>
-                      </DialogOverlay>
-                    )}
-                    <Alert variant="notice" sx={{ mt: 3, flexDirection: 'column', alignItems: 'flex-start' }}>
-                      Warning: You will be unable to vote with a vote proxy contract or your existing chief
-                      balance through the UI after creating a delegate contract. This functionality is only
-                      affected in the user interface and not at the contract level. Future updates will
-                      address this issue soon.
-                    </Alert>
-                    <Label
-                      sx={{ mt: 2, fontSize: 2, alignItems: 'center' }}
-                      data-testid="checkbox-create-delegate"
-                    >
-                      <Checkbox
-                        checked={warningRead}
-                        onChange={() => {
-                          setWarningRead(!warningRead);
-                          trackButtonClick('setWarningRead');
+                          <DialogContent
+                            aria-label="Delegate modal"
+                            sx={
+                              bpi === 0
+                                ? { variant: 'dialog.mobile', animation: `${slideUp} 350ms ease` }
+                                : {
+                                    variant: 'dialog.desktop',
+                                    animation: `${fadeIn} 350ms ease`,
+                                    width: '580px',
+                                    px: 5,
+                                    py: 4
+                                  }
+                            }
+                          >
+                            <TxDisplay
+                              tx={tx}
+                              setTxId={setTxId}
+                              onDismiss={() => {
+                                setModalOpen(false);
+                                trackButtonClick('closeCreateDelegateModal');
+                              }}
+                            />
+                          </DialogContent>
+                        </DialogOverlay>
+                      )}
+                      <Alert
+                        variant="notice"
+                        sx={{ mt: 3, flexDirection: 'column', alignItems: 'flex-start' }}
+                      >
+                        Warning: You will be unable to vote with a vote proxy contract or your existing chief
+                        balance through the UI after creating a delegate contract. This functionality is only
+                        affected in the user interface and not at the contract level. Future updates will
+                        address this issue soon.
+                      </Alert>
+                      <Label
+                        sx={{ mt: 2, fontSize: 2, alignItems: 'center' }}
+                        data-testid="checkbox-create-delegate"
+                      >
+                        <Checkbox
+                          checked={warningRead}
+                          onChange={() => {
+                            setWarningRead(!warningRead);
+                            trackButtonClick('setWarningRead');
+                          }}
+                        />{' '}
+                        I understand
+                      </Label>
+                      <Button
+                        disabled={!warningRead}
+                        onClick={() => {
+                          trackButtonClick('createDelegate');
+                          create({
+                            initialized: () => setModalOpen(true),
+                            mined: () => mutateAccount && mutateAccount()
+                          });
                         }}
-                      />{' '}
-                      I understand
-                    </Label>
-                    <Button
-                      disabled={!warningRead}
-                      onClick={() => {
-                        trackButtonClick('createDelegate');
-                        create({
-                          initialized: () => setModalOpen(true),
-                          mined: () => mutateAccount && mutateAccount()
-                        });
-                      }}
-                      sx={{ mt: 3, mb: 1 }}
-                      data-testid="create-button"
-                    >
-                      Create a delegate contract
-                    </Button>
-                  </Box>
-                )}
-                {chiefBalance?.gt(0) && (
-                  <Flex sx={{ alignItems: 'flex-start', flexDirection: 'column', mt: 5 }}>
-                    <Text as="p">
-                      You have a DSChief balance of{' '}
-                      <Text sx={{ fontWeight: 'bold' }}>
-                        {formatValue(chiefBalance, 'wad', 6)} {config.GOV_TOKEN}.
+                        sx={{ mt: 3, mb: 1 }}
+                        data-testid="create-button"
+                      >
+                        Create a delegate contract
+                      </Button>
+                    </Box>
+                  )}
+                  {chiefBalance?.gt(0) && (
+                    <Flex sx={{ alignItems: 'flex-start', flexDirection: 'column', mt: 5 }}>
+                      <Text as="p">
+                        You have a DSChief balance of{' '}
+                        <Text sx={{ fontWeight: 'bold' }}>
+                          {formatValue(chiefBalance, 'wad', 6)} {config.GOV_TOKEN}.
+                        </Text>
+                        <Text as="p" sx={{ my: 2 }}>
+                          {voteDelegateContractAddress
+                            ? `As a delegate you can only vote with your delegate contract through the portal. You can withdraw your ${config.GOV_TOKEN} and delegate it to yourself to vote with it.`
+                            : `If you become a delegate, you will only be able to vote through the portal as a delegate. In this case, it is recommended to withdraw your ${config.GOV_TOKEN} and delegate it to yourself or create the delegate contract from a different account.`}
+                        </Text>
                       </Text>
-                      <Text as="p" sx={{ my: 2 }}>
-                        {voteDelegateContractAddress
-                          ? `As a delegate you can only vote with your delegate contract through the portal. You can withdraw your ${config.GOV_TOKEN} and delegate it to yourself to vote with it.`
-                          : `If you become a delegate, you will only be able to vote through the portal as a delegate. In this case, it is recommended to withdraw your ${config.GOV_TOKEN} and delegate it to yourself or create the delegate contract from a different account.`}
-                      </Text>
-                    </Text>
-                    <Withdraw sx={{ mt: 3 }} />
-                  </Flex>
-                )}
-              </Card>
-            </Box>
-          )}
+                      <Withdraw sx={{ mt: 3 }} />
+                    </Flex>
+                  )}
+                </Card>
+              </Box>
+            ))}
         </Box>
         <Stack gap={3}>
           {addressInfo && addressInfo.delegateInfo && (
