@@ -23,7 +23,6 @@ cache
 cache
 
 cypress/screenshots/*
-types/ethers-contracts
 
 # debug
 npm-debug.log*
