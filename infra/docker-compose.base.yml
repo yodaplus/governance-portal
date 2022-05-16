@@ -5,6 +5,7 @@ volumes:
 
 services:
   db:
+    image: mongo:4.4.14
     volumes:
       - mongo-data:/data/db
     environment:
