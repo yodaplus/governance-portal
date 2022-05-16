@@ -55,14 +55,6 @@ const MyApp = ({ Component, pageProps }: AppProps): React.ReactElement => {
           <AccountProvider>
             <BallotProvider>
               <HeadComponent />
-              {process.env.NODE_ENV === 'production' && (
-                <Script
-                  data-goatcounter="https://dux-makerdao.goatcounter.com/count"
-                  async
-                  src="//gc.zgo.at/count.js"
-                  strategy="afterInteractive"
-                />
-              )}
               <CookiesProvider disabled={false}>
                 <AnalyticsProvider>
                   <SWRConfig
