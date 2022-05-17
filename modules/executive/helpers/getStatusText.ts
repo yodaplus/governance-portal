@@ -30,7 +30,7 @@ export const getStatusText = ({
 
   // check if scheduled or has been executed
   if (spellData.hasBeenScheduled || spellData.dateExecuted) {
-    if (typeof spellData.dateExecuted === 'string') {
+    if (spellData.dateExecuted !== undefined) {
       return `Passed on ${formatDateWithTime(spellData.datePassed)}. Executed on ${formatDateWithTime(
         spellData.dateExecuted
       )}.`;
