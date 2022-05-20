@@ -31,7 +31,8 @@
     "gql-generate": "graphql-codegen --config codegen.yml",
     "build-sdk": "eth-sdk --path modules/contracts && yarn contracts:compile:abi",
     "contracts:compile:abi": "typechain --target ethers-v5 \"./modules/contracts/ethers/**/*.json\"",
-    "docker": "docker compose   -f infra/docker-compose.base.yml   -f infra/docker-compose.build.yml -f infra/docker-compose.dev.yml  --project-name gov-portal   --project-directory ./"
+    "docker": "docker compose   -f infra/docker-compose.base.yml   -f infra/docker-compose.build.yml -f infra/docker-compose.dev.yml  --project-name gov-portal   --project-directory ./",
+    "ecs": "docker compose   -f infra/docker-compose.base.yml   -f infra/docker-compose.tags.yml -f infra/docker-compose.ecs.yml -f infra/docker-compose.ecs-staging.yml  --project-name gov-portal   --project-directory ./"
   },
   "dependencies": {
     "@ethersproject/experimental": "^5.5.0",

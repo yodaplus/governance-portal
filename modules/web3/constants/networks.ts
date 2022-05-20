@@ -40,7 +40,7 @@ export const CHAIN_INFO: ChainInfo = {
     label: 'Apothem',
     network: SupportedNetworks.APOTHEM,
     defaultRpc: NodeProviders.REMOTE,
-    spockUrl: process.env.NODE_ENV === 'development' ? STAGING_MAINNET_SPOCK_URL : MAINNET_SPOCK_URL,
+    spockUrl: 'https://gov-polling-db-apothem.yodaplus.net/v1',
     rpcs: {
       [NodeProviders.REMOTE]: 'https://rpc-apothem.xinfin.yodaplus.net'
     }

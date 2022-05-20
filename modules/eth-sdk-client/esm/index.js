@@ -35,7 +35,7 @@ export function getApothemSdk(defaultSigner) {
       apothemPauseProxyAbi,
       defaultSigner
     ),
-    polling: getContract('0xdbE5d00b2D8C13a77Fb03Ee50C87317dbC1B15fb', apothemPollingAbi, defaultSigner),
+    polling: getContract('0x5EB446De6b83417662f1D4c0c34a687461A487A1', apothemPollingAbi, defaultSigner),
     pot: getContract('0xA6Abe99c0BEA553b0a01fAA120B8d3077AD3b389', apothemPotAbi, defaultSigner),
     vat: getContract('0x9a786475F517a43d1136c44453be367A39115c5C', apothemVatAbi, defaultSigner),
     voteDelegateFactory: getContract(
