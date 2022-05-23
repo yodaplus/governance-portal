@@ -19,7 +19,7 @@ export default function ActivePollsBox({
   polls: Poll[];
   activePolls: Poll[];
   voted?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }): React.ReactElement {
   return (
     <ReviewBoxCard {...props}>

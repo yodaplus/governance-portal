@@ -197,17 +197,9 @@ const PollingReview = ({ polls }: { polls: Poll[] }) => {
                     {hasVoted && (
                       <Box>
                         <Heading mb={2} variant="microHeading" sx={{ lineHeight: '33px' }}>
-                          Share all your votes
+                          Your votes
                         </Heading>
-                        <ActivePollsBox polls={polls} activePolls={activePolls} voted>
-                          <Box p={3}>
-                            <Button sx={{ width: '100%' }} onClick={() => toggleShareModal()}>
-                              <Flex sx={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <InternalIcon name="forum" size={18} /> <Text ml={1}>Share all votes</Text>
-                              </Flex>
-                            </Button>
-                          </Box>
-                        </ActivePollsBox>
+                        <ActivePollsBox polls={polls} activePolls={activePolls} voted />
                       </Box>
                     )}
                   </Box>
@@ -278,18 +270,7 @@ const PollingReview = ({ polls }: { polls: Poll[] }) => {
                     })}
                   </Stack>
                 )}
-                {bpi <= 2 && (
-                  <Box>
-                    {!hasVoted && <SubmitButton />}
-                    {hasVoted && (
-                      <Button sx={{ width: '100%' }} onClick={() => toggleShareModal()}>
-                        <Flex sx={{ alignItems: 'center', justifyContent: 'center' }}>
-                          <InternalIcon name="forum" size={18} /> <Text ml={1}>Share all votes</Text>
-                        </Flex>
-                      </Button>
-                    )}
-                  </Box>
-                )}
+                {bpi <= 2 && <Box>{!hasVoted && <SubmitButton />}</Box>}
                 {!account && (
                   <Box pt="3">
                     <Text>Connect your wallet to review your ballot</Text>
@@ -312,17 +293,9 @@ const PollingReview = ({ polls }: { polls: Poll[] }) => {
               {hasVoted && (
                 <Box>
                   <Heading mb={2} variant="microHeading" sx={{ lineHeight: '33px' }}>
-                    Share all your votes
+                    Your votes
                   </Heading>
-                  <ActivePollsBox polls={polls} activePolls={activePolls} voted>
-                    <Box p={3}>
-                      <Button sx={{ width: '100%' }} onClick={() => toggleShareModal()}>
-                        <Flex sx={{ alignItems: 'center', justifyContent: 'center' }}>
-                          <InternalIcon name="forum" size={18} /> <Text ml={1}>Share all votes</Text>
-                        </Flex>
-                      </Button>
-                    </Box>
-                  </ActivePollsBox>
+                  <ActivePollsBox polls={polls} activePolls={activePolls} voted />
                 </Box>
               )}
             </Box>

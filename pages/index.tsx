@@ -306,12 +306,13 @@ const LandingPage = ({
   );
 };
 
-const LandingPageOnlyExecutive = ({
+const LandingPageExecsAndPolls = ({
   proposals,
+  polls,
   mkrOnHat,
   hat,
   mkrInChief
-}: Pick<Props, 'proposals' | 'mkrOnHat' | 'hat' | 'mkrInChief'>) => {
+}: Pick<Props, 'proposals' | 'polls' | 'mkrOnHat' | 'hat' | 'mkrInChief'>) => {
   const [videoOpen, setVideoOpen] = useState(false);
   const [mode] = useColorMode();
   const [backgroundImage, setBackroundImage] = useState('url(/assets/bg_medium.jpeg)');
@@ -393,7 +394,7 @@ const LandingPageOnlyExecutive = ({
             <section>
               <ErrorBoundary componentName="Governance Stats">
                 <GovernanceStats
-                  polls={[]}
+                  polls={polls}
                   delegates={[]}
                   totalMKRDelegated={'0'}
                   mkrOnHat={mkrOnHat}
@@ -474,7 +475,7 @@ export default function Index({
   }
 
   return landingExecutivesOnly ? (
-    <LandingPageOnlyExecutive
+    <LandingPageExecsAndPolls
       proposals={
         isDefaultNetwork(network)
           ? prefetchedProposals
@@ -482,6 +483,7 @@ export default function Index({
           ? proposalsData.filter(p => p.active)
           : []
       }
+      polls={isDefaultNetwork(network) ? prefetchedPolls : pollsData ? pollsData.polls : []}
       mkrOnHat={isDefaultNetwork(network) ? prefetchedMkrOnHat : mkrOnHat ? formatValue(mkrOnHat) : undefined}
       hat={isDefaultNetwork(network) ? prefetchedHat : hat ? hat : undefined}
       mkrInChief={
