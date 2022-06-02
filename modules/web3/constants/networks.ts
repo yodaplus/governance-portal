@@ -12,9 +12,9 @@ import {
 } from 'modules/gql/gql.constants';
 
 export enum SupportedConnectors {
-  XDC_PAY = 'XDCPay'
+  XDC_PAY = 'XDCPay',
   // METAMASK = 'metamask',
-  // WALLET_CONNECT = 'walletConnect',
+  WALLET_CONNECT = 'walletConnect'
   // COINBASE_WALLET = 'coinbaseWallet'
   // LEDGER = 'ledger',
   // TREZOR = 'trezor'
@@ -39,6 +39,17 @@ export const CHAIN_INFO: ChainInfo = {
     chainId: SupportedChainId.APOTHEM,
     label: 'Apothem',
     network: SupportedNetworks.APOTHEM,
+    defaultRpc: NodeProviders.REMOTE,
+    spockUrl: 'https://gov-polling-db-apothem.yodaplus.net/v1',
+    rpcs: {
+      [NodeProviders.REMOTE]: 'https://rpc-apothem.xinfin.yodaplus.net'
+    }
+  },
+  [SupportedChainId.MAINNET]: {
+    blockExplorerUrl: 'https://xdc.blocksscan.io',
+    chainId: SupportedChainId.MAINNET,
+    label: 'Xinfin Mainnet',
+    network: SupportedNetworks.MAINNET,
     defaultRpc: NodeProviders.REMOTE,
     spockUrl: 'https://gov-polling-db-apothem.yodaplus.net/v1',
     rpcs: {
