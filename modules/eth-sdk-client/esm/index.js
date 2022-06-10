@@ -17,7 +17,41 @@ export function getContract(address, abi, defaultSigner) {
   return new Contract(address, abi, defaultSigner);
 }
 export function getMainnetSdk(defaultSigner) {
-  return getApothemSdk(defaultSigner);
+  return {
+    chief: getContract('0xD78F0d4B884C7D3Ba644A1b249CE913E1AD895D3', apothemChiefAbi, defaultSigner),
+    chiefOld: getContract('0xD78F0d4B884C7D3Ba644A1b249CE913E1AD895D3', apothemChiefAbi, defaultSigner),
+    dai: getContract('0x1F514bd7461Bfa23C83822f76cE671D194D83Ad5', apothemDaiAbi, defaultSigner),
+    end: getContract('0xEFB2608CbaFa800d9949b9B18ca3332042CBA0f3', apothemEndAbi, defaultSigner),
+    esm: getContract('0x68199D8330b4Fba1B4C2e0638760DBdD0C46fa6C', apothemEsmAbi, defaultSigner),
+    iou: getContract('0x33Eb18f8A03595a7EE5a046d7ADEd2462F6DB060', apothemIouAbi, defaultSigner),
+    iouOld: getContract('0x33Eb18f8A03595a7EE5a046d7ADEd2462F6DB060', apothemIouAbi, defaultSigner),
+    mkr: getContract('0xBE83B14835daD188c713e1F2A300bf46fd1bcEBE', apothemMkrAbi, defaultSigner),
+    pause: getContract('0x6Fdc432154FE3c3a63EBeF4BC4d0E38873E9ae73', apothemPauseAbi, defaultSigner),
+    pauseProxy: getContract(
+      '0x7383b4755FFEf229C78d4C6a95de1e0776C4a526',
+      apothemPauseProxyAbi,
+      defaultSigner
+    ),
+    polling: getContract('0x908aF4d1E7CA522aeee927F66ec5c87E84c351C5', apothemPollingAbi, defaultSigner),
+    pot: getContract('0xE34E651e5BDc25118d335d9f307b4B40905772Bd', apothemPotAbi, defaultSigner),
+    vat: getContract('0xADD756B7a1384c48339Fe0f951405Ce03a3C9889', apothemVatAbi, defaultSigner),
+    voteDelegateFactory: getContract(
+      '0xB55Bf3aDC61511923a1A88D345e01b293e1DC4f6',
+      apothemVoteDelegateFactoryAbi,
+      defaultSigner
+    ),
+    voteProxyFactory: getContract(
+      '0xDed66a1a53eaAf3AAec1D7F53028e84de45Af773',
+      apothemVoteProxyFactoryAbi,
+      defaultSigner
+    ),
+    voteProxyFactoryOld: getContract(
+      '0xDed66a1a53eaAf3AAec1D7F53028e84de45Af773',
+      apothemVoteProxyFactoryAbi,
+      defaultSigner
+    ),
+    vow: getContract('0x8Ef0FAA9b039F8c4aB9d60705263c2B5AE483ceA', apothemVowAbi, defaultSigner)
+  };
 }
 export function getApothemSdk(defaultSigner) {
   return {

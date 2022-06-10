@@ -12,10 +12,12 @@ export type EthSdk = Sdk;
 
 type Sdks = {
   apothem: (signer: Signer) => Sdk;
+  'xinfin-mainnet': (signer: Signer) => Sdk;
 };
 
 const sdks: Sdks = {
-  apothem: getApothemSdk
+  apothem: getApothemSdk,
+  'xinfin-mainnet': getMainnetSdk
 };
 
 // this name doesn't feel right, maybe getSdk? or getContractLibrary?
