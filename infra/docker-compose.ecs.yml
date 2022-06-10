@@ -2,6 +2,12 @@ version: '3.8'
 
 x-aws-cloudformation:
   Resources:
+    DbService:
+      Properties:
+        DeploymentConfiguration:
+          MaximumPercent: 100
+          MinimumHealthyPercent: 0
+
     NginxTCP80TargetGroup:
       Properties:
         HealthCheckPath: /
