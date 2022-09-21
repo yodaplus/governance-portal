@@ -55,38 +55,38 @@ export function getMainnetSdk(defaultSigner) {
 }
 export function getApothemSdk(defaultSigner) {
   return {
-    chief: getContract('0x4796dC3110bc1db8064910485b6c21451ff8f285', apothemChiefAbi, defaultSigner),
-    chiefOld: getContract('0x4796dC3110bc1db8064910485b6c21451ff8f285', apothemChiefAbi, defaultSigner),
-    dai: getContract('0xDDddBBe40f40e8F6084C42a6cAA002877aD21906', apothemDaiAbi, defaultSigner),
-    end: getContract('0x4bFd6F581CF190a98FD4D27cA2241E7fE2a13542', apothemEndAbi, defaultSigner),
-    esm: getContract('0xC486Fd2F80Dbe562C66Cee3A4D5a745Db7D3807d', apothemEsmAbi, defaultSigner),
-    iou: getContract('0x7DA1B7180B80b64db494cC481729EfF7e8492B09', apothemIouAbi, defaultSigner),
-    iouOld: getContract('0x7DA1B7180B80b64db494cC481729EfF7e8492B09', apothemIouAbi, defaultSigner),
-    mkr: getContract('0xB643d716608ba491dC50D4fc414B1530b2aE32E4', apothemMkrAbi, defaultSigner),
-    pause: getContract('0x148B7015B7eeAc50D6124E4e56dCC36B4dE1C5f1', apothemPauseAbi, defaultSigner),
+    chief: getContract('0x8843EEF577e2F3eC582044da45770e4542217e72', apothemChiefAbi, defaultSigner),
+    chiefOld: getContract('0x8843EEF577e2F3eC582044da45770e4542217e72', apothemChiefAbi, defaultSigner),
+    dai: getContract('0x15a9FC698F5254e3e7A24F6E87b5761CF44e6D38', apothemDaiAbi, defaultSigner),
+    end: getContract('0xFa160D11083DA71E624dA529fFE37b8f2F628800', apothemEndAbi, defaultSigner),
+    esm: getContract('0x42f78252dC5cE3de214Ca99158143729e7fc0740', apothemEsmAbi, defaultSigner),
+    iou: getContract('0x35298768b79bd646a202965123d964Be9334A3bE', apothemIouAbi, defaultSigner),
+    iouOld: getContract('0x35298768b79bd646a202965123d964Be9334A3bE', apothemIouAbi, defaultSigner),
+    mkr: getContract('0x9dC974ecc7044884DbB2C267bE29DE01bD423a36', apothemMkrAbi, defaultSigner),
+    pause: getContract('0x7e8dB3D97cd22Eb584B0bc8Ee13070fdA89FD511', apothemPauseAbi, defaultSigner),
     pauseProxy: getContract(
-      '0xCa0cFcf3066Fb463517a4819408FE9167F69fbDE',
+      '0xD8B916dC6E7ddE2b2D650a694fc796AB2b6D2c87',
       apothemPauseProxyAbi,
       defaultSigner
     ),
-    polling: getContract('0x5EB446De6b83417662f1D4c0c34a687461A487A1', apothemPollingAbi, defaultSigner),
-    pot: getContract('0xA6Abe99c0BEA553b0a01fAA120B8d3077AD3b389', apothemPotAbi, defaultSigner),
-    vat: getContract('0x9a786475F517a43d1136c44453be367A39115c5C', apothemVatAbi, defaultSigner),
+    polling: getContract('0xdf8e6837f0534c08111c0a4136b85658678e118f', apothemPollingAbi, defaultSigner),
+    pot: getContract('0xa5E36b2fE96216e810cDDeB9aCFC1Bf5B054a5BB', apothemPotAbi, defaultSigner),
+    vat: getContract('0xb57CD7aD9334306218CcF04Ae89fCA3A39552c9D', apothemVatAbi, defaultSigner),
     voteDelegateFactory: getContract(
-      '0x40eA527Bd8b57a178B9F432279bc3b06C730BEb9',
+      '0x0aC21B3191629Da71CB37edFbaB0B39A2A01A5E3',
       apothemVoteDelegateFactoryAbi,
       defaultSigner
     ),
     voteProxyFactory: getContract(
-      '0xfC9D474Cf20188ED02BBE01e6374Cd0F2955E386',
+      '0xC54D9F2AEa9D68BE017C66bbD442998A309B2256',
       apothemVoteProxyFactoryAbi,
       defaultSigner
     ),
     voteProxyFactoryOld: getContract(
-      '0xfC9D474Cf20188ED02BBE01e6374Cd0F2955E386',
+      '0xC54D9F2AEa9D68BE017C66bbD442998A309B2256',
       apothemVoteProxyFactoryAbi,
       defaultSigner
     ),
-    vow: getContract('0xe19EF6b36824dAbC814dfA0086424c1f1e01EFA6', apothemVowAbi, defaultSigner)
+    vow: getContract('0x7687Ec6e0000423E8a569e4cE6895F67f8235965', apothemVowAbi, defaultSigner)
   };
 }
