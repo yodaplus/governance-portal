@@ -2,7 +2,7 @@ import { SupportedNetworks } from '../constants/networks';
 import { getDefaultProvider } from './getDefaultProvider';
 
 export async function getENS(address: string): Promise<string | null> {
-  const provider = getDefaultProvider(SupportedNetworks.MAINNET);
+  const provider = getDefaultProvider(SupportedNetworks.APOTHEM);
 
   try {
     const name = await provider.lookupAddress(address);
@@ -14,7 +14,7 @@ export async function getENS(address: string): Promise<string | null> {
 }
 
 export async function resolveENS(ensName: string): Promise<string | null> {
-  const provider = getDefaultProvider(SupportedNetworks.MAINNET);
+  const provider = getDefaultProvider(SupportedNetworks.APOTHEM);
 
   try {
     const address = await provider.resolveName(ensName);

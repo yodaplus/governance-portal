@@ -539,7 +539,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const [proposals, pollsData, delegatesResponse, { hat, mkrOnHat }, mkrInChief] = await Promise.all([
     getExecutiveProposals(0, 3, 'active'),
     getPolls(),
-    fetchDelegates(SupportedNetworks.MAINNET, 'mkr'),
+    fetchDelegates(SupportedNetworks.APOTHEM, 'mkr'),
     fetchMkrOnHat(),
     fetchMkrInChief()
   ]);

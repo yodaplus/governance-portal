@@ -19,6 +19,6 @@ export function getDelegatesRepositoryInformation(network: SupportedNetworks): R
     page: 'delegates'
   };
 
-  const delegatesRepositoryInfo = network === SupportedNetworks.MAINNET ? repoMainnet : repoTest;
+  const delegatesRepositoryInfo = network === SupportedNetworks.APOTHEM ? repoMainnet : repoTest;
   return delegatesRepositoryInfo;
 }

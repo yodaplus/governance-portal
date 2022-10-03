@@ -57,7 +57,7 @@ async function getUniswapV3Mkr(mkrAddress: string) {
 }
 
 async function getCompoundMkr(network) {
-  if (network !== SupportedNetworks.MAINNET) return BigNumber.from(0);
+  if (network !== SupportedNetworks.APOTHEM) return BigNumber.from(0);
 
   const resp = await fetch('https://api.compound.finance/api/v2/ctoken');
   const json = await resp.json();

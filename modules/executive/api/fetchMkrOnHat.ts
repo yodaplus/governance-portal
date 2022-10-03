@@ -10,7 +10,7 @@ type MkrOnHatResponse = {
 };
 
 export async function fetchMkrOnHat(network?: SupportedNetworks): Promise<MkrOnHatResponse> {
-  const chainId = network ? networkNameToChainId(network) : networkNameToChainId(SupportedNetworks.MAINNET);
+  const chainId = network ? networkNameToChainId(network) : networkNameToChainId(SupportedNetworks.APOTHEM);
   const contracts = getContracts(chainId, undefined, undefined, true);
   const hat = await contracts.chief.hat();
   const mkrOnHat = await getChiefApprovals(hat, network);

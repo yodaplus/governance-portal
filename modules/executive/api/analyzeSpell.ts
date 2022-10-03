@@ -25,7 +25,7 @@ export const getExecutiveMKRSupport = async (
 export const analyzeSpell = async (address: string, network: SupportedNetworks): Promise<SpellData> => {
   const spellContract = getSpellContract(address, network);
   // don't fetch spell data if not on mainnet
-  if (network !== SupportedNetworks.MAINNET) {
+  if (network !== SupportedNetworks.APOTHEM) {
     const approvals = await getChiefApprovals(address, network);
 
     return {

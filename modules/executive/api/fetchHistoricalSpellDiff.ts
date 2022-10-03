@@ -11,7 +11,7 @@ export async function fetchHistoricalSpellDiff(proposalAddress?: string): Promis
   if (!proposalAddress) return [];
 
   // Need to find the tx of the cast spell
-  const provider = new ethers.providers.EtherscanProvider(SupportedNetworks.MAINNET, config.ETHERSCAN_KEY);
+  const provider = new ethers.providers.EtherscanProvider(SupportedNetworks.APOTHEM, config.ETHERSCAN_KEY);
   const history = await provider.getHistory(proposalAddress);
   const castTx = history.filter(h => h.data === SIGNATURE_CAST);
 

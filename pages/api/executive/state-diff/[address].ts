@@ -14,7 +14,7 @@ export default withApiHandler(async (req: NextApiRequest, res: NextApiResponse) 
   invariant(spellAddress && ethers.utils.isAddress(spellAddress), 'valid spell address required');
 
   invariant(
-    !req.query.network || req.query.network === SupportedNetworks.MAINNET,
+    !req.query.network || req.query.network === SupportedNetworks.APOTHEM,
     `unsupported network ${req.query.network}`
   );
 

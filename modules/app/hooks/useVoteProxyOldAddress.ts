@@ -17,7 +17,7 @@ export const useVoteProxyOldAddress = (account?: string): VoteProxyAddressRespon
   const { network } = useActiveWeb3React();
 
   const { data, error } = useSWR(
-    account && network !== SupportedNetworks.MAINNET ? `${account}/vote-proxy-address` : null,
+    account && network !== SupportedNetworks.APOTHEM ? `${account}/vote-proxy-address` : null,
     async () => {
       return await getVoteProxyAddresses(voteProxyFactoryOld, account as string, network);
     }

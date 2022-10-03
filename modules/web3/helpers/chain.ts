@@ -2,7 +2,7 @@ import { SupportedChainId } from '../constants/chainID';
 import { CHAIN_INFO, SupportedNetworks } from '../constants/networks';
 
 export const chainIdToNetworkName = (chainId?: number): SupportedNetworks => {
-  if (!chainId) return SupportedNetworks.MAINNET;
+  if (!chainId) return SupportedNetworks.APOTHEM;
   if (CHAIN_INFO[chainId]) return CHAIN_INFO[chainId].network;
   throw new Error(`Unsupported chain id ${chainId}`);
 };

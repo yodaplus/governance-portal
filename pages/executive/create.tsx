@@ -187,7 +187,7 @@ const ExecutiveCreate = (): JSX.Element => {
                       <TD>
                         <Link
                           target="_blank"
-                          href={getEtherscanLink(SupportedNetworks.MAINNET, mainnetAddress, 'address')}
+                          href={getEtherscanLink(SupportedNetworks.APOTHEM, mainnetAddress, 'address')}
                           sx={{ p: 0 }}
                         >
                           {mainnetAddress}

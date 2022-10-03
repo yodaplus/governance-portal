@@ -76,7 +76,7 @@ export async function fetchDelegate(
 
   const delegationEvents = await fetchDelegationEventsByAddresses(
     [onChainDelegate.voteDelegateAddress],
-    network || SupportedNetworks.MAINNET
+    network || SupportedNetworks.APOTHEM
   );
 
   onChainDelegate.mkrLockedDelegate = delegationEvents;

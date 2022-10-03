@@ -20,7 +20,7 @@ export enum SupportedConnectors {
   // TREZOR = 'trezor'
 }
 export enum SupportedNetworks {
-  MAINNET = 'xinfin-mainnet',
+  //MAINNET = 'xinfin-mainnet',
   APOTHEM = 'apothem'
 }
 
@@ -44,21 +44,21 @@ export const CHAIN_INFO: ChainInfo = {
     rpcs: {
       [NodeProviders.REMOTE]: 'https://rpc-apothem.xinfin.yodaplus.net'
     }
-  },
-  [SupportedChainId.MAINNET]: {
-    blockExplorerUrl: 'https://xdc.blocksscan.io',
-    chainId: SupportedChainId.MAINNET,
-    label: 'Xinfin Mainnet',
-    network: SupportedNetworks.MAINNET,
-    defaultRpc: NodeProviders.REMOTE,
-    spockUrl: 'https://gov-polling-db.yodaplus.net/v1',
-    rpcs: {
-      [NodeProviders.REMOTE]: 'https://rpc.xinfin.yodaplus.net'
-    }
+  // },
+  // [SupportedChainId.MAINNET]: {
+  //   blockExplorerUrl: 'https://xdc.blocksscan.io',
+  //   chainId: SupportedChainId.MAINNET,
+  //   label: 'Xinfin Mainnet',
+  //   network: SupportedNetworks.MAINNET,
+  //   defaultRpc: NodeProviders.REMOTE,
+  //   spockUrl: 'https://gov-polling-db.yodaplus.net/v1',
+  //   rpcs: {
+  //     [NodeProviders.REMOTE]: 'https://rpc.xinfin.yodaplus.net'
+  //   }
   }
 };
 
-export const DEFAULT_NETWORK = CHAIN_INFO[SupportedChainId.MAINNET];
+export const DEFAULT_NETWORK = CHAIN_INFO[SupportedChainId.APOTHEM];
 
 export const ETH_TX_STATE_DIFF_ENDPOINT = (network: SupportedNetworks): string =>
   `https://statediff.ethtx.info/api/decode/state-diffs/${network}`;
